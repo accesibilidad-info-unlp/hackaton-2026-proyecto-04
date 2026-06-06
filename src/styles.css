@@ -12,6 +12,7 @@ header {
   background-color: #050b24;
   color: white;
   font-family: "Montserrat", sans-serif;
+  font-weight: bold;
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -58,6 +59,7 @@ button {
   width: 50%;
   border-radius: 10px;
   margin: 20px;
+  padding: 20px;
 }
 
 .buttons {
@@ -85,7 +87,25 @@ button {
   align-items: center;
   justify-content: center;
   margin: 10px;
-  width: max-content;
+  width: 400px;
   padding: 10px;
   border-radius: 10px;
+}
+
+#volver {
+  background-color: #050b24;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  width: max-content;
+  gap: 5px;
+  gap: 5px;
+}
+
+#volver img {
+  width: 20px;
+  height: 20px;
 }
