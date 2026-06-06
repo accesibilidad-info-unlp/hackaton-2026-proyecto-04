@@ -1,34 +1,58 @@
-body {
-  background-color: beige;
+/* 
+93C4E9
+DEE5E4
+2086D7
+875171
+050B24
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+header {
+  background-color: #2086D7;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
 }
 
-.container {
-  background-color: rgb(198, 188, 188);
+body{
+  background-color: #DEE5E4;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container{
+  background-color: #875171;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-self: center;
   justify-content: center;
-  height: 50vh;
+  height:max-content;
   width: 50%;
   border-radius: 10px;
+  margin: 20px;
 }
 
-button {
-  background-color: lightgreen;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+.buttons{
+  background-color: #93C4E9;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 10px;
+  width: 100%;
 }
-button:hover {
-  background-color: green;
-  color: white;
-}
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+
+.stop{
+  background-color: #93C4E9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 10px;
   width: 100%;
 }
