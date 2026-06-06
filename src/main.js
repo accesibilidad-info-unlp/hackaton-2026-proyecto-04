@@ -1,3 +1,4 @@
+const map = L.map('map').setView([-34.9214,-57.9544],13);
 function savePosition() {
   const exito = (position) => {
     const ubicacion = {
@@ -27,3 +28,10 @@ const getPosition = () => {
 
 savePosition();
 getPosition();
+AccederLocalizacion();
+
+const stopOne{
+    name="parada 1",
+    ubicacion="-34.92087071516999, -57.94155961864684",
+    micros=
+}
