@@ -1,8 +1,8 @@
-body{
+body {
   background-color: beige;
 }
 
-.container{
+.container {
   background-color: violet;
   display: flex;
   flex-direction: column;
@@ -14,11 +14,21 @@ body{
   border-radius: 10px;
 }
 
-.buttons{
-  background-color: lightblue;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+button {
+  background-color: lightgreen;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: green;
+  color: white;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   margin: 10px;
   width: 100%;
 }
