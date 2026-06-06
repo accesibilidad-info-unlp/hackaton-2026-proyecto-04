@@ -1,24 +1,58 @@
+/* 
+93C4E9
+DEE5E4
+2086D7
+875171
+050B24
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+header {
+  background-color: #2086D7;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
 body{
-  background-color: beige;
+  background-color: #DEE5E4;
+  font-family: "Montserrat", sans-serif;
 }
 
 .container{
-  background-color: violet;
+  background-color: #875171;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-self: center;
   justify-content: center;
-  height: 100vh;
+  height:max-content;
   width: 50%;
   border-radius: 10px;
+  margin: 20px;
 }
 
 .buttons{
-  background-color: lightblue;
+  background-color: #93C4E9;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  margin: 10px;
+  width: 100%;
+}
+
+.stop{
+  background-color: #93C4E9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 10px;
   width: 100%;
 }
