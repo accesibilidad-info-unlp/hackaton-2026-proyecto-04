@@ -11,18 +11,19 @@
       <h2>Donde esta mi micro</h2>
     </header>
     <section class="container" id="main-section" size="4">
-      <div class="buttons">
-        <button id="paradas-fav">Paradas Favoritas</button>
-        <button id="paradas-cercanas">Paradas cercanas</button>
-        <button id="lineas">Lineas</button>
-        <button id="recorridos">Recorridos</button>
+      <button id="volver" value="main">menu</button>
+      <div class="buttons" id="main">
+        <button id="paradas-fav" value="parada">Paradas Favoritas</button>
+        <button id="paradas-cercanas" value="parada">Paradas cercanas</button>
+        <button id="lineas" value="linea">Lineas</button>
+        <button id="recorridos" value="map">Recorridos</button>
       </div>
-      <div class="buttons">
+      <div class="buttons" id="linea" style="display: none">
         <button>Linea 1</button>
         <button>Linea 2</button>
         <button>Linea 3</button>
       </div>
-      <div class="buttons">
+      <div class="buttons" id="parada" style="display: none">
         <button>Parada 1</button>
         <button>Parada 2</button>
         <button>Parada 3</button>
