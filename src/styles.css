@@ -8,15 +8,16 @@ DEE5E4
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+
 header {
-  background-color: #2086D7;
+  background-color: #050B24;
   color: white;
   font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: row;
   text-align: center;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px;
 }
 
@@ -25,8 +26,29 @@ body{
   font-family: "Montserrat", sans-serif;
 }
 
+footer {
+  background-color: #050B24;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+button {
+  background-color: #DEE5E4;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 .container{
-  background-color: #875171;
+  background-color: #2086D7;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,20 +61,31 @@ body{
 }
 
 .buttons{
-  background-color: #93C4E9;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 10px;
   margin: 10px;
   width: 100%;
 }
 
 .stop{
-  background-color: #93C4E9;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 10px;
   width: 100%;
+}
+
+.stops-info{
+  background-color: #DEE5E4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  width:max-content;
+  padding: 10px;
+  border-radius: 10px;
 }
