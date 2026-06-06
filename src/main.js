@@ -46,26 +46,23 @@ savePosition();
 getPosition();
 inicializarMapa();
 
-<<<<<<< HEAD
-=======
 const stopOne ={
     name: "rocha",
     ubicacion: "-34.92087071516999, -57.94155961864684",
-    micros: []
+    micros: ["mUno","mTres"]
 }
 const stopTwo ={
     name: "italia",
     ubicacion: "-34.91077864824624, -57.9552758912345",
-    micros: []
+    micros: ["mUno","mDos"]
 }
 const stopThree ={
     name: "azcuenaga",
     ubicacion: "-34.92205274298061, -57.967536701181764",
-    micros: []
+    micros: ["mUno","mDos"]
 }
 const stopFour ={
     name: "yrigoyen",
     ubicacion: "-34.931939435623384, -57.95423611121962",
-    micros: []
+    micros: ["mUno","mTres"]
 }
->>>>>>> a697a353b16847caff1af18e67ae626e0f386f62
