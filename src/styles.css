@@ -13,3 +13,12 @@ body{
   width: 50%;
   border-radius: 10px;
 }
+
+.buttons{
+  background-color: lightblue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 10px;
+  width: 100%;
+}
