@@ -1,15 +1,29 @@
-function AccederLocalizacion() {
-  navigator.geolocation.getCurrentPosition(
-    function (posicion) {
-      console.log("Gracias por el permiso. Tu latitud es: " + posicion.coords.latitude);
-    },
-    function (error) {
-      if (error.code === 1) {
-        console.log("El usuario rechazó el cartel nativo del navegador.");
-      }
+function savePosition() {
+  const exito = (position) => {
+    const ubicacion = {
+      lat: position.coords.latitude,
+      lon: position.coords.longitude,
+      timestamp: Date.now()
+    };
+    localStorage.setItem('user_location', JSON.stringify(ubicacion));
+    console.log('Localización guardada en el localStorage');
+  };
+
+  const error = (errorObjeto) => {
+    if (errorObjeto.code === errorObjeto.PERMISSION_DENIED) {
+      console.warn('El usuario tocó que NO / Bloqueó el acceso.');
+      alert('Necesitamos tu ubicación para mostrar el mapa. Por favor, actívala en tu navegador.');
+    } else {
+      console.error('Ocurrió otro error:', errorObjeto.message);
     }
-  );
+  };
+
+  navigator.geolocation.getCurrentPosition(exito, error);
+}
+const getPosition = () => {
+  const position = localStorage.getItem('user_location');
+  console.log(position);
 }
 
-AccederLocalizacion();
-const map = L.map('map').setView([-34.9214,-57.9544],13);
+savePosition();
+getPosition();
