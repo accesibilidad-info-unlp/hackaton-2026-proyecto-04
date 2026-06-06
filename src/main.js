@@ -30,8 +30,23 @@ savePosition();
 getPosition();
 AccederLocalizacion();
 
-const stopOne{
-    name="parada 1",
-    ubicacion="-34.92087071516999, -57.94155961864684",
-    micros=
+const stopOne ={
+    name: "parada 1",
+    ubicacion: "-34.92087071516999, -57.94155961864684",
+    micros: []
+}
+const stopTwo ={
+    name: "parada 2",
+    ubicacion: "-34.92087071516999, -57.94155961864684",
+    micros: []
+}
+const stopThree ={
+    name: "parada 3",
+    ubicacion: "-34.92087071516999, -57.94155961864684",
+    micros: []
+}
+const stopFour ={
+    name: "parada 4",
+    ubicacion: "-34.92087071516999, -57.94155961864684",
+    micros: []
 }
