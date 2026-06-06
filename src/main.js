@@ -1,9 +1,5 @@
 import L from 'leaflet'
-/*const stopOne = {
-  name: "parada 1",
-  ubicacion: "-34.92087071516999, -57.94155961864684",
-  micros: []
-}*/
+import 'leaflet/dist/leaflet.css';
 
 function savePosition() {
   const exito = (position) => {
@@ -28,11 +24,9 @@ function savePosition() {
   navigator.geolocation.getCurrentPosition(exito, error);
 }
 const getPosition = () => {
-
   const position = localStorage.getItem('user_location');
   console.log(position);
 }
-
 
 function inicializarMapa() {
   const map = L.map('map').setView([-34.9214, -57.9544], 20);

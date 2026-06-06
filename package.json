@@ -1,5 +1,29 @@
 {
   "dependencies": {
     "leaflet": "^1.9.4"
-  }
+  },
+  "name": "hackaton-2026-proyecto-04",
+  "version": "1.0.0",
+  "description": "Breve descripción del proyecto y del problema que busca resolver.",
+  "main": "main.js",
+  "devDependencies": {
+    "vite": "^8.0.16"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite src",
+    "build": "vite build src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/accesibilidad-info-unlp/hackaton-2026-proyecto-04.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/accesibilidad-info-unlp/hackaton-2026-proyecto-04/issues"
+  },
+  "homepage": "https://github.com/accesibilidad-info-unlp/hackaton-2026-proyecto-04#readme"
 }
