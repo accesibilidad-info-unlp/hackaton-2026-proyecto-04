@@ -31,22 +31,22 @@ getPosition();
 AccederLocalizacion();
 
 const stopOne ={
-    name: "parada 1",
+    name: "rocha",
     ubicacion: "-34.92087071516999, -57.94155961864684",
     micros: []
 }
 const stopTwo ={
-    name: "parada 2",
-    ubicacion: "-34.92087071516999, -57.94155961864684",
+    name: "italia",
+    ubicacion: "-34.91077864824624, -57.9552758912345",
     micros: []
 }
 const stopThree ={
-    name: "parada 3",
-    ubicacion: "-34.92087071516999, -57.94155961864684",
+    name: "azcuenaga",
+    ubicacion: "-34.92205274298061, -57.967536701181764",
     micros: []
 }
 const stopFour ={
-    name: "parada 4",
-    ubicacion: "-34.92087071516999, -57.94155961864684",
+    name: "yrigoyen",
+    ubicacion: "-34.931939435623384, -57.95423611121962",
     micros: []
 }
