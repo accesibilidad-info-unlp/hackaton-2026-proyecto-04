@@ -32,6 +32,8 @@ class Map {
 
   agregarMarcador(customLat, customLong) {
     const marcador = L.marker([customLat, customLong]);
+    //Event listeners para los marcadores
+    marcador.on('click', () => console.log('hiciste click en el marcador!'))
     this.capaParadas.addLayer(marcador);
   }
 
@@ -52,7 +54,7 @@ export async function paradasCercanas(lat, long) {
 }
 
 async function main() {
-  savePosition();
+  await savePosition();
   const { lat, lon } = getPosition();
 
   const mapa = new Map(lat, lon);
