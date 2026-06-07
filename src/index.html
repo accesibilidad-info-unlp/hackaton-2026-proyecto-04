@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Donde está mi micro</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   </head>
   <body>
 
@@ -14,7 +12,6 @@
 
     <header role="banner">
       <div class="header-inner">
-        <div class="header-icon" aria-hidden="true">🚌</div>
         <div class="header-text">
           <h1 id="page-title">Dónde está mi micro</h1>
           <p class="header-subtitle">Transporte accesible para todos</p>
@@ -22,62 +19,66 @@
       </div>
     </header>
 
-    <main class="container" id="main-section" aria-labelledby="page-title">
+    <main id="main-section" aria-labelledby="page-title">
 
-      <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal">
-        <span aria-hidden="true">←</span>
-        Menú principal
-      </button>
+      <!-- Sidebar -->
+      <div class="container">
 
-      <nav aria-label="Menú principal">
-        <div class="buttons" id="main">
-          <button id="paradas-fav" value="parada" type="button" aria-controls="parada" class="menu-btn">
-            <span class="btn-icon" aria-hidden="true">⭐</span>
-            <span class="btn-label">Paradas<br>favoritas</span>
-          </button>
-          <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada" class="menu-btn">
-            <span class="btn-icon" aria-hidden="true">📍</span>
-            <span class="btn-label">Paradas<br>cercanas</span>
-          </button>
-          <button id="lineas" value="linea" type="button" aria-controls="linea" class="menu-btn">
-            <span class="btn-icon" aria-hidden="true">🗺️</span>
-            <span class="btn-label">Líneas</span>
-          </button>
-          <button id="recorridos" value="map" type="button" class="menu-btn">
-            <span class="btn-icon" aria-hidden="true">🛣️</span>
-            <span class="btn-label">Recorridos</span>
-          </button>
+        <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal">
+          <span aria-hidden="true">←</span>
+          Menú principal
+        </button>
+
+        <nav aria-label="Menú principal">
+          <div class="buttons" id="main">
+            <button id="paradas-fav" value="parada" type="button" aria-controls="parada" class="menu-btn">
+              <span class="btn-icon" aria-hidden="true">⭐</span>
+              <span class="btn-label">Paradas favoritas</span>
+            </button>
+            <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada" class="menu-btn">
+              <span class="btn-icon" aria-hidden="true">📍</span>
+              <span class="btn-label">Paradas cercanas</span>
+            </button>
+            <button id="lineas" value="linea" type="button" aria-controls="linea" class="menu-btn">
+              <span class="btn-icon" aria-hidden="true">🗺️</span>
+              <span class="btn-label">Líneas</span>
+            </button>
+            <button id="recorridos" value="map" type="button" class="menu-btn">
+              <span class="btn-icon" aria-hidden="true">🛣️</span>
+              <span class="btn-label">Recorridos</span>
+            </button>
+          </div>
+        </nav>
+
+        <div class="buttons" id="linea" style="display: none" aria-label="Opciones de líneas">
+          <button type="button" class="menu-btn"><span class="btn-label">Línea 1</span></button>
+          <button type="button" class="menu-btn"><span class="btn-label">Línea 2</span></button>
+          <button type="button" class="menu-btn"><span class="btn-label">Línea 3</span></button>
         </div>
-      </nav>
 
-      <div class="buttons" id="linea" style="display: none" aria-label="Opciones de líneas">
-        <button type="button" class="menu-btn"><span class="btn-label">Línea 1</span></button>
-        <button type="button" class="menu-btn"><span class="btn-label">Línea 2</span></button>
-        <button type="button" class="menu-btn"><span class="btn-label">Línea 3</span></button>
+        <div class="buttons" id="parada" style="display: none" aria-label="Opciones de paradas">
+          <button type="button" class="menu-btn"><span class="btn-label">Parada 1</span></button>
+          <button type="button" class="menu-btn"><span class="btn-label">Parada 2</span></button>
+          <button type="button" class="menu-btn"><span class="btn-label">Parada 3</span></button>
+          <button type="button" class="menu-btn"><span class="btn-label">Parada 4</span></button>
+        </div>
+
+        <section class="stop" aria-labelledby="stops-heading">
+          <h2 id="stops-heading">Paradas cercanas</h2>
+          <div id="stops-info" role="list" aria-live="polite" aria-atomic="false"></div>
+        </section>
+
       </div>
 
-      <div class="buttons" id="parada" style="display: none" aria-label="Opciones de paradas">
-        <button type="button" class="menu-btn"><span class="btn-label">Parada 1</span></button>
-        <button type="button" class="menu-btn"><span class="btn-label">Parada 2</span></button>
-        <button type="button" class="menu-btn"><span class="btn-label">Parada 3</span></button>
-        <button type="button" class="menu-btn"><span class="btn-label">Parada 4</span></button>
-      </div>
-
-      <section class="stop" aria-labelledby="stops-heading">
-        <h2 id="stops-heading">Paradas cercanas</h2>
-        <div id="stops-info" role="list" aria-live="polite" aria-atomic="false">
-        </div>
-      </section>
+      <!-- Mapa -->
+      <div id="map" aria-label="Mapa interactivo de las paradas" role="application"></div>
 
     </main>
-
-    <div id="map" style="height: 500px; width: 100%" aria-label="Mapa interactivo de las paradas" role="application"></div>
 
     <footer role="contentinfo">
       <p>Creado para Hackaton 2026 · Accesible para todos</p>
     </footer>
 
     <script src="/js/main.js" type="module"></script>
-    <script src="/js/listeners.js" type="module"></script>
   </body>
 </html>
