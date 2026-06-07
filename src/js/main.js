@@ -20,7 +20,14 @@ class Map {
       attribution: "© OpenStreetMap",
     }).addTo(this._map);
 
-    L.marker([this._lat, this._long]).addTo(this._map);
+    L.circleMarker([this._lat, this._long], {
+      radius: 8,
+      fillColor: "#F52727",
+      color: "#FF0000",
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }).addTo(this._map).bindPopup("Tu ubicación actual");
   }
 
   agregarMarcador(customLat, customLong) {
