@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "express": "^5.2.1",
     "leaflet": "^1.9.4"
   },
   "name": "hackaton-2026-proyecto-04",
