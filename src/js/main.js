@@ -9,22 +9,27 @@ class Map {
     this._lat = lat;
     this._long = long;
     this._map = null;
+    this.capaParadas = L.layerGroup();
   }
   get lat() { return this._lat }
   get long() { return this._long }
 
   construirMapa() {
-    this.map = L.map("map").setView([this.lat, this.long], 16);
+    this._map = L.map("map").setView([this.lat, this.long], 16);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap",
-    }).addTo(this.map);
+    }).addTo(this._map);
+
+    L.marker([this._lat, this._long]).addTo(this._map);
   }
 
   agregarMarcador(customLat, customLong) {
-    const mLat = customLat || this._lat;
-    const mLong = customLong || this._long;
+    const marcador = L.marker([customLat, customLong]);
+    this.capaParadas.addLayer(marcador);
+  }
 
-    L.marker([mLat, mLong]).addTo(this.map)
+  borrarMarcadores() {
+    this.capaParadas.clearLayers();
   }
 }
 
@@ -45,7 +50,7 @@ async function main() {
 
   const mapa = new Map(lat, lon);
   mapa.construirMapa();
-  mapa.agregarMarcador()
+  mapa.capaParadas.addTo(mapa._map);
 
   inicializarListeners(mapa);
 }

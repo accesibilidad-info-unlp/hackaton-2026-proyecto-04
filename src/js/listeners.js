@@ -6,6 +6,8 @@ const divParadas = document.getElementById('stops-info');
 export default function inicializarListeners(mapa) {
   paradasCercanasBTN.addEventListener('click', async () => {
     // limpiar paradas anteriores 
+    mapa.borrarMarcadores();
+
     while (divParadas.firstChild) {
       divParadas.removeChild(divParadas.firstChild);
     }
