@@ -19,7 +19,7 @@ function cambiar(valor){
         document.getElementById("volver").style.display="flex"
     }
 }
-lineas.addEventListener("click", (e) => {cambiar(e.target.value)});
-paradasFav.addEventListener("click", (e) => {cambiar(e.target.value)});
-paradasCercanas.addEventListener("click", (e) => {cambiar(e.target.value)});
-volver.addEventListener("click", (e) => {cambiar(e.target.value)});
+lineas.addEventListener("click", (e) => {cambiar(e.currentTarget.value)});
+paradasFav.addEventListener("click", (e) => {cambiar(e.currentTarget.value)});
+paradasCercanas.addEventListener("click", (e) => {cambiar(e.currentTarget.value)});
+volver.addEventListener("click", (e) => {cambiar(e.currentTarget.value)});

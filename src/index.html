@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,47 +8,51 @@
   </head>
   <body>
     <header>
-      <h2>Donde esta mi micro</h2>
+      <h1 id="page-title">Dónde está mi micro</h1>
     </header>
-    <section class="container" id="main-section" size="4">
-      <button id="volver" value="main" style="display: none">
-        <img src="casa.png">
-        Menu
+    <main class="container" id="main-section" size="4" aria-labelledby="page-title">
+      <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal">
+        <img src="casa.svg" alt="" aria-hidden="true" />
+        Menú
       </button>
-      <div class="buttons" id="main">
-        <button id="paradas-fav" value="parada">Paradas Favoritas</button>
-        <button id="paradas-cercanas" value="parada">Paradas cercanas</button>
-        <button id="lineas" value="linea">Lineas</button>
-        <button id="recorridos" value="map">Recorridos</button>
+      <div class="buttons" id="main" aria-label="Menú principal">
+        <button id="paradas-fav" value="parada" type="button" aria-controls="parada">Paradas favoritas</button>
+        <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada">Paradas cercanas</button>
+        <button id="lineas" value="linea" type="button" aria-controls="linea">Líneas</button>
+        <button id="recorridos" value="map" type="button">Recorridos</button>
       </div>
-      <div class="buttons" id="linea" style="display: none">
-        <button>Linea 1</button>
-        <button>Linea 2</button>
-        <button>Linea 3</button>
+      <div class="buttons" id="linea" style="display: none" aria-label="Opciones de líneas">
+        <button type="button">Línea 1</button>
+        <button type="button">Línea 2</button>
+        <button type="button">Línea 3</button>
       </div>
-      <div class="buttons" id="parada" style="display: none">
-        <button>Parada 1</button>
-        <button>Parada 2</button>
-        <button>Parada 3</button>
-        <button>Parada 4</button>
+      <div class="buttons" id="parada" style="display: none" aria-label="Opciones de paradas">
+        <button type="button">Parada 1</button>
+        <button type="button">Parada 2</button>
+        <button type="button">Parada 3</button>
+        <button type="button">Parada 4</button>
       </div>
-      <div class="stop">
-        <h1>Paradas cercanas:</h1>
+      <section class="stop" aria-labelledby="stops-heading">
+        <h2 id="stops-heading">Paradas cercanas</h2>
         <div class="stops-info">
           <ul>
-            <li>Parada 1</li>
-            <p>Direccion: 7 y 50</p>
-            <p>Lineas: 1, 2, 3</p>
+            <li>
+              <h3>Parada 1</h3>
+              <p>Dirección: 7 y 50</p>
+              <p>Líneas: 1, 2, 3</p>
+            </li>
           </ul>
           <ul>
-            <li>Parada 1</li>
-            <p>Direccion: 7 y 50</p>
-            <p>Lineas: 1, 2, 3</p>
+            <li>
+              <h3>Parada 2</h3>
+              <p>Dirección: 7 y 50</p>
+              <p>Líneas: 1, 2, 3</p>
+            </li>
           </ul>
         </div>
-      </div>
-    </section>
-    <div id="map" style="height: 500px; width: 100%"></div>
+      </section>
+    </main>
+    <div id="map" style="height: 500px; width: 100%" aria-label="Mapa interactivo de las paradas"></div>
     <footer>
       <p>Creado para Hackaton 2026</p>
     </footer>
