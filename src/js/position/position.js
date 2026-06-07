@@ -23,7 +23,11 @@ export function savePosition() {
   navigator.geolocation.getCurrentPosition(exito, error);
 }
 export const getPosition = () => {
-  const position = localStorage.getItem("user_location");
-  console.log(position);
+  const locationRaw = localStorage.getItem("user_location");
+  if (!locationRaw) return null;
+
+  const location = JSON.parse(locationRaw);
+
+  return { lat: location.lat, lon: location.lon }
 };
 

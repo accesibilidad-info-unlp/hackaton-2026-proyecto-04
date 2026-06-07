@@ -48,4 +48,40 @@ app.get('/arribos', async (req, res) => {
   }
 });
 
+app.get('/paradascercanas', async (req, res) => {
+  const { lat, long } = req.query;
+  console.log(`Consultando paradas cercanas lat=${lat} long=${long}`);
+
+  try {
+    const url = `https://cuandollega.smartmovepro.net/unionplatense/paradascercanas`;
+    const pageRes = await fetch(url);
+    const cookieHeader = pageRes.headers.get('set-cookie');
+    const html = await pageRes.text();
+
+    const token = html.match(/name="CSRF-TOKEN-CL-FORM"[^>]*value="([^"]+)"/)?.[1]
+      || html.match(/value="([^"]+)"[^>]*name="CSRF-TOKEN-CL-FORM"/)?.[1];
+
+    const apiRes = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': cookieHeader?.split(',').map(c => c.split(';')[0]).join('; '),
+        'RequestVerificationToken': token,
+        'Referer': url,
+        'Origin': 'https://cuandollega.smartmovepro.net',
+      },
+      body: JSON.stringify({ latitud: parseFloat(lat), longitud: parseFloat(long) })
+    });
+
+    console.log('Status:', apiRes.status);
+    const text = await apiRes.text();
+    console.log('Respuesta:', text);
+    res.send(text);
+
+  } catch (err) {
+    console.error('Error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+})
+
 app.listen(3000, () => console.log('Proxy corriendo en http://localhost:3000'));

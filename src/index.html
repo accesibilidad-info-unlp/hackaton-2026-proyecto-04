@@ -3,59 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Donde esta mi micro</title>
+    <title>Donde está mi micro</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   </head>
   <body>
-    <header>
-      <h1 id="page-title">Dónde está mi micro</h1>
+
+    <a href="#main-section" class="skip-link">Saltar al contenido principal</a>
+
+    <header role="banner">
+      <div class="header-inner">
+        <div class="header-icon" aria-hidden="true">🚌</div>
+        <div class="header-text">
+          <h1 id="page-title">Dónde está mi micro</h1>
+          <p class="header-subtitle">Transporte accesible para todos</p>
+        </div>
+      </div>
     </header>
-    <main class="container" id="main-section" size="4" aria-labelledby="page-title">
+
+    <main class="container" id="main-section" aria-labelledby="page-title">
+
       <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal">
-        <img src="casa.svg" alt="" aria-hidden="true" />
-        Menú
+        <span aria-hidden="true">←</span>
+        Menú principal
       </button>
-      <div class="buttons" id="main" aria-label="Menú principal">
-        <button id="paradas-fav" value="parada" type="button" aria-controls="parada">Paradas favoritas</button>
-        <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada">Paradas cercanas</button>
-        <button id="lineas" value="linea" type="button" aria-controls="linea">Líneas</button>
-        <button id="recorridos" value="map" type="button">Recorridos</button>
-      </div>
+
+      <nav aria-label="Menú principal">
+        <div class="buttons" id="main">
+          <button id="paradas-fav" value="parada" type="button" aria-controls="parada" class="menu-btn">
+            <span class="btn-icon" aria-hidden="true">⭐</span>
+            <span class="btn-label">Paradas<br>favoritas</span>
+          </button>
+          <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada" class="menu-btn">
+            <span class="btn-icon" aria-hidden="true">📍</span>
+            <span class="btn-label">Paradas<br>cercanas</span>
+          </button>
+          <button id="lineas" value="linea" type="button" aria-controls="linea" class="menu-btn">
+            <span class="btn-icon" aria-hidden="true">🗺️</span>
+            <span class="btn-label">Líneas</span>
+          </button>
+          <button id="recorridos" value="map" type="button" class="menu-btn">
+            <span class="btn-icon" aria-hidden="true">🛣️</span>
+            <span class="btn-label">Recorridos</span>
+          </button>
+        </div>
+      </nav>
+
       <div class="buttons" id="linea" style="display: none" aria-label="Opciones de líneas">
-        <button type="button">Línea 1</button>
-        <button type="button">Línea 2</button>
-        <button type="button">Línea 3</button>
+        <button type="button" class="menu-btn"><span class="btn-label">Línea 1</span></button>
+        <button type="button" class="menu-btn"><span class="btn-label">Línea 2</span></button>
+        <button type="button" class="menu-btn"><span class="btn-label">Línea 3</span></button>
       </div>
+
       <div class="buttons" id="parada" style="display: none" aria-label="Opciones de paradas">
-        <button type="button">Parada 1</button>
-        <button type="button">Parada 2</button>
-        <button type="button">Parada 3</button>
-        <button type="button">Parada 4</button>
+        <button type="button" class="menu-btn"><span class="btn-label">Parada 1</span></button>
+        <button type="button" class="menu-btn"><span class="btn-label">Parada 2</span></button>
+        <button type="button" class="menu-btn"><span class="btn-label">Parada 3</span></button>
+        <button type="button" class="menu-btn"><span class="btn-label">Parada 4</span></button>
       </div>
+
       <section class="stop" aria-labelledby="stops-heading">
         <h2 id="stops-heading">Paradas cercanas</h2>
-        <div class="stops-info">
-          <ul>
-            <li>
-              <h3>Parada 1</h3>
-              <p>Dirección: 7 y 50</p>
-              <p>Líneas: 1, 2, 3</p>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <h3>Parada 2</h3>
-              <p>Dirección: 7 y 50</p>
-              <p>Líneas: 1, 2, 3</p>
-            </li>
-          </ul>
+        <div id="stops-info" role="list" aria-live="polite" aria-atomic="false">
         </div>
       </section>
+
     </main>
-    <div id="map" style="height: 500px; width: 100%" aria-label="Mapa interactivo de las paradas"></div>
-    <footer>
-      <p>Creado para Hackaton 2026</p>
+
+    <div id="map" style="height: 500px; width: 100%" aria-label="Mapa interactivo de las paradas" role="application"></div>
+
+    <footer role="contentinfo">
+      <p>Creado para Hackaton 2026 · Accesible para todos</p>
     </footer>
+
     <script src="/js/main.js" type="module"></script>
     <script src="/js/listeners.js" type="module"></script>
   </body>
