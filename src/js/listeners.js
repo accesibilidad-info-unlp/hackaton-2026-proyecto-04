@@ -3,6 +3,8 @@ import { paradasCercanas } from "./main";
 const paradasCercanasBTN = document.getElementById("paradas-cercanas");
 const divParadas = document.getElementById('stops-info');
 
+import { Marcador } from "./main";
+
 export default function inicializarListeners(mapa) {
   paradasCercanasBTN.addEventListener('click', async () => {
     // limpiar paradas anteriores 
@@ -16,8 +18,8 @@ export default function inicializarListeners(mapa) {
     console.log(paradas);
 
     paradas.forEach(parada => {
-      mapa.agregarMarcador(parada.latitud, parada.longitud);
-
+      const marcador = new Marcador(parada.latitud, parada.longitud, parada.calleInterseccion, parada.callePrincipal, parada.codigo, parada.descripcion, parada.identificador, parada.lineas);
+      mapa.agregarMarcador(marcador);
 
       const titleParada = document.createElement('h3');
       const pCalles = document.createElement('p');
@@ -33,4 +35,5 @@ export default function inicializarListeners(mapa) {
   })
 
 }
+
 
