@@ -33,19 +33,32 @@ class Map {
 
   agregarMarcador(marcador) {
     this._marcadores.push(marcador);
-
     const marcador_mapa = L.marker([marcador.lat, marcador.long]);
-    //Event listeners para los marcadores
+
+    marcador_mapa.bindPopup("Cargando...");
 
     marcador_mapa.on('click', async () => {
+      marcador_mapa.openPopup();
       const data = await marcador.llegadas();
       console.log(data);
-    })
 
-    //Agregar al mapa
+      if (!data || !data.arribos || data.arribos.length === 0) {
+        marcador_mapa.setPopupContent("No hay arribos disponibles.");
+        return;
+      }
+
+      const html = data.arribos.map(a => `
+      <div style="margin-bottom:6px">
+        <strong>${a.descripcionLinea || 'Línea'}</strong> — ${a.descripcionBandera}<br>
+        <span>${a.tiempoRestanteArribo}</span>
+      </div>
+    `).join('');
+
+      marcador_mapa.setPopupContent(html);
+    });
+
     this.capaParadas.addLayer(marcador_mapa);
   }
-
   borrarMarcadores() {
     this._marcadores = [];
     this.capaParadas.clearLayers();
