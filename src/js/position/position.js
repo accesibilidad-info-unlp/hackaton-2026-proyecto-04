@@ -29,6 +29,7 @@ export function savePosition() {
 }
 
 export const getPosition = () => {
+
   const locationRaw = localStorage.getItem("user_location");
   if (!locationRaw) return null;
   const location = JSON.parse(locationRaw);

@@ -30,7 +30,6 @@ class Map {
       fillOpacity: 0.8
     }).addTo(this._map).bindPopup("Tu ubicación actual");
   }
-
   agregarMarcador(marcador) {
     this._marcadores.push(marcador);
     const marcador_mapa = L.marker([marcador.lat, marcador.long]);
@@ -62,6 +61,15 @@ class Map {
   borrarMarcadores() {
     this._marcadores = [];
     this.capaParadas.clearLayers();
+  }
+  distanciaAPunto(paradaLat, paradaLong) {
+    return L.latLng(
+      this._lat,
+      this._long
+    ).distanceTo([
+      paradaLat,
+      paradaLong
+    ]);
   }
 }
 
@@ -97,10 +105,15 @@ export class Marcador {
   }
 }
 
-
 async function fetchApi(link) {
   const res = await fetch(link);
-  return await res.json();
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    console.error('Respuesta no es JSON:', text.substring(0, 200));
+    return null;
+  }
 }
 
 export async function paradasCercanas(lat, long) {
