@@ -1,19 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  --color-bg: #f0f2f5;
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
   --color-surface-2: #f7f8fa;
-  --color-border: #e2e6ea;
-  --color-primary: #1a56db;
-  --color-primary-hover: #1645b8;
+  --color-border: #e2e8f0;
+  --color-primary: #0025ae;
+  --color-primary-hover: #020062;
   --color-primary-light: #eef2fd;
   --color-text: #111827;
   --color-text-muted: #6b7280;
-  --color-focus: #1a56db;
+  --color-focus: #2563eb;
 
-  --font-display: 'DM Sans', sans-serif;
-  --font-body: 'Atkinson Hyperlegible', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Google Sans', sans-serif;
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -68,11 +69,20 @@ body {
   border-radius: var(--radius-sm);
 }
 
+/* ---- Clase para elementos ocultos para el lector de pantalla---- */
+.hidden {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* ---- Header ---- */
 header {
   height: var(--header-h);
   flex-shrink: 0;
-  background-color: var(--color-surface);
+  background-color: var(--color-primary);
   border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   padding: 0 24px;
@@ -88,20 +98,26 @@ header {
   gap: 12px;
 }
 
-.header-icon { font-size: 1.4rem; flex-shrink: 0; }
+.header-icon { 
+  height: 32px;
+  width: 32px;
+  color: var(--color-primary-light);
+  font-size: 1.4rem;
+  flex-shrink: 0
+}
 
 .header-text h1 {
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-primary-light);
   letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
 .header-subtitle {
   font-size: 0.68rem;
-  color: var(--color-text-muted);
+  color: var(--color-primary-light);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -189,7 +205,13 @@ nav[aria-label="Menú principal"] {
 
 .menu-btn:active { transform: scale(0.97); }
 
-.btn-icon { font-size: 1.4rem; line-height: 1; }
+.btn-icon {
+  height: 22px;
+  width: 22px;
+  color: var(--color-text);
+  font-size: 1.4rem;
+  line-height: 1; 
+}
 .btn-label { font-size: 0.82rem; }
 
 .stop {
@@ -369,10 +391,25 @@ footer {
 }
 
 /* ---- Buscador ---- */
+.search-container {
+  position: relative;
+  margin: 12px 16px;
+  width: calc(100% - 32px);
+}
+
+.search-icon {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 #buscador {
   display: block;
-  width: calc(100% - 32px);
-  margin: 12px 16px;
+  width: 100%;
   padding: 10px 14px 10px 38px;
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -382,9 +419,6 @@ footer {
   border-radius: var(--radius-md);
   outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 12px center;
 }
 
 #buscador::placeholder { color: var(--color-text-muted); }

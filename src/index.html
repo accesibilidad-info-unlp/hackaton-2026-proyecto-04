@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a href="#main-section" class="skip-link">Saltar al contenido principal</a>
+    <!--<a href="#main-section" class="skip-link">Saltar al contenido principal</a>-->
     <header role="banner">
       <div class="header-inner">
-        <div class="header-icon" aria-hidden="true">
-          <!-- bus icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-          </svg>
-        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          fill="currentColor"
+          class="header-icon"
+          aria-hidden="true"
+        >
+          <path
+            d="M240-120q-17 0-28.5-11.5T200-160v-82q-18-20-29-44.5T160-340v-380q0-83 77-121.5T480-880q172 0 246 37t74 123v380q0 29-11 53.5T760-242v82q0 17-11.5 28.5T720-120h-40q-17 0-28.5-11.5T640-160v-40H320v40q0 17-11.5 28.5T280-120h-40Zm242-640h224-448 224Zm158 280H240h480-80Zm-400-80h480v-120H240v120Zm142.5 222.5Q400-355 400-380t-17.5-42.5Q365-440 340-440t-42.5 17.5Q280-405 280-380t17.5 42.5Q315-320 340-320t42.5-17.5Zm280 0Q680-355 680-380t-17.5-42.5Q645-440 620-440t-42.5 17.5Q560-405 560-380t17.5 42.5Q595-320 620-320t42.5-17.5ZM258-760h448q-15-17-64.5-28.5T482-800q-107 0-156.5 12.5T258-760Zm62 480h320q33 0 56.5-23.5T720-360v-120H240v120q0 33 23.5 56.5T320-280Z"
+          />
+        </svg>
         <div class="header-text">
           <h1 id="page-title">Dónde está mi micro</h1>
           <p class="header-subtitle">Transporte accesible para todos</p>
@@ -25,61 +30,162 @@
     <main id="main-section" aria-labelledby="page-title">
       <!-- Sidebar -->
       <div class="container">
-        <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        <button
+          id="volver"
+          value="main"
+          style="display: none"
+          type="button"
+          aria-label="Volver al menú principal"
+          class="back-button"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+            />
           </svg>
           Menú principal
         </button>
         <nav aria-label="Menú principal">
           <div class="buttons" id="main">
-            <button id="paradas-fav" value="parada" type="button" aria-controls="parada" class="menu-btn">
+            <button
+              id="paradas-fav"
+              value="parada"
+              type="button"
+              aria-controls="parada"
+              aria-label="Ir a paradas favoritas"
+              class="menu-btn"
+            >
               <span class="btn-icon" aria-hidden="true">
                 <!-- star -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"
+                  />
                 </svg>
               </span>
               <span class="btn-label">Paradas favoritas</span>
             </button>
-            <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada" class="menu-btn">
+            <button
+              id="paradas-cercanas"
+              value="parada"
+              type="button"
+              aria-controls="parada"
+              aria-label="Ir a paradas cercanas por ubicación"
+              class="menu-btn"
+            >
               <span class="btn-icon" aria-hidden="true">
                 <!-- map pin -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M536.5-503.5Q560-527 560-560t-23.5-56.5Q513-640 480-640t-56.5 23.5Q400-593 400-560t23.5 56.5Q447-480 480-480t56.5-23.5ZM480-186q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"
+                  />
                 </svg>
               </span>
               <span class="btn-label">Paradas cercanas</span>
             </button>
-            <button id="lineas" value="linea" type="button" aria-controls="linea" class="menu-btn">
+            <button
+              id="lineas"
+              value="linea"
+              type="button"
+              aria-controls="linea"
+              aria-label="Ver todas las líneas de transporte"
+              class="menu-btn"
+            >
               <span class="btn-icon" aria-hidden="true">
                 <!-- list bullet -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M360-200v-80h480v80H360Zm0-240v-80h480v80H360Zm0-240v-80h480v80H360ZM200-160q-33 0-56.5-23.5T120-240q0-33 23.5-56.5T200-320q33 0 56.5 23.5T280-240q0 33-23.5 56.5T200-160Zm0-240q-33 0-56.5-23.5T120-480q0-33 23.5-56.5T200-560q33 0 56.5 23.5T280-480q0 33-23.5 56.5T200-400Zm-56.5-263.5Q120-687 120-720t23.5-56.5Q167-800 200-800t56.5 23.5Q280-753 280-720t-23.5 56.5Q233-640 200-640t-56.5-23.5Z"
+                  />
                 </svg>
               </span>
               <span class="btn-label">Líneas</span>
             </button>
-            <button id="recorridos" value="map" type="button" class="menu-btn">
+            <button id="recorridos" value="map" type="button" aria-label="Ver mapa de recorridos de líneas" class="menu-btn">
               <span class="btn-icon" aria-hidden="true">
                 <!-- map -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"
+                  />
                 </svg>
               </span>
               <span class="btn-label">Recorridos</span>
             </button>
           </div>
         </nav>
-        <input id="buscador" type="text" name="" value="" placeholder="Buscar">
+        <div class="search-container">
+          <label for="buscador" class="hidden">Buscar paradas o líneas:</label>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+            class="search-icon"
+            aria-hidden="true"
+          >
+            <path
+              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+            />
+          </svg>
+          <input
+            id="buscador"
+            type="text"
+            name="busqueda"
+            value=""
+            placeholder="Buscar paradas o líneas"
+            aria-label="Campo de búsqueda de paradas o líneas"
+            aria-describedby="buscador-help"
+          />
+          <span id="buscador-help" class="hidden">Ingresa el nombre de una parada o línea para filtrar resultados</span>
+        </div>
         <section class="stop" aria-labelledby="stops-heading">
           <h2 id="stops-heading">Paradas cercanas</h2>
-          <div id="stops-info" role="list" aria-live="polite" aria-atomic="false"></div>
+          <div
+            id="stops-info"
+            role="list"
+            aria-live="polite"
+            aria-atomic="false"
+            aria-label="Lista de paradas disponibles con información de líneas"
+          ></div>
         </section>
       </div>
       <!-- Mapa -->
-      <div id="map" aria-label="Mapa interactivo de las paradas" role="application"></div>
+      <div
+        id="map"
+        aria-label="Mapa interactivo de las paradas"
+        role="application"
+      ></div>
     </main>
     <footer role="contentinfo">
       <p>Creado para Hackaton 2026 · Accesible para todos</p>
