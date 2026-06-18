@@ -1,65 +1,135 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const stops = [
-  {
-    name: "rocha",
-    ubicacion: "-34.92087071516999, -57.94155961864684",
-    micros: ["mUno", "mTres"],
-  },
-  {
-    name: "italia",
-    ubicacion: "-34.91077864824624, -57.9552758912345",
-    micros: ["mUno", "mDos"],
-  },
-  {
-    name: "azcuenaga",
-    ubicacion: "-34.92205274298061, -57.967536701181764",
-    micros: ["mUno", "mDos"],
-  },
-  {
-    name: "yrigoyen",
-    ubicacion: "-34.931939435623384, -57.95423611121962",
-    micros: ["mUno", "mTres"],
-  },
-];
+import { savePosition, getPosition } from "./position/position";
+import inicializarListeners from "./listeners";
 
-function savePosition() {
-  const exito = (position) => {
-    const ubicacion = {
-      lat: position.coords.latitude,
-      lon: position.coords.longitude,
-      timestamp: Date.now(),
-    };
-    localStorage.setItem("user_location", JSON.stringify(ubicacion));
-    console.log("Localización guardada en el localStorage");
-  };
+class Map {
+  constructor(lat, long) {
+    this._lat = lat;
+    this._long = long;
+    this._map = null;
+    this.capaParadas = L.layerGroup();
+    this._marcadores = [];
+  }
+  get lat() { return this._lat }
+  get long() { return this._long }
 
-  const error = (errorObjeto) => {
-    if (errorObjeto.code === errorObjeto.PERMISSION_DENIED) {
-      console.warn("El usuario tocó que NO / Bloqueó el acceso.");
-      alert(
-        "Necesitamos tu ubicación para mostrar el mapa. Por favor, actívala en tu navegador.",
-      );
-    } else {
-      console.error("Ocurrió otro error:", errorObjeto.message);
+  construirMapa() {
+    this._map = L.map("map").setView([this.lat, this.long], 16);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap",
+    }).addTo(this._map);
+
+    L.circleMarker([this._lat, this._long], {
+      radius: 8,
+      fillColor: "#F52727",
+      color: "#FF0000",
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }).addTo(this._map).bindPopup("Tu ubicación actual");
+  }
+  agregarMarcador(marcador) {
+    this._marcadores.push(marcador);
+    const marcador_mapa = L.marker([marcador.lat, marcador.long]);
+
+    marcador_mapa.bindPopup("Cargando...");
+
+    marcador_mapa.on('click', async () => {
+      marcador_mapa.openPopup();
+      const data = await marcador.llegadas();
+      console.log(data);
+
+      if (!data || !data.arribos || data.arribos.length === 0) {
+        marcador_mapa.setPopupContent("No hay arribos disponibles.");
+        return;
+      }
+
+      const html = data.arribos.map(a => `
+      <div style="margin-bottom:6px">
+        <strong>${a.descripcionLinea || 'Línea'}</strong> — ${a.descripcionBandera}<br>
+        <span>${a.tiempoRestanteArribo}</span>
+      </div>
+    `).join('');
+
+      marcador_mapa.setPopupContent(html);
+    });
+
+    this.capaParadas.addLayer(marcador_mapa);
+  }
+  borrarMarcadores() {
+    this._marcadores = [];
+    this.capaParadas.clearLayers();
+  }
+  distanciaAPunto(paradaLat, paradaLong) {
+    return L.latLng(
+      this._lat,
+      this._long
+    ).distanceTo([
+      paradaLat,
+      paradaLong
+    ]);
+  }
+}
+
+export class Marcador {
+  constructor(lat, long, calleIntersec, callePrincipal, codigo, descripcion, identificador, lineas) {
+    this._lat = lat;
+    this._long = long;
+    this._calleInterseccion = calleIntersec
+    this._callePrincipal = callePrincipal;
+    this._codigo = codigo;
+    this._descripcion = descripcion;
+    this._identificador = identificador;
+    this._lineas = lineas;
+  }
+
+  get lat() { return this._lat }
+  get long() { return this._long }
+
+  getData() {
+    return {
+      lat: this._lat,
+      long: this._long,
+      calleInter: this._calleInterseccion,
+      callePrincipal: this._callePrincipal,
+      codigo: this._codigo,
+      descripcion: this._descripcion,
+      identificador: this._identificador,
+      lineas: this._lineas
     }
-  };
-
-  navigator.geolocation.getCurrentPosition(exito, error);
-}
-const getPosition = () => {
-  const position = localStorage.getItem("user_location");
-  console.log(position);
-};
-
-function inicializarMapa() {
-  const map = L.map("map").setView([-34.9214, -57.9544], 15);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap",
-  }).addTo(map);
+  }
+  async llegadas() {
+    return await fetchApi(`http://localhost:3000/arribos?codLinea=0&idParada=${this._identificador}`);
+  }
 }
 
-savePosition();
-getPosition();
-inicializarMapa();
+async function fetchApi(link) {
+  const res = await fetch(link);
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    console.error('Respuesta no es JSON:', text.substring(0, 200));
+    return null;
+  }
+}
+
+export async function paradasCercanas(lat, long) {
+  // Devuelve un array con las paradas 
+  return await fetchApi(`http://localhost:3000/paradascercanas?lat=${lat}&long=${long}`)
+}
+
+async function main() {
+  await savePosition();
+  const { lat, lon } = getPosition();
+
+  const mapa = new Map(lat, lon);
+  mapa.construirMapa();
+  mapa.capaParadas.addTo(mapa._map);
+
+  inicializarListeners(mapa);
+}
+
+main();
