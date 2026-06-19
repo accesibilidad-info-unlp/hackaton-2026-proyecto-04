@@ -27,8 +27,8 @@ class Map {
 
     L.circleMarker([this._lat, this._long], {
       radius: 8,
-      fillColor: "#F52727",
-      color: "#FF0000",
+      fillColor: "#c73a7c",
+      color: "#991D56",
       weight: 2,
       opacity: 1,
       fillOpacity: 0.8,
@@ -42,26 +42,8 @@ class Map {
     const iconoParada = L.divIcon({
       className: "",
       html: `
-      <div style="
-        width:32px;height:32px;
-        background:#1565C0;
-        border:2px solid white;
-        border-radius:50%;
-        display:flex;align-items:center;justify-content:center;
-        box-shadow:0 2px 6px rgba(0,0,0,0.3);
-        cursor:pointer;
-      ">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 17V7a2 2 0 012-2h14a2 2 0 012 2v10"/>
-          <path d="M3 13h18"/>
-          <path d="M8 5V3"/>
-          <path d="M16 5V3"/>
-          <rect x="1" y="17" width="4" height="3" rx="1"/>
-          <rect x="19" y="17" width="4" height="3" rx="1"/>
-          <path d="M7 13v-3h10v3"/>
-          <circle cx="8.5" cy="17" r="1" fill="white"/>
-          <circle cx="15.5" cy="17" r="1" fill="white"/>
-        </svg>
+      <div class="bus-stop-marker">
+        <span class="material-symbols-outlined bus-stop-marker__icon" aria-hidden="true">bus_map_pin</span>
       </div>
     `,
       iconSize: [32, 32],
@@ -77,35 +59,37 @@ class Map {
     marcador_mapa.on("click", async () => {
       marcador_mapa.openPopup();
       const data = await marcador.llegadas();
-      console.log(data)
+      console.log(data);
       if (!data || !data.arribos || data.arribos.length === 0) {
         marcador_mapa.setPopupContent("No hay arribos disponibles.");
         return;
       }
       const colores = (mins) => {
         const n = parseInt(mins);
-        if (n <= 5) return "background:#EAF3DE;color:#3B6D11";
-        if (n <= 15) return "background:#FAEEDA;color:#854F0B";
-        return "background:#FCEBEB;color:#A32D2D";
+        if (n <= 5) return "marker-arrival__badge marker-arrival__badge--soon";
+        if (n <= 15) return "marker-arrival__badge marker-arrival__badge--soonish";
+        return "marker-arrival__badge marker-arrival__badge--late";
       };
       const extraerMinutos = (texto) => texto?.match(/\d+/)?.[0] ?? "?";
 
       const html = `
-      <div style="min-width:220px">
-        <div style="font-size:13px;font-weight:500;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eee">
-          📍 ${marcador._callePrincipal} y ${marcador._calleInterseccion}
+      <div class="marker-popup">
+        <div class="marker-popup__title">
+          <span class="material-symbols-outlined marker-popup__title-icon" aria-hidden="true">location_on</span>
+          <span>${marcador._callePrincipal} y ${marcador._calleInterseccion}</span>
         </div>
         ${data.arribos
           .map((a) => {
             const mins = extraerMinutos(a.tiempoRestanteArribo);
             return `
-            <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0f0">
-              <div style="min-width:48px;text-align:center;padding:3px 6px;border-radius:6px;font-size:12px;font-weight:500;${colores(mins)}">
-                ${mins} min
+            <div class="marker-arrival">
+              <div class="${colores(mins)}">
+                <span class="marker-arrival__value">${mins}</span>
+                <span class="marker-arrival__unit">min</span>
               </div>
-              <div>
-                <div style="font-size:12px;font-weight:500">${a.descripcionLinea || "Línea"}</div>
-                <div style="font-size:11px;color:#888">${a.descripcionBandera}</div>
+              <div class="marker-arrival__content">
+                <div class="marker-arrival__line">${a.descripcionLinea || "Línea"}</div>
+                <div class="marker-arrival__bandera">${a.descripcionBandera}</div>
               </div>
             </div>
           `;
