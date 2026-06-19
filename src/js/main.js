@@ -77,6 +77,7 @@ class Map {
     marcador_mapa.on("click", async () => {
       marcador_mapa.openPopup();
       const data = await marcador.llegadas();
+      console.log(data)
       if (!data || !data.arribos || data.arribos.length === 0) {
         marcador_mapa.setPopupContent("No hay arribos disponibles.");
         return;
