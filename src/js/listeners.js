@@ -1,6 +1,7 @@
 import { paradasCercanas } from "./main";
 import { Marcador } from "./main";
 
+const paradasCercanasH2 = document.getElementById('stops-heading');
 const paradasCercanasBTN = document.getElementById("paradas-cercanas");
 const divParadas = document.getElementById('stops-info');
 const botonesMenu = document.querySelectorAll('.menu-btn');
@@ -21,6 +22,8 @@ export default function inicializarListeners(mapa) {
     }
 
     const paradas = await paradasCercanas(mapa.lat, mapa.long);
+    console.log(paradas.length);
+    paradasCercanasH2.textContent = `${paradas.length} Paradas cercanas`;
 
     paradas.forEach(parada => {
       const marcador = new Marcador(
