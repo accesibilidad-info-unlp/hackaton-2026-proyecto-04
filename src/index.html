@@ -1,62 +1,125 @@
-<!doctype html>
+<!doctype html> <!--marco buschiazzo-->>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Donde esta mi micro</title>
+    <title>Donde está mi micro</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1 id="page-title">Dónde está mi micro</h1>
-    </header>
-    <main class="container" id="main-section" size="4" aria-labelledby="page-title">
-      <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal">
-        <img src="casa.svg" alt="" aria-hidden="true" />
-        Menú
-      </button>
-      <div class="buttons" id="main" aria-label="Menú principal">
-        <button id="paradas-fav" value="parada" type="button" aria-controls="parada">Paradas favoritas</button>
-        <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada">Paradas cercanas</button>
-        <button id="lineas" value="linea" type="button" aria-controls="linea">Líneas</button>
-        <button id="recorridos" value="map" type="button">Recorridos</button>
-      </div>
-      <div class="buttons" id="linea" style="display: none" aria-label="Opciones de líneas">
-        <button type="button">Línea 1</button>
-        <button type="button">Línea 2</button>
-        <button type="button">Línea 3</button>
-      </div>
-      <div class="buttons" id="parada" style="display: none" aria-label="Opciones de paradas">
-        <button type="button">Parada 1</button>
-        <button type="button">Parada 2</button>
-        <button type="button">Parada 3</button>
-        <button type="button">Parada 4</button>
-      </div>
-      <section class="stop" aria-labelledby="stops-heading">
-        <h2 id="stops-heading">Paradas cercanas</h2>
-        <div class="stops-info">
-          <ul>
-            <li>
-              <h3>Parada 1</h3>
-              <p>Dirección: 7 y 50</p>
-              <p>Líneas: 1, 2, 3</p>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <h3>Parada 2</h3>
-              <p>Dirección: 7 y 50</p>
-              <p>Líneas: 1, 2, 3</p>
-            </li>
-          </ul>
+    <!--<a href="#main-section" class="skip-link">Saltar al contenido principal</a>-->
+    <header role="banner">
+      <div class="header-inner">
+        <span class="material-symbols-outlined header-icon" aria-hidden="true">directions_bus</span>
+        <div class="header-text">
+          <h1 id="page-title">Dónde está mi micro</h1>
+          <p class="header-subtitle">Transporte accesible para todos</p>
         </div>
-      </section>
+      </div>
+    </header>
+    <main id="main-section" aria-labelledby="page-title">
+      <!-- Sidebar -->
+      <div class="container">
+        <button
+          id="volver"
+          value="main"
+          style="display: none"
+          type="button"
+          aria-label="Volver al menú principal"
+          class="back-button"
+        >
+          <span class="material-symbols-outlined back-icon" aria-hidden="true">arrow_back</span>
+          Menú principal
+        </button>
+        <nav aria-label="Menú principal">
+          <div class="buttons" id="main">
+            <button
+              id="paradas-fav"
+              value="parada"
+              type="button"
+              aria-controls="parada"
+              aria-label="Ir a paradas favoritas"
+              class="menu-btn"
+            >
+              <span class="material-symbols-outlined btn-icon favorite-icon" aria-hidden="true">star</span>
+              <span class="btn-label">Paradas favoritas</span>
+            </button>
+            <button
+              id="paradas-cercanas"
+              value="parada"
+              type="button"
+              aria-controls="parada"
+              aria-label="Ir a paradas cercanas por ubicación"
+              class="menu-btn"
+            >
+              <span class="material-symbols-outlined btn-icon nearby-icon" aria-hidden="true">location_on</span>
+              <span class="btn-label">Paradas cercanas</span>
+            </button>
+            <button
+              id="lineas"
+              value="linea"
+              type="button"
+              aria-controls="linea"
+              aria-label="Ver todas las líneas de transporte"
+              class="menu-btn"
+            >
+              <span class="material-symbols-outlined btn-icon lines-icon" aria-hidden="true">format_list_bulleted</span>
+              <span class="btn-label">Líneas</span>
+            </button>
+            <button
+              id="recorridos"
+              value="map"
+              type="button"
+              aria-label="Ver mapa de recorridos de líneas"
+              class="menu-btn"
+            >
+              <span class="material-symbols-outlined btn-icon map-icon" aria-hidden="true">map</span>
+              <span class="btn-label">Recorridos</span>
+            </button>
+          </div>
+        </nav>
+        <div class="search-container">
+          <label for="buscador" class="hidden">Buscar paradas o líneas:</label>
+          <span class="material-symbols-outlined search-icon" aria-hidden="true">search</span>
+          <input
+            id="buscador"
+            type="text"
+            name="busqueda"
+            value=""
+            placeholder="Buscar paradas o líneas"
+            aria-label="Campo de búsqueda de paradas o líneas"
+            aria-describedby="buscador-help"
+          />
+          <span id="buscador-help" class="hidden"
+            >Ingresa el nombre de una parada o línea para filtrar
+            resultados</span
+          >
+        </div>
+        <section class="stop" aria-labelledby="stops-heading">
+          <h2 id="stops-heading">Paradas cercanas</h2>
+          <div
+            id="stops-info"
+            role="list"
+            aria-live="polite"
+            aria-atomic="false"
+            aria-label="Lista de paradas disponibles con información de líneas"
+          ></div>
+        </section>
+      </div>
+      <!-- Mapa -->
+      <div
+        id="map"
+        aria-label="Mapa interactivo de las paradas"
+        role="application"
+      ></div>
     </main>
-    <div id="map" style="height: 500px; width: 100%" aria-label="Mapa interactivo de las paradas"></div>
-    <footer>
-      <p>Creado para Hackaton 2026</p>
+    <footer role="contentinfo">
+      <p>Creado para Hackaton 2026 · Accesible para todos</p>
     </footer>
     <script src="/js/main.js" type="module"></script>
-    <script src="/js/listeners.js" type="module"></script>
   </body>
 </html>
