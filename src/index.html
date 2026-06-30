@@ -15,12 +15,97 @@
     <!--<a href="#main-section" class="skip-link">Saltar al contenido principal</a>-->
     <header role="banner">
       <div class="header-inner">
-        <span class="material-symbols-outlined header-icon" aria-hidden="true"
-          >directions_bus</span
-        >
-        <div class="header-text">
-          <h1 id="page-title">Dónde está mi micro</h1>
-          <p class="header-subtitle">Transporte accesible para todos</p>
+        <div class="header-brand">
+          <span
+            class="material-symbols-outlined header-icon"
+            aria-hidden="true"
+            >directions_bus</span
+          >
+          <div class="header-text">
+            <h1 id="page-title">Dónde está mi micro</h1>
+            <p class="header-subtitle">Transporte accesible para todos</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button
+            id="accessibility-toggle"
+            type="button"
+            class="header-action-btn"
+            aria-label="Abrir configuración de accesibilidad"
+            aria-controls="accessibility-menu"
+            aria-expanded="false"
+          >
+            <span
+              class="material-symbols-outlined header-action-icon"
+              aria-hidden="true"
+              >settings</span
+            >
+            <span class="header-action-label">Accesibilidad</span>
+          </button>
+          <div
+            id="accessibility-menu"
+            class="accessibility-menu"
+            aria-label="Configuración de accesibilidad"
+            hidden
+          >
+            <div class="accessibility-menu__header">
+              <h2>Ajustes de accesibilidad</h2>
+              <p>Activá o desactivá opciones según lo que necesites.</p>
+            </div>
+            <div class="accessibility-menu__options">
+              <button
+                type="button"
+                class="accessibility-option"
+                data-setting="largeText"
+                aria-pressed="false"
+              >
+                <span class="accessibility-option__title">Texto grande</span>
+                <span class="accessibility-option__desc"
+                  >Aumenta el tamaño de letra en toda la app.</span
+                >
+              </button>
+              <button
+                type="button"
+                class="accessibility-option"
+                data-setting="highContrast"
+                aria-pressed="false"
+              >
+                <span class="accessibility-option__title">Alto contraste</span>
+                <span class="accessibility-option__desc"
+                  >Refuerza colores y bordes para mejorar la lectura.</span
+                >
+              </button>
+              <button
+                type="button"
+                class="accessibility-option"
+                data-setting="reduceMotion"
+                aria-pressed="false"
+              >
+                <span class="accessibility-option__title">Reducir movimiento</span>
+                <span class="accessibility-option__desc"
+                  >Elimina transiciones y animaciones innecesarias.</span
+                >
+              </button>
+              <button
+                type="button"
+                class="accessibility-option"
+                data-setting="strongFocus"
+                aria-pressed="false"
+              >
+                <span class="accessibility-option__title">Enfoque reforzado</span>
+                <span class="accessibility-option__desc"
+                  >Hace más visible el foco del teclado.</span
+                >
+              </button>
+            </div>
+            <button
+              type="button"
+              id="accessibility-reset"
+              class="accessibility-reset"
+            >
+              Restablecer opciones
+            </button>
+          </div>
         </div>
       </div>
     </header>
