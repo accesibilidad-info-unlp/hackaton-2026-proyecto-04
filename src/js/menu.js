@@ -3,19 +3,16 @@ const paradasCercanas = document.getElementById("paradas-cercanas");
 const lineas = document.getElementById("lineas");
 const recorridos = document.getElementById("recorridos");
 const volver = document.getElementById("volver");
+
 const accessibilityToggle = document.getElementById("accessibility-toggle");
 const accessibilityMenu = document.getElementById("accessibility-menu");
-const accessibilityDefaultsDialog = document.getElementById(
-  "accessibility-defaults-dialog",
-);
-const accessibilityDefaultsCancel = document.getElementById(
-  "accessibility-defaults-cancel",
-);
-const accessibilityDefaultsConfirm = document.getElementById(
-  "accessibility-defaults-confirm",
-);
+const accessibilityDefaultsDialog = document.getElementById("accessibility-defaults-dialog");
+const accessibilityDefaultsCancel = document.getElementById("accessibility-defaults-cancel");
+const accessibilityDefaultsConfirm = document.getElementById("accessibility-defaults-confirm");
 const accessibilityOptions = document.querySelectorAll(".accessibility-option");
 const accessibilityReset = document.getElementById("accessibility-reset");
+
+const header = document.querySelector("header");
 const overlay = document.querySelector(".overlay");
 
 const accessibilityDefaults = {
@@ -110,6 +107,7 @@ function toggleAccessibilityMenu() {
 function unlockAccessibilityMenu() {
   if (!canClose) {
     overlay.classList.remove("active");
+    header.style.borderBottom = "1px solid var(--color-border)";
     canClose = true;
   }
 }
@@ -133,10 +131,12 @@ function applyDefaultAccessibilitySettings() {
 
 let canClose;
 let accessibilitySettings = readAccessibilitySettings();
-if (!accessibilitySettings) { //abro por primera vez
+if (!accessibilitySettings) {
+  //abro por primera vez
   toggleAccessibilityMenu();
   applyAccessibilitySettings(accessibilityDefaults);
   overlay.classList.add("active");
+  header.style.borderBottom = "none";
   canClose = false;
 } else {
   applyAccessibilitySettings(accessibilitySettings);
