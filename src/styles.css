@@ -12,22 +12,59 @@
   --color-text: #111827;
   --color-text-muted: #6b7280;
   --color-focus: #2563eb;
-
+  
   --font-display: "Montserrat", sans-serif;
   --font-body: "Google Sans", sans-serif;
-
+  
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
-
+  
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-
+  
   --min-touch: 52px;
   --transition: 0.15s ease;
   --header-h: 60px;
   --footer-h: 48px;
   --sidebar-w: 300px;
+}
+
+html.a11y-large-text {
+  font-size: 112.5%;
+}
+
+body.a11y-high-contrast {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f3f3;
+  --color-border: #000000;
+  --color-primary: #000000;
+  --color-primary-hover: #000000;
+  --color-primary-light: #ffffff;
+  --color-text: #000000;
+  --color-text-muted: #111111;
+  --color-focus: #ffb800;
+}
+
+body.a11y-high-contrast .header-action-btn {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+body.a11y-reduced-motion *,
+body.a11y-reduced-motion *::before,
+body.a11y-reduced-motion *::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+body.a11y-strong-focus :focus-visible {
+  outline-width: 4px;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
 }
 
 *,
@@ -40,10 +77,10 @@
 
 .material-symbols-outlined {
   font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24;
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -78,6 +115,91 @@ body {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* oscurece el fondo */
+  z-index: 999;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.accessibility-dialog {
+  border: none;
+  border-radius: 18px;
+  padding: 0;
+  margin: 15px;
+  width: min(420px, calc(100vw - 32px));
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.accessibility-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.accessibility-dialog__content {
+  padding: 18px;
+  display: grid;
+  gap: 18px;
+}
+
+.accessibility-dialog__header h2 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.accessibility-dialog__header p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.accessibility-dialog__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.accessibility-dialog__button {
+  min-height: 42px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.accessibility-dialog__button--secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.accessibility-dialog__button--primary {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.accessibility-dialog__button--secondary:hover {
+  background: var(--color-surface-2);
+}
+
+.accessibility-dialog__button--primary:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 /* ---- Header ---- */
@@ -269,42 +391,6 @@ header {
   background: var(--color-surface-2);
 }
 
-html.a11y-large-text {
-  font-size: 112.5%;
-}
-
-body.a11y-high-contrast {
-  --color-bg: #ffffff;
-  --color-surface: #ffffff;
-  --color-surface-2: #f3f3f3;
-  --color-border: #000000;
-  --color-primary: #000000;
-  --color-primary-hover: #000000;
-  --color-primary-light: #ffffff;
-  --color-text: #000000;
-  --color-text-muted: #111111;
-  --color-focus: #ffb800;
-}
-
-body.a11y-high-contrast .header-action-btn {
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
-}
-
-body.a11y-reduced-motion *,
-body.a11y-reduced-motion *::before,
-body.a11y-reduced-motion *::after {
-  transition: none !important;
-  animation: none !important;
-  scroll-behavior: auto !important;
-}
-
-body.a11y-strong-focus :focus-visible {
-  outline-width: 4px;
-  outline-offset: 3px;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
-}
 
 /* ---- Main: ocupa exactamente el espacio entre header y footer ---- */
 #main-section {
@@ -500,6 +586,10 @@ footer {
     right: 12px;
     width: min(360px, calc(100vw - 24px));
     max-height: calc(100vh - var(--header-h) - 16px);
+  }
+
+  .accessibility-dialog {
+    width: min(420px, calc(100vw - 24px));
   }
 
   #main-section {

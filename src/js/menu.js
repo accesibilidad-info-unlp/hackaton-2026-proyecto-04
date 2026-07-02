@@ -5,8 +5,18 @@ const recorridos = document.getElementById("recorridos");
 const volver = document.getElementById("volver");
 const accessibilityToggle = document.getElementById("accessibility-toggle");
 const accessibilityMenu = document.getElementById("accessibility-menu");
+const accessibilityDefaultsDialog = document.getElementById(
+  "accessibility-defaults-dialog",
+);
+const accessibilityDefaultsCancel = document.getElementById(
+  "accessibility-defaults-cancel",
+);
+const accessibilityDefaultsConfirm = document.getElementById(
+  "accessibility-defaults-confirm",
+);
 const accessibilityOptions = document.querySelectorAll(".accessibility-option");
 const accessibilityReset = document.getElementById("accessibility-reset");
+const overlay = document.querySelector(".overlay");
 
 const accessibilityDefaults = {
   largeText: false,
@@ -97,13 +107,61 @@ function toggleAccessibilityMenu() {
   closeAccessibilityMenu();
 }
 
+function unlockAccessibilityMenu() {
+  if (!canClose) {
+    overlay.classList.remove("active");
+    canClose = true;
+  }
+}
+
+function openAccessibilityDefaultsDialog() {
+  if (accessibilityDefaultsDialog && !accessibilityDefaultsDialog.open) {
+    accessibilityDefaultsDialog.showModal();
+  }
+}
+
+function closeAccessibilityDefaultsDialog() {
+  accessibilityDefaultsDialog?.close();
+}
+
+function applyDefaultAccessibilitySettings() {
+  accessibilitySettings = { ...accessibilityDefaults };
+  saveAccessibilitySettings(accessibilitySettings);
+  applyAccessibilitySettings(accessibilitySettings);
+  unlockAccessibilityMenu();
+}
+
+let canClose;
 let accessibilitySettings = readAccessibilitySettings();
-if (!accessibilitySettings) {
+if (!accessibilitySettings) { //abro por primera vez
   toggleAccessibilityMenu();
+  applyAccessibilitySettings(accessibilityDefaults);
+  overlay.classList.add("active");
+  canClose = false;
+} else {
+  applyAccessibilitySettings(accessibilitySettings);
+  canClose = true;
 }
 
 if (accessibilityToggle && accessibilityMenu) {
-  accessibilityToggle.addEventListener("click", toggleAccessibilityMenu);
+  accessibilityToggle.addEventListener("click", () => {
+    if (!accessibilitySettings && !canClose) {
+      openAccessibilityDefaultsDialog();
+      return;
+    }
+
+    toggleAccessibilityMenu();
+    unlockAccessibilityMenu();
+  });
+
+  accessibilityDefaultsCancel?.addEventListener("click", () => {
+    closeAccessibilityDefaultsDialog();
+  });
+
+  accessibilityDefaultsConfirm?.addEventListener("click", () => {
+    applyDefaultAccessibilitySettings();
+    closeAccessibilityDefaultsDialog();
+  });
 
   accessibilityOptions.forEach((option) => {
     option.addEventListener("click", () => {
@@ -114,6 +172,7 @@ if (accessibilityToggle && accessibilityMenu) {
       };
       saveAccessibilitySettings(accessibilitySettings);
       applyAccessibilitySettings(accessibilitySettings);
+      unlockAccessibilityMenu();
     });
   });
 
@@ -131,13 +190,13 @@ if (accessibilityToggle && accessibilityMenu) {
     const clickedInsideMenu = accessibilityMenu.contains(event.target);
     const clickedToggle = accessibilityToggle.contains(event.target);
 
-    if (!clickedInsideMenu && !clickedToggle) {
+    if (!clickedInsideMenu && !clickedToggle && canClose) {
       closeAccessibilityMenu();
     }
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
+    if (event.key === "Escape" && canClose) {
       closeAccessibilityMenu();
     }
   });

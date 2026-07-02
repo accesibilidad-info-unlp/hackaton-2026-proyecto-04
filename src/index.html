@@ -16,9 +16,7 @@
     <header role="banner">
       <div class="header-inner">
         <div class="header-brand">
-          <span
-            class="material-symbols-outlined header-icon"
-            aria-hidden="true"
+          <span class="material-symbols-outlined header-icon" aria-hidden="true"
             >directions_bus</span
           >
           <div class="header-text">
@@ -81,7 +79,9 @@
                 data-setting="reduceMotion"
                 aria-pressed="false"
               >
-                <span class="accessibility-option__title">Reducir movimiento</span>
+                <span class="accessibility-option__title"
+                  >Reducir movimiento</span
+                >
                 <span class="accessibility-option__desc"
                   >Elimina transiciones y animaciones innecesarias.</span
                 >
@@ -92,7 +92,9 @@
                 data-setting="strongFocus"
                 aria-pressed="false"
               >
-                <span class="accessibility-option__title">Enfoque reforzado</span>
+                <span class="accessibility-option__title"
+                  >Enfoque reforzado</span
+                >
                 <span class="accessibility-option__desc"
                   >Hace más visible el foco del teclado.</span
                 >
@@ -106,9 +108,44 @@
               Restablecer opciones
             </button>
           </div>
+          <dialog
+            id="accessibility-defaults-dialog"
+            class="accessibility-dialog"
+            aria-labelledby="accessibility-defaults-title"
+            aria-describedby="accessibility-defaults-desc"
+          >
+            <div class="accessibility-dialog__content">
+              <div class="accessibility-dialog__header">
+                <h2 id="accessibility-defaults-title">
+                  Usar configuración predeterminada de accesibilidad
+                </h2>
+                <p id="accessibility-defaults-desc">
+                  Todavía no guardaste una configuración de accesibilidad. ¿Querés
+                  seguir con una predeterminada?
+                </p>
+              </div>
+              <div class="accessibility-dialog__actions">
+                <button
+                  type="button"
+                  id="accessibility-defaults-cancel"
+                  class="accessibility-dialog__button accessibility-dialog__button--secondary"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  id="accessibility-defaults-confirm"
+                  class="accessibility-dialog__button accessibility-dialog__button--primary"
+                >
+                  Seguir con configuración predeterminada
+                </button>
+              </div>
+            </div>
+          </dialog>
         </div>
       </div>
     </header>
+    <div class="overlay" aria-hidden="true"></div>
     <main id="main-section" aria-labelledby="page-title">
       <!-- Sidebar -->
       <div class="container">
