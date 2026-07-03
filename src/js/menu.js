@@ -80,8 +80,12 @@ function applyAccessibilitySettings(settings) {
   accessibilityOptions.forEach((option) => {
     const settingName = option.dataset.setting;
     const isEnabled = Boolean(settings[settingName]);
+    const optionInput = option.querySelector(".accessibility-option__input");
+
     option.classList.toggle("is-active", isEnabled);
-    option.setAttribute("aria-pressed", String(isEnabled));
+    if (optionInput) {
+      optionInput.checked = isEnabled;
+    }
   });
 }
 
@@ -134,7 +138,8 @@ let accessibilitySettings = readAccessibilitySettings();
 if (!accessibilitySettings) {
   //abro por primera vez
   toggleAccessibilityMenu();
-  applyAccessibilitySettings(accessibilityDefaults);
+  accessibilitySettings = { ...accessibilityDefaults };
+  applyAccessibilitySettings(accessibilitySettings);
   overlay.classList.add("active");
   header.style.borderBottom = "none";
   canClose = false;
@@ -164,11 +169,13 @@ if (accessibilityToggle && accessibilityMenu) {
   });
 
   accessibilityOptions.forEach((option) => {
-    option.addEventListener("click", () => {
+    const optionInput = option.querySelector(".accessibility-option__input");
+
+    optionInput?.addEventListener("change", () => {
       const settingName = option.dataset.setting;
       accessibilitySettings = {
-        ...accessibilitySettings,
-        [settingName]: !accessibilitySettings[settingName],
+        ...(accessibilitySettings || accessibilityDefaults),
+        [settingName]: optionInput.checked,
       };
       saveAccessibilitySettings(accessibilitySettings);
       applyAccessibilitySettings(accessibilitySettings);

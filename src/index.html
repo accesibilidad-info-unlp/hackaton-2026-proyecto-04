@@ -51,54 +51,66 @@
               <p>Activá o desactivá opciones según lo que necesites.</p>
             </div>
             <div class="accessibility-menu__options">
-              <button
-                type="button"
-                class="accessibility-option"
-                data-setting="largeText"
-                aria-pressed="false"
-              >
-                <span class="accessibility-option__title">Texto grande</span>
-                <span class="accessibility-option__desc"
-                  >Aumenta el tamaño de letra en toda la app.</span
-                >
-              </button>
-              <button
-                type="button"
-                class="accessibility-option"
-                data-setting="highContrast"
-                aria-pressed="false"
-              >
-                <span class="accessibility-option__title">Alto contraste</span>
-                <span class="accessibility-option__desc"
-                  >Refuerza colores y bordes para mejorar la lectura.</span
-                >
-              </button>
-              <button
-                type="button"
-                class="accessibility-option"
-                data-setting="reduceMotion"
-                aria-pressed="false"
-              >
-                <span class="accessibility-option__title"
-                  >Reducir movimiento</span
-                >
-                <span class="accessibility-option__desc"
-                  >Elimina transiciones y animaciones innecesarias.</span
-                >
-              </button>
-              <button
-                type="button"
-                class="accessibility-option"
-                data-setting="strongFocus"
-                aria-pressed="false"
-              >
-                <span class="accessibility-option__title"
-                  >Enfoque reforzado</span
-                >
-                <span class="accessibility-option__desc"
-                  >Hace más visible el foco del teclado.</span
-                >
-              </button>
+              <label class="accessibility-option" data-setting="largeText">
+                <input
+                  type="checkbox"
+                  class="accessibility-option__input"
+                  role="switch"
+                />
+                <span class="accessibility-option__content">
+                  <span class="accessibility-option__title">Texto grande</span>
+                  <span class="accessibility-option__desc"
+                    >Aumenta el tamaño de letra en toda la app.</span
+                  >
+                </span>
+                <span class="accessibility-option__switch" aria-hidden="true"></span>
+              </label>
+              <label class="accessibility-option" data-setting="highContrast">
+                <input
+                  type="checkbox"
+                  class="accessibility-option__input"
+                  role="switch"
+                />
+                <span class="accessibility-option__content">
+                  <span class="accessibility-option__title">Alto contraste</span>
+                  <span class="accessibility-option__desc"
+                    >Refuerza colores y bordes para mejorar la lectura.</span
+                  >
+                </span>
+                <span class="accessibility-option__switch" aria-hidden="true"></span>
+              </label>
+              <label class="accessibility-option" data-setting="reduceMotion">
+                <input
+                  type="checkbox"
+                  class="accessibility-option__input"
+                  role="switch"
+                />
+                <span class="accessibility-option__content">
+                  <span class="accessibility-option__title"
+                    >Reducir movimiento</span
+                  >
+                  <span class="accessibility-option__desc"
+                    >Elimina transiciones y animaciones innecesarias.</span
+                  >
+                </span>
+                <span class="accessibility-option__switch" aria-hidden="true"></span>
+              </label>
+              <label class="accessibility-option" data-setting="strongFocus">
+                <input
+                  type="checkbox"
+                  class="accessibility-option__input"
+                  role="switch"
+                />
+                <span class="accessibility-option__content">
+                  <span class="accessibility-option__title"
+                    >Enfoque reforzado</span
+                  >
+                  <span class="accessibility-option__desc"
+                    >Hace más visible el foco del teclado.</span
+                  >
+                </span>
+                <span class="accessibility-option__switch" aria-hidden="true"></span>
+              </label>
             </div>
             <button
               type="button"

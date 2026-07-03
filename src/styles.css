@@ -345,10 +345,53 @@ header {
   cursor: pointer;
   display: grid;
   gap: 4px;
+  position: relative;
+  overflow: hidden;
   transition:
     background-color var(--transition),
     border-color var(--transition),
     transform 0.1s ease;
+}
+
+.accessibility-option__input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.accessibility-option__content {
+  display: grid;
+  gap: 4px;
+  padding-right: 58px;
+}
+
+.accessibility-option__switch {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  width: 40px;
+  height: 24px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transform: translateY(-50%);
+  transition:
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.accessibility-option__switch::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transition: transform var(--transition);
 }
 
 .accessibility-option:hover {
@@ -359,6 +402,19 @@ header {
 .accessibility-option.is-active {
   background: var(--color-primary-light);
   border-color: var(--color-primary);
+}
+
+.accessibility-option.is-active .accessibility-option__switch {
+  background: var(--color-primary);
+}
+
+.accessibility-option.is-active .accessibility-option__switch::before {
+  transform: translateX(16px);
+}
+
+.accessibility-option:focus-within {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .accessibility-option:active {
