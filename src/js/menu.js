@@ -140,6 +140,7 @@ if (!accessibilitySettings) {
   toggleAccessibilityMenu();
   accessibilitySettings = { ...accessibilityDefaults };
   applyAccessibilitySettings(accessibilitySettings);
+  openAccessibilityDefaultsDialog();
   overlay.classList.add("active");
   header.style.borderBottom = "none";
   canClose = false;

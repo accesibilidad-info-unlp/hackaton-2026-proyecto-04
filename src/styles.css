@@ -170,11 +170,12 @@ body {
 .accessibility-dialog__actions {
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: center;
   flex-direction: row;
 }
 
 .accessibility-dialog__button {
+  flex: 1 1 0;
   min-height: 42px;
   padding: 10px;
   border-radius: 12px;
@@ -338,6 +339,7 @@ header {
   width: 100%;
   text-align: left;
   padding: 12px 14px;
+  min-height: 92px;
   border-radius: 14px;
   border: 1px solid var(--color-border);
   background: var(--color-surface-2);
@@ -514,9 +516,9 @@ nav[aria-label="Menú principal"] {
   font-size: 0.83rem;
   font-weight: 700;
   padding: 14px 10px;
+  min-height: 104px;
   border-radius: var(--radius-md);
   cursor: pointer;
-  min-height: var(--min-touch);
   display: flex;
   flex-direction: column;
   align-items: center;

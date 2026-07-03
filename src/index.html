@@ -38,7 +38,7 @@
               aria-hidden="true"
               >settings</span
             >
-            <span class="header-action-label">Accesibilidad</span>
+            <span class="header-action-label">Acessibilidad</span>
           </button>
           <div
             id="accessibility-menu"
@@ -63,7 +63,10 @@
                     >Aumenta el tamaño de letra en toda la app.</span
                   >
                 </span>
-                <span class="accessibility-option__switch" aria-hidden="true"></span>
+                <span
+                  class="accessibility-option__switch"
+                  aria-hidden="true"
+                ></span>
               </label>
               <label class="accessibility-option" data-setting="highContrast">
                 <input
@@ -72,12 +75,17 @@
                   role="switch"
                 />
                 <span class="accessibility-option__content">
-                  <span class="accessibility-option__title">Alto contraste</span>
+                  <span class="accessibility-option__title"
+                    >Alto contraste</span
+                  >
                   <span class="accessibility-option__desc"
                     >Refuerza colores y bordes para mejorar la lectura.</span
                   >
                 </span>
-                <span class="accessibility-option__switch" aria-hidden="true"></span>
+                <span
+                  class="accessibility-option__switch"
+                  aria-hidden="true"
+                ></span>
               </label>
               <label class="accessibility-option" data-setting="reduceMotion">
                 <input
@@ -93,7 +101,10 @@
                     >Elimina transiciones y animaciones innecesarias.</span
                   >
                 </span>
-                <span class="accessibility-option__switch" aria-hidden="true"></span>
+                <span
+                  class="accessibility-option__switch"
+                  aria-hidden="true"
+                ></span>
               </label>
               <label class="accessibility-option" data-setting="strongFocus">
                 <input
@@ -109,7 +120,10 @@
                     >Hace más visible el foco del teclado.</span
                   >
                 </span>
-                <span class="accessibility-option__switch" aria-hidden="true"></span>
+                <span
+                  class="accessibility-option__switch"
+                  aria-hidden="true"
+                ></span>
               </label>
             </div>
             <button
@@ -128,28 +142,29 @@
           >
             <div class="accessibility-dialog__content">
               <div class="accessibility-dialog__header">
-                <h2 id="accessibility-defaults-title">
-                  Usar configuración predeterminada de accesibilidad
-                </h2>
+                <h2 id="accessibility-defaults-title">Configuración inicial</h2>
                 <p id="accessibility-defaults-desc">
-                  Todavía no guardaste una configuración de accesibilidad. ¿Querés
-                  seguir con una predeterminada?
+                  Es tu primera vez en esta página. Antes de seguir, podés
+                  configurar las opciones de accesibilidad según lo que
+                  necesites. En caso de que no quieras hacerlo ahora, podés
+                  seguir con la configuración predeterminada y cambiarla más
+                  tarde.
                 </p>
               </div>
               <div class="accessibility-dialog__actions">
                 <button
                   type="button"
-                  id="accessibility-defaults-cancel"
+                  id="accessibility-defaults-confirm"
                   class="accessibility-dialog__button accessibility-dialog__button--secondary"
                 >
-                  Cancelar
+                  Ahora no
                 </button>
                 <button
                   type="button"
-                  id="accessibility-defaults-confirm"
+                  id="accessibility-defaults-cancel"
                   class="accessibility-dialog__button accessibility-dialog__button--primary"
                 >
-                  Seguir con configuración predeterminada
+                  Configurar ahora
                 </button>
               </div>
             </div>
