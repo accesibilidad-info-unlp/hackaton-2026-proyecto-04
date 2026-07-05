@@ -1,0 +1,17 @@
+TODO del proyecto
+
+Prioridad alta
+- Buscar paradas y lineas.
+- Implementar paradas favoritas: guardar, listar y borrar.
+- Completar vistas de lineas y recorridos.
+- Agregar mas recorridos/micros, no solo la linea 202.
+- Mejorar manejo de errores para geolocalizacion y API.
+
+Prioridad media
+- Completar accesibilidad: skip link, foco y navegacion por teclado.
+- Agregar tests reales; hoy npm test es solo un placeholder.
+- Limpiar archivos viejos o de prototipo en src/disenos/.
+
+Prioridad baja
+- Revisar logs y comentarios temporales.
+- Mejorar mensajes y textos de la interfaz.

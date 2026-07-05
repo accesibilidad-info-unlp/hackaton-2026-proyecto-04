@@ -4,14 +4,45 @@ import "leaflet/dist/leaflet.css";
 import { savePosition, getPosition } from "./position/position";
 import inicializarListeners from "./listeners";
 
+import { MicroSimulado } from "./microSimulado";
+import { rutaMicro202 } from "./rutaMicro202";
+import "./menu.js";
+
+const iconoMicro = L.divIcon({
+  className: "",
+  html: `
+    <div style="
+      width:30px;height:30px;
+      background:#C62828;
+      border:2px solid white;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 6px rgba(0,0,0,0.35);
+    ">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 17V7a2 2 0 012-2h14a2 2 0 012 2v10"/>
+        <path d="M3 13h18"/>
+        <rect x="1" y="17" width="4" height="3" rx="1"/>
+        <rect x="19" y="17" width="4" height="3" rx="1"/>
+      </svg>
+    </div>
+  `,
+  iconSize: [30, 30],
+  iconAnchor: [15, 15],
+  popupAnchor: [0, -18],
+});
+
 class Map {
   constructor(lat, long) {
     this._lat = lat;
     this._long = long;
     this._map = null;
-    this.capaParadas = L.layerGroup();
     this._marcadores = [];
+    this._microsSimulados = [];
+    this.capaParadas = L.layerGroup();
+    this.capaMicros = L.layerGroup();
   }
+
   get lat() {
     return this._lat;
   }
@@ -36,6 +67,7 @@ class Map {
       .addTo(this._map)
       .bindPopup("Tu ubicación actual");
   }
+
   agregarMarcador(marcador) {
     this._marcadores.push(marcador);
 
@@ -77,7 +109,7 @@ class Map {
     marcador_mapa.on("click", async () => {
       marcador_mapa.openPopup();
       const data = await marcador.llegadas();
-      console.log(data)
+      console.log(data);
       if (!data || !data.arribos || data.arribos.length === 0) {
         marcador_mapa.setPopupContent("No hay arribos disponibles.");
         return;
@@ -89,11 +121,19 @@ class Map {
         return "background:#FCEBEB;color:#A32D2D";
       };
       const extraerMinutos = (texto) => texto?.match(/\d+/)?.[0] ?? "?";
+      const lineasDeParada = Array.isArray(marcador._lineas) ? marcador._lineas : [];
+      const lineasTexto =
+        lineasDeParada.length > 0
+          ? lineasDeParada.map((linea) => linea.numero ?? linea.descripcion ?? linea.codigo).join(" · ")
+          : "Sin línea";
 
       const html = `
       <div style="min-width:220px">
         <div style="font-size:13px;font-weight:500;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eee">
           📍 ${marcador._callePrincipal} y ${marcador._calleInterseccion}
+        </div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#444">
+          Líneas: ${lineasTexto}
         </div>
         ${data.arribos
           .map((a) => {
@@ -118,10 +158,33 @@ class Map {
 
     this.capaParadas.addLayer(marcador_mapa);
   }
+
+  /**
+   * Agrega un micro simulado (datos hardcodeados) que se mueve
+   * suavemente sobre una ruta de coordenadas dentro de capaMicros.
+   * @param {Array<{lat:number, lng:number}>} ruta
+   * @param {number} duracionTramoMs
+   * @returns {MicroSimulado}
+   */
+  agregarMicroSimulado(ruta, duracionTramoMs = 4000) {
+    const micro = new MicroSimulado(this._map, ruta, duracionTramoMs, {
+      icon: iconoMicro,
+    });
+    this.capaMicros.addLayer(micro.marker);
+    this._microsSimulados.push(micro);
+    micro.iniciar();
+    return micro;
+  }
+
+  detenerMicrosSimulados() {
+    this._microsSimulados.forEach((micro) => micro.detener());
+  }
+
   borrarMarcadores() {
     this._marcadores = [];
     this.capaParadas.clearLayers();
   }
+
   distanciaAPunto(paradaLat, paradaLong) {
     return L.latLng(this._lat, this._long).distanceTo([paradaLat, paradaLong]);
   }
@@ -167,6 +230,7 @@ export class Marcador {
       lineas: this._lineas,
     };
   }
+
   async llegadas() {
     return await fetchApi(
       `http://localhost:3000/arribos?codLinea=0&idParada=${this._identificador}`,
@@ -185,10 +249,9 @@ async function fetchApi(link) {
   }
 }
 
-export async function paradasCercanas(lat, long) {
-  // Devuelve un array con las paradas
+export async function paradasCercanas(lat, long, radioMetros = 500) {
   return await fetchApi(
-    `http://localhost:3000/paradascercanas?lat=${lat}&long=${long}`,
+    `http://localhost:3000/paradascercanas?lat=${lat}&long=${long}&radioMetros=${radioMetros}`,
   );
 }
 
@@ -199,8 +262,11 @@ async function main() {
   const mapa = new Map(lat, lon);
   mapa.construirMapa();
   mapa.capaParadas.addTo(mapa._map);
+  mapa.capaMicros.addTo(mapa._map);
 
   inicializarListeners(mapa);
+
+  mapa.agregarMicroSimulado(rutaMicro202, 120); // 25 km/h
 }
 
 main();
