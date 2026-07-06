@@ -174,8 +174,18 @@
     </header>
     <div class="overlay" aria-hidden="true"></div>
     <main id="main-section" aria-labelledby="page-title">
-      <!-- Sidebar -->
+      <!-- Sidebar / Bottom sheet en mobile -->
       <div class="container">
+        <button
+          type="button"
+          id="sheet-handle"
+          class="sheet-handle"
+          aria-label="Arrastrar panel. Presioná Enter para expandir o contraer."
+          aria-expanded="false"
+          aria-controls="stops-info"
+        >
+          <span class="sheet-handle__bar" aria-hidden="true"></span>
+        </button>
         <button
           id="volver"
           value="main"
@@ -293,5 +303,9 @@
       <p>Creado para Hackaton 2026 · Accesible para todos</p>
     </footer>
     <script src="/js/main.js" type="module"></script>
+    <script type="module">
+      import { initBottomSheet } from "/js/bottomSheet.js";
+      window.sheet = initBottomSheet(); // queda global por si main.js necesita llamar sheet.applyState(...)
+    </script>
   </body>
 </html>

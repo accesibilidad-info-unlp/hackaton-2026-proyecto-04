@@ -111,7 +111,7 @@ body {
 /* ---- Clase para elementos ocultos para el lector de pantalla---- */
 .hidden {
   position: absolute;
-  left: -10000px;
+  clip: rect(0, 0, 0, 0);
   width: 1px;
   height: 1px;
   overflow: hidden;
@@ -474,6 +474,11 @@ header {
   min-height: 0;
 }
 
+/* ---- Bottom sheet handle (solo visible/activo en mobile) ---- */
+.sheet-handle {
+  display: none;
+}
+
 #volver {
   background-color: var(--color-surface-2);
   color: var(--color-text);
@@ -799,7 +804,7 @@ footer {
   justify-content: center;
 }
 
-/* ---- Mobile: mapa full screen + panel inferior ---- */
+/* ---- Mobile: mapa full screen + bottom sheet ---- */
 @media (max-width: 700px) {
   header {
     padding: 0 16px;
@@ -847,29 +852,71 @@ footer {
 
   .container {
     position: absolute;
-    bottom: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     width: 100%;
-    max-height: 55%;
     z-index: 10;
     border-right: none;
     border-top: 1px solid var(--color-border);
     border-radius: 16px 16px 0 0;
     box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
     overflow-y: auto;
+    overscroll-behavior: contain;
     background: var(--color-surface);
-    padding-top: 8px;
+    padding-top: 0;
+
+    /* alturas de cada estado del bottom sheet */
+    --sheet-peek: 64px;
+    --sheet-mid: 30vh;
+    --sheet-full: calc(100% - 24px);
+    --sheet-offset: calc(var(--sheet-full) - var(--sheet-mid));
+
+    height: var(--sheet-full);
+    transform: translateY(var(--sheet-offset));
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
   }
 
-  .container::before {
-    content: "";
-    display: block;
+  .container.is-dragging {
+    transition: none;
+  }
+
+  .sheet-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 28px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .sheet-handle:active {
+    cursor: grabbing;
+  }
+
+  .sheet-handle__bar {
     width: 40px;
     height: 4px;
-    background: var(--color-border);
     border-radius: 2px;
-    margin: 0 auto 8px;
+    background: var(--color-border);
+    transition: background-color var(--transition);
+  }
+
+  .sheet-handle:hover .sheet-handle__bar,
+  .sheet-handle[aria-expanded="true"] .sheet-handle__bar {
+    background: var(--color-primary);
+  }
+
+  .sheet-handle:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: -3px;
+    border-radius: 8px;
   }
 
   nav[aria-label="Menú principal"] {
