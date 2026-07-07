@@ -8,6 +8,8 @@ import { MicroSimulado } from "./microSimulado";
 import { rutaMicro202 } from "./rutaMicro202";
 import "./menu.js";
 
+import { HandlePopUp } from "./popUpParada.js";
+
 const iconoMicro = L.divIcon({
   className: "",
   html: `
@@ -52,11 +54,15 @@ class Map {
 
   construirMapa() {
     this._map = L.map("map").setView([this.lat, this.long], 16);
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 20
-    }).addTo(this._map);
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: "abcd",
+        maxZoom: 20,
+      },
+    ).addTo(this._map);
 
     L.circleMarker([this._lat, this._long], {
       radius: 8,
@@ -108,57 +114,12 @@ class Map {
     });
 
     marcador_mapa.bindPopup("Cargando...");
-    marcador_mapa.on("click", async () => {
-      marcador_mapa.openPopup();
-      const data = await marcador.llegadas();
-      console.log(data);
-      if (!data || !data.arribos || data.arribos.length === 0) {
-        marcador_mapa.setPopupContent("No hay arribos disponibles.");
-        return;
-      }
-      const colores = (mins) => {
-        const n = parseInt(mins);
-        if (n <= 5) return "background:#EAF3DE;color:#3B6D11";
-        if (n <= 15) return "background:#FAEEDA;color:#854F0B";
-        return "background:#FCEBEB;color:#A32D2D";
-      };
-      const extraerMinutos = (texto) => texto?.match(/\d+/)?.[0] ?? "?";
-      const lineasDeParada = Array.isArray(marcador._lineas) ? marcador._lineas : [];
-      const lineasTexto =
-        lineasDeParada.length > 0
-          ? lineasDeParada.map((linea) => linea.numero ?? linea.descripcion ?? linea.codigo).join(" · ")
-          : "Sin línea";
 
-      const html = `
-      <div style="min-width:220px">
-        <div style="font-size:13px;font-weight:500;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eee">
-          📍 ${marcador._callePrincipal} y ${marcador._calleInterseccion}
-        </div>
-        <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#444">
-          Líneas: ${lineasTexto}
-        </div>
-        ${data.arribos
-          .map((a) => {
-            const mins = extraerMinutos(a.tiempoRestanteArribo);
-            return `
-            <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0f0">
-              <div style="min-width:48px;text-align:center;padding:3px 6px;border-radius:6px;font-size:12px;font-weight:500;${colores(mins)}">
-                ${mins} min
-              </div>
-              <div>
-                <div style="font-size:12px;font-weight:500">${a.descripcionLinea || "Línea"}</div>
-                <div style="font-size:11px;color:#888">${a.descripcionBandera}</div>
-              </div>
-            </div>
-          `;
-          })
-          .join("")}
-      </div>
-    `;
-      marcador_mapa.setPopupContent(html);
+    marcador_mapa.on("click", async () => {
+      await HandlePopUp(marcador_mapa, marcador);
     });
 
-    this.capaParadas.addLayer(marcador_mapa);
+    this.capaParadas.addLayer(marcador_mapa, marcador);
   }
 
   /**
@@ -268,7 +229,7 @@ async function main() {
 
   inicializarListeners(mapa);
 
-  mapa.agregarMicroSimulado(rutaMicro202, 120); // 25 km/h
+  mapa.agregarMicroSimulado(rutaMicro202, 120); // 120 km/h
 }
 
 main();

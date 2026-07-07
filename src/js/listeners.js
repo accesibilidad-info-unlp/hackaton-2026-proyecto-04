@@ -136,6 +136,7 @@ export default function inicializarListeners(mapa) {
       pDistancia.textContent = `${formatoDistancia} · ${stringMinutos} min caminando`;
 
       const divArribos = document.createElement("div");
+
       divArribos.classList.add("stop-arrivals");
       const estadoInicial = crearPildora("Cargando...", "arrival-pill--loading");
       divArribos.appendChild(estadoInicial);

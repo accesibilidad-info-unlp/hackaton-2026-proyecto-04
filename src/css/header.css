@@ -1,0 +1,125 @@
+/* ==========================================================================
+   header.css
+   Barra superior: marca, título, botón de acciones/accesibilidad.
+   ========================================================================== */
+
+header {
+  height: var(--header-h);
+  flex-shrink: 0;
+  background-color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.header-actions {
+  position: relative;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  z-index: 2100;
+}
+
+.header-icon {
+  color: var(--color-primary-light);
+  font-size: 36px;
+}
+
+.back-icon {
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+.header-text h1 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary-light);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  font-size: 0.68rem;
+  color: var(--color-primary-light);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.header-action-btn {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-primary-light);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    transform 0.1s ease,
+    border-color var(--transition);
+}
+
+.header-action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.header-action-btn:active {
+  transform: scale(0.98);
+}
+
+.header-action-icon {
+  font-size: 1.15rem;
+}
+
+/* El toggle de alto contraste redefine este botón (ver tokens.css) */
+body.a11y-high-contrast .header-action-btn {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 700px) {
+  header {
+    padding: 0 16px;
+  }
+
+  .header-inner {
+    gap: 12px;
+  }
+
+  .header-action-label {
+    display: none;
+  }
+
+  .header-action-btn {
+    min-width: 40px;
+    padding: 0 12px;
+  }
+}

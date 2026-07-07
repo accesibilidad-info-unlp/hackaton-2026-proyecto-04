@@ -1,0 +1,22 @@
+/* ==========================================================================
+   main.css
+   Punto de entrada único: importa todos los módulos de CSS en el orden
+   correcto. Este es el único archivo que necesitás importar desde tu
+   entry point de JS (ej: main.js -> import './css/main.css').
+
+   Orden importante:
+   1. tokens.css primero: define las variables (--color-*, --font-*, etc.)
+      que TODOS los demás archivos usan.
+   2. El resto puede ir en cualquier orden entre sí, porque cada uno
+      apunta a selectores/componentes distintos y no se pisan.
+   ========================================================================== */
+
+@import "./tokens.css";
+@import "./accessibility-panel.css";
+@import "./header.css";
+@import "./sidebar.css";
+@import "./stops.css";
+@import "./search.css";
+@import "./map.css";
+@import "./footer.css";
+@import "./popUpParada.css"

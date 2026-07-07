@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Popup de parada — agregar a styles.css
+   Usa variables genéricas (--color-*, --radius-*, --spacing-*). Si tu
+   styles.css ya define tokens con otros nombres, reemplazá los var()
+   de abajo por los tuyos.
+   ========================================================================== */
+
+.marcador-parada {
+  width: 32px;
+  height: 32px;
+  background: var(--color-primary, #1565c0);
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.marcador-parada:focus-visible {
+  outline: 3px solid var(--color-focus, #ffbf47);
+  outline-offset: 2px;
+}
+
+.popup-parada {
+  min-width: 220px;
+  font-family: var(--font-base, inherit);
+}
+
+.popup-parada--cargando,
+.popup-parada--vacio {
+  padding: 8px 4px;
+  font-size: 13px;
+  color: var(--color-text-muted, #666);
+}
+
+.popup-parada--error {
+  padding: 8px 4px;
+  font-size: 13px;
+  color: var(--color-error, #a32d2d);
+}
+
+.popup-parada__reintentar,
+.arribo-item__accion {
+  border: none;
+  background: var(--color-primary, #1565c0);
+  color: white;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.popup-parada__reintentar:hover,
+.arribo-item__accion:hover {
+  background: var(--color-primary-dark, #0d47a1);
+}
+
+.popup-parada__reintentar:focus-visible,
+.arribo-item__accion:focus-visible {
+  outline: 3px solid var(--color-focus, #ffbf47);
+  outline-offset: 2px;
+}
+
+.popup-parada__header {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.popup-parada__lineas {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-text-secondary, #444);
+}
+
+.arribo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.arribo-item__tiempo {
+  min-width: 48px;
+  text-align: center;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Estados de urgencia: color + ya viene acompañado de texto/aria-label,
+   no dependemos solo del color (accesibilidad para daltonismo). */
+.arribo--pronto {
+  background: var(--color-success-bg, #eaf3de);
+  color: var(--color-success-text, #3b6d11);
+}
+
+.arribo--medio {
+  background: var(--color-warning-bg, #faeeda);
+  color: var(--color-warning-text, #854f0b);
+}
+
+.arribo--tarde {
+  background: var(--color-danger-bg, #fcebeb);
+  color: var(--color-danger-text, #a32d2d);
+}
+
+.arribo--desconocido {
+  background: var(--color-neutral-bg, #eee);
+  color: var(--color-neutral-text, #555);
+}
+
+.arribo-item__linea {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.arribo-item__bandera {
+  font-size: 11px;
+  color: var(--color-text-muted, #888);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marcador-parada,
+  .popup-parada__reintentar,
+  .arribo-item__accion {
+    transition: none;
+  }
+}

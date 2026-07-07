@@ -1,0 +1,48 @@
+/* ==========================================================================
+   search.css
+   Input de búsqueda con ícono, usado arriba del listado de paradas.
+   ========================================================================== */
+
+.search-container {
+  position: relative;
+  margin: 12px 16px;
+  width: calc(100% - 32px);
+}
+
+.search-icon {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+#buscador {
+  display: block;
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+#buscador::placeholder {
+  color: var(--color-text-muted);
+}
+
+#buscador:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+  background-color: var(--color-surface);
+}

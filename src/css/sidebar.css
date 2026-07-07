@@ -1,0 +1,232 @@
+/* ==========================================================================
+   sidebar.css
+   Layout de #main-section + sidebar de escritorio / bottom sheet mobile,
+   menú de botones (paradas favoritas, cercanas, líneas, mapa), botón volver.
+   ========================================================================== */
+
+/* ---- Main: ocupa exactamente el espacio entre header y footer ---- */
+#main-section {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden; /* clave: evita que el mapa se derrame */
+  min-height: 0; /* clave para que flex-child respete la altura */
+}
+
+/* ---- Sidebar ---- */
+.container {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ---- Bottom sheet handle (solo visible/activo en mobile) ---- */
+.sheet-handle {
+  display: none;
+}
+
+#volver {
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  width: calc(100% - 32px);
+  margin: 16px;
+  transition: background-color var(--transition);
+}
+
+#volver:hover {
+  background-color: var(--color-border);
+}
+
+nav[aria-label="Menú principal"] {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.menu-btn {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  font-weight: 700;
+  padding: 14px 10px;
+  min-height: 104px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    transform 0.1s ease;
+  line-height: 1.3;
+}
+
+.menu-btn:hover {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.menu-btn:active {
+  transform: scale(0.97);
+}
+
+.btn-icon {
+  height: 22px;
+  width: 22px;
+  color: var(--color-text);
+  font-size: 1.4rem;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.favorite-icon,
+.nearby-icon,
+.lines-icon,
+.map-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-label {
+  font-size: 0.82rem;
+}
+
+/* ---- Mobile: sidebar se convierte en bottom sheet arrastrable ---- */
+@media (max-width: 700px) {
+  #main-section {
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+    height: calc(100vh - var(--header-h) - var(--footer-h));
+  }
+
+  .container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    border-right: none;
+    border-top: 1px solid var(--color-border);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--color-surface);
+    padding-top: 0;
+
+    /* alturas de cada estado del bottom sheet */
+    --sheet-peek: 64px;
+    --sheet-mid: 30vh;
+    --sheet-full: calc(100% - 24px);
+    --sheet-offset: calc(var(--sheet-full) - var(--sheet-mid));
+
+    height: var(--sheet-full);
+    transform: translateY(var(--sheet-offset));
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .container.is-dragging {
+    transition: none;
+  }
+
+  .sheet-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 28px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .sheet-handle:active {
+    cursor: grabbing;
+  }
+
+  .sheet-handle__bar {
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-border);
+    transition: background-color var(--transition);
+  }
+
+  .sheet-handle:hover .sheet-handle__bar,
+  .sheet-handle[aria-expanded="true"] .sheet-handle__bar {
+    background: var(--color-primary);
+  }
+
+  .sheet-handle:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: -3px;
+    border-radius: 8px;
+  }
+
+  nav[aria-label="Menú principal"] {
+    padding: 8px 16px 12px;
+  }
+
+  .buttons {
+    gap: 8px;
+  }
+
+  .menu-btn {
+    padding: 10px 8px;
+    min-height: 44px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .btn-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn-label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .menu-btn {
+    border-width: 2px;
+  }
+}
