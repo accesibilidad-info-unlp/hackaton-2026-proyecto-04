@@ -6,7 +6,9 @@
 //OSRM es Open Source Routing Machine — un motor de ruteo open source que, dado un conjunto de coordenadas, te calcula el camino más corto o más rápido siguiendo las calles reales (usando datos de OpenStreetMap, el mismo mapa que ya estás usando con Leaflet).
 //Es básicamente lo mismo que hace Google Maps cuando te traza una ruta en auto, pero gratis y sin necesidad de API key para uso liviano
 
-export const rutaMicro202 = [
+
+
+export const rutaMicros = [
   { lat: -34.92047, lng: -57.953814 },
   { lat: -34.92052, lng: -57.953798 },
   { lat: -34.920557, lng: -57.953771 },

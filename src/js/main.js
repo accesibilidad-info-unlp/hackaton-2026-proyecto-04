@@ -5,7 +5,7 @@ import { savePosition, getPosition } from "./position/position";
 import inicializarListeners from "./listeners";
 
 import { MicroSimulado } from "./microSimulado";
-import { rutaMicro202 } from "./rutaMicro202";
+import { rutaMicros } from "./rutaMicros.js";
 import "./menu.js";
 
 import { HandlePopUp } from "./popUpParada.js";
@@ -129,8 +129,8 @@ class Map {
    * @param {number} duracionTramoMs
    * @returns {MicroSimulado}
    */
-  agregarMicroSimulado(ruta, duracionTramoMs = 4000) {
-    const micro = new MicroSimulado(this._map, ruta, duracionTramoMs, {
+  agregarMicroSimulado(ruta, km_p_h = 60) {
+    const micro = new MicroSimulado(this._map, ruta, km_p_h, {
       icon: iconoMicro,
     });
     this.capaMicros.addLayer(micro.marker);
@@ -229,7 +229,7 @@ async function main() {
 
   inicializarListeners(mapa);
 
-  mapa.agregarMicroSimulado(rutaMicro202, 120); // 120 km/h
+ //mapa.agregarMicroSimulado(rutaMicro202, 120); // 120 km/h
 }
 
 main();

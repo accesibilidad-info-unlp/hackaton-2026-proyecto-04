@@ -60,6 +60,7 @@ export async function HandlePopUp(marcador_mapa, marcador) {
   divArribos.className = "popup-parada__arribos";
 
   data.arribos.forEach((a) => {
+    console.log(a);
     const mins = extraerMinutos(a.tiempoRestanteArribo);
     const clase = claseUrgencia(mins);
 
@@ -88,7 +89,12 @@ export async function HandlePopUp(marcador_mapa, marcador) {
     boton.className = "arribo-item__accion";
     boton.textContent = "Ver en tiempo real";
     boton.dataset.accion = "tiempo-real";
-    boton.dataset.linea = a.descripcionLinea || "";
+    boton.dataset.linea = a.interno || ""; // se le asigna un "id" al boton para saber de que micro ettamos hablando
+
+    boton.addEventListener('click', (e)=>{
+      const boton_presionado = e.target;
+      console.log(`Mostar micro: ${boton_presionado.dataset.linea}`);
+    })
 
     divInfo.appendChild(divLineaNombre);
     divInfo.appendChild(divBandera);

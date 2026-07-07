@@ -34,7 +34,9 @@ function renderLineas(contenedor, lineas) {
     contenedor.appendChild(vacia);
     return;
   }
-
+  // La primera linea debe ser la seleccionada
+  console.log(lineas)
+  // lineas[0] es la seleccionada 
   lineas.forEach((linea) => {
     const badge = document.createElement("span");
     badge.classList.add("line-badge");
@@ -91,7 +93,6 @@ export default function inicializarListeners(mapa) {
     }
 
     const paradas = await paradasCercanas(mapa.lat, mapa.long, radioParadasCercanasMetros);
-    console.log(paradas)
     paradasCercanasH2.textContent = `${paradas.length} Paradas cercanas`;
 
     paradas.forEach(parada => {
