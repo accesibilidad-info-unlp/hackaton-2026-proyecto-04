@@ -1,5 +1,6 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet-polylinedecorator";
 
 import { savePosition, getPosition } from "./position/position";
 import inicializarListeners from "./listeners";
@@ -167,32 +168,51 @@ class Map {
   distanciaAPunto(paradaLat, paradaLong) {
     return L.latLng(this._lat, this._long).distanceTo([paradaLat, paradaLong]);
   }
-  mostrarRecorrido(paradas) {
-    this.borrarMarcadores();
-    this.borrarRecorrido();
+mostrarRecorrido(paradas) {
+  this.borrarMarcadores();
+  this.borrarRecorrido();
 
-    const puntos = [];
+  const puntos = [];
 
-    paradas.forEach((parada) => {
-      if (parada.latitud == null || parada.longitud == null) return;
+  paradas.forEach((parada) => {
+    if (parada.latitud == null || parada.longitud == null) return;
 
-      const punto = [parada.latitud, parada.longitud];
-      puntos.push(punto);
+    const punto = [parada.latitud, parada.longitud];
+    puntos.push(punto);
 
-      L.marker(punto, { icon: iconoRecorrido })
-        .bindPopup(`${parada.descripcion} · ${parada.tiempo}`)
-        .addTo(this.capaRecorrido);
-    });
+    L.marker(punto, { icon: iconoRecorrido })
+      .bindPopup(`${parada.descripcion} · ${parada.tiempo}`)
+      .addTo(this.capaRecorrido);
+  });
 
-    if (puntos.length > 1) {
-      L.polyline(puntos, {
-        color: "#2E7D32",
-        weight: 4,
-        opacity: 0.8,
-        dashArray: "6 8",
-      }).addTo(this.capaRecorrido);
-    }
+  if (puntos.length > 1) {
+    const linea = L.polyline(puntos, {
+      color: "#2E7D32",
+      weight: 4,
+      opacity: 0.8,
+      dashArray: "6 8",
+    }).addTo(this.capaRecorrido);
+
+    // Flechas de dirección a lo largo del recorrido
+    L.polylineDecorator(linea, {
+      patterns: [
+        {
+          offset: "5%",
+          repeat: "10%", // cada 10% del largo total aparece una flecha
+          symbol: L.Symbol.arrowHead({
+            pixelSize: 10,
+            polygon: false,
+            pathOptions: {
+              stroke: true,
+              color: "#000000",
+              weight: 3,
+            },
+          }),
+        },
+      ],
+    }).addTo(this.capaRecorrido);
   }
+}
 
   borrarRecorrido() {
     this.capaRecorrido.clearLayers();
