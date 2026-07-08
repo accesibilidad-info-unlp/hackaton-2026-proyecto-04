@@ -59,6 +59,7 @@ class Map {
     this.capaParadas = L.layerGroup();
     this.capaMicros = L.layerGroup();
     this.capaRecorrido = L.layerGroup();
+    this._mapA11yObserver = null;
   }
 
   get lat() {
@@ -69,7 +70,9 @@ class Map {
   }
 
   construirMapa() {
-    this._map = L.map("map").setView([this.lat, this.long], 16);
+    this._map = L.map("map", {
+      keyboard: false,
+    }).setView([this.lat, this.long], 16);
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
       {
@@ -90,6 +93,54 @@ class Map {
     })
       .addTo(this._map)
       .bindPopup("Tu ubicación actual");
+
+    this._deshabilitarFocoTecladoEnMapa();
+  }
+
+  _deshabilitarFocoTecladoEnMapa() {
+    const mapElement = document.getElementById("map");
+    if (!mapElement) {
+      return;
+    }
+
+    const focusableSelector =
+      "a, button, input, select, textarea, [tabindex], [contenteditable='true']";
+
+    const bloquearFoco = (rootNode) => {
+      if (!rootNode || rootNode.nodeType !== Node.ELEMENT_NODE) {
+        return;
+      }
+
+      const element = rootNode;
+
+      if (element.matches(focusableSelector)) {
+        element.setAttribute("tabindex", "-1");
+      }
+
+      element.querySelectorAll(focusableSelector).forEach((focusableElement) => {
+        focusableElement.setAttribute("tabindex", "-1");
+      });
+    };
+
+    mapElement.setAttribute("tabindex", "-1");
+    mapElement.setAttribute("aria-hidden", "true");
+    mapElement.setAttribute("role", "presentation");
+    bloquearFoco(mapElement);
+
+    if (this._mapA11yObserver) {
+      this._mapA11yObserver.disconnect();
+    }
+
+    this._mapA11yObserver = new MutationObserver((mutationList) => {
+      mutationList.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => bloquearFoco(node));
+      });
+    });
+
+    this._mapA11yObserver.observe(mapElement, {
+      childList: true,
+      subtree: true,
+    });
   }
 
   agregarMarcador(marcador) {
@@ -127,6 +178,7 @@ class Map {
 
     const marcador_mapa = L.marker([marcador.lat, marcador.long], {
       icon: iconoParada,
+      keyboard: false,
     });
 
     marcador_mapa.bindPopup("Cargando...");
@@ -179,7 +231,7 @@ class Map {
       const punto = [parada.latitud, parada.longitud];
       puntos.push(punto);
 
-      L.marker(punto, { icon: iconoRecorrido })
+      L.marker(punto, { icon: iconoRecorrido, keyboard: false })
         .bindPopup(`${parada.descripcion} · ${parada.tiempo}`)
         .addTo(this.capaRecorrido);
     });
