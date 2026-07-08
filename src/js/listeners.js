@@ -12,6 +12,7 @@ const radioParadasCercanasMetros = 500;
 
 function LimpiarElementos(mapa) {
   mapa.borrarMarcadores();
+  mapa.borrarRecorrido();
   document.getElementById("stop-radio")?.remove();
   while (divParadas.firstChild) {
     divParadas.removeChild(divParadas.firstChild);

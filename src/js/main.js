@@ -34,6 +34,21 @@ const iconoMicro = L.divIcon({
   popupAnchor: [0, -18],
 });
 
+const iconoRecorrido = L.divIcon({
+  className: "",
+  html: `
+    <div style="
+      width:14px;height:14px;
+      background:#2E7D32;
+      border:2px solid white;
+      border-radius:50%;
+      box-shadow:0 1px 4px rgba(0,0,0,0.4);
+    "></div>
+  `,
+  iconSize: [14, 14],
+  iconAnchor: [7, 7],
+});
+
 class Map {
   constructor(lat, long) {
     this._lat = lat;
@@ -43,6 +58,7 @@ class Map {
     this._microsSimulados = [];
     this.capaParadas = L.layerGroup();
     this.capaMicros = L.layerGroup();
+    this.capaRecorrido = L.layerGroup();
   }
 
   get lat() {
@@ -116,10 +132,15 @@ class Map {
     marcador_mapa.bindPopup("Cargando...");
 
     marcador_mapa.on("click", async () => {
-      await HandlePopUp(marcador_mapa, marcador);
+      await HandlePopUp(marcador_mapa, marcador, this);
     });
 
     this.capaParadas.addLayer(marcador_mapa, marcador);
+  }
+
+  borrarMarcadores() {
+    this._marcadores = [];
+    this.capaParadas.clearLayers();
   }
 
   /**
@@ -143,13 +164,38 @@ class Map {
     this._microsSimulados.forEach((micro) => micro.detener());
   }
 
-  borrarMarcadores() {
-    this._marcadores = [];
-    this.capaParadas.clearLayers();
-  }
-
   distanciaAPunto(paradaLat, paradaLong) {
     return L.latLng(this._lat, this._long).distanceTo([paradaLat, paradaLong]);
+  }
+  mostrarRecorrido(paradas) {
+    this.borrarMarcadores();
+    this.borrarRecorrido();
+
+    const puntos = [];
+
+    paradas.forEach((parada) => {
+      if (parada.latitud == null || parada.longitud == null) return;
+
+      const punto = [parada.latitud, parada.longitud];
+      puntos.push(punto);
+
+      L.marker(punto, { icon: iconoRecorrido })
+        .bindPopup(`${parada.descripcion} · ${parada.tiempo}`)
+        .addTo(this.capaRecorrido);
+    });
+
+    if (puntos.length > 1) {
+      L.polyline(puntos, {
+        color: "#2E7D32",
+        weight: 4,
+        opacity: 0.8,
+        dashArray: "6 8",
+      }).addTo(this.capaRecorrido);
+    }
+  }
+
+  borrarRecorrido() {
+    this.capaRecorrido.clearLayers();
   }
 }
 
@@ -226,10 +272,9 @@ async function main() {
   mapa.construirMapa();
   mapa.capaParadas.addTo(mapa._map);
   mapa.capaMicros.addTo(mapa._map);
+  mapa.capaRecorrido.addTo(mapa._map);
 
   inicializarListeners(mapa);
-
- //mapa.agregarMicroSimulado(rutaMicro202, 120); // 120 km/h
 }
 
 main();

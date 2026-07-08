@@ -1,4 +1,4 @@
-export async function HandlePopUp(marcador_mapa, marcador) {
+export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   marcador_mapa.openPopup();
   marcador_mapa.setPopupContent("Cargando...");
 
@@ -94,9 +94,14 @@ export async function HandlePopUp(marcador_mapa, marcador) {
     boton.dataset.accion = "tiempo-real";
     boton.dataset.linea = a.interno || ""; // se le asigna un "id" al boton para saber de que micro estamos hablando
 
-    boton.addEventListener("click", (e) => {
+    boton.addEventListener("click", async (e) => {
       const boton_presionado = e.target;
-      console.log(`Mostar micro: ${boton_presionado.dataset.linea}`);
+      const data = await fetch(
+        `http://localhost:3000/recorrido/${boton_presionado.dataset.linea}`,
+      );
+      const json = await data.json();
+
+      mapa.mostrarRecorrido(json.resultado);
     });
 
     divInfo.appendChild(divLineaNombre);
@@ -113,4 +118,3 @@ export async function HandlePopUp(marcador_mapa, marcador) {
 
   marcador_mapa.setPopupContent(divParadasMarcador);
 }
-

@@ -155,7 +155,6 @@ app.get("/paradas", (req, res) => {
   filtrarParadas(req, res);
 });
 
-// Función auxiliar para no repetir el código del filtro
 function filtrarParadas(req, res) {
   const { callePrincipal, calleInterseccion } = req.params;
 
@@ -180,6 +179,38 @@ function filtrarParadas(req, res) {
     resultado: paradaFiltrada,
   });
 }
+app.get('/recorrido/:codigoMicro', (req, res) => {
+  const { codigoMicro } = req.params;
+  const linea = codigoMicro.split('-')[0];
+
+  const internosDeLinea = arribosPorLinea[linea];
+  if (!internosDeLinea) {
+    return res.status(404).json({ resultado: 'No se encontró la línea' });
+  }
+
+  const microEncontrado = internosDeLinea.find(
+    (micro) => micro.interno === codigoMicro,
+  );
+  if (!microEncontrado) {
+    return res.status(404).json({ resultado: 'No se encontró el micro' });
+  }
+
+  const paradasEnriquecidas = microEncontrado.recorrido.paradas.map((p) => {
+    const infoCompleta = paradas.find(
+      (info) => info.identificador === p.identificador,
+    );
+    return {
+      identificador: p.identificador,
+      tiempo: p.tiempo,
+      descripcion: infoCompleta?.descripcion ?? "Parada desconocida",
+      latitud: infoCompleta?.latitud,
+      longitud: infoCompleta?.longitud,
+    };
+  });
+
+  res.json({ resultado: paradasEnriquecidas });
+});
+
 
 app.listen(PORT, () => {
   console.log(`API local de colectivos corriendo en http://localhost:${PORT}`);
