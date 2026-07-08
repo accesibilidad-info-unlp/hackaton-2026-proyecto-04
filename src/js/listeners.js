@@ -1,11 +1,138 @@
 import { paradasCercanas } from "./main";
 import { Marcador } from "./main";
 
-const paradasCercanasH2 = document.getElementById('stops-heading');
+const paradasCercanasH2 = document.getElementById("stops-heading");
 const paradasCercanasBTN = document.getElementById("paradas-cercanas");
-const divParadas = document.getElementById('stops-info');
-const botonesMenu = document.querySelectorAll('.menu-btn');
+const sectionParadas = document.getElementById("section-stops");
+const divParadas = document.getElementById("stops-info");
+const botonesMenu = document.querySelectorAll(".menu-btn");
+const inputParadas = document.getElementById("buscador");
+const btnInput = document.getElementById("btn-input");
 const radioParadasCercanasMetros = 500;
+
+function LimpiarElementos(mapa) {
+  mapa.borrarMarcadores();
+  document.getElementById("stop-radio")?.remove();
+  while (divParadas.firstChild) {
+    divParadas.removeChild(divParadas.firstChild);
+  }
+}
+
+function cardArribos(parada, mapa, marcador) {
+  const paradaDiv = document.createElement("div");
+  paradaDiv.classList.add("parada-item");
+
+  const pCalles = document.createElement("p");
+  pCalles.classList.add("p-calles");
+  pCalles.textContent = `${parada.callePrincipal} y ${parada.calleInterseccion}`;
+
+  const bloqueLineas = document.createElement("div");
+  bloqueLineas.classList.add("stop-lines");
+  bloqueLineas.appendChild(crearEtiquetaSeccion("Líneas"));
+  const listaLineas = document.createElement("div");
+  listaLineas.classList.add("stop-lines__list");
+  renderLineas(listaLineas, parada.lineas);
+  bloqueLineas.appendChild(listaLineas);
+
+  const distancia = mapa.distanciaAPunto(parada.latitud, parada.longitud);
+  const tiempoCaminando = Math.round(distancia / 83);
+
+  const formatoDistancia =
+    distancia < 1000
+      ? `${Math.round(distancia)} m`
+      : `${(distancia / 1000).toFixed(1)} km`;
+
+  const stringMinutos = tiempoCaminando < 1 ? "menos de 1" : tiempoCaminando;
+
+  const pDistancia = document.createElement("p");
+  pDistancia.classList.add("stop-distance");
+  pDistancia.textContent = `${formatoDistancia} · ${stringMinutos} min caminando`;
+
+  const divArribos = document.createElement("div");
+
+  divArribos.classList.add("stop-arrivals");
+  const estadoInicial = crearPildora("Cargando...", "arrival-pill--loading");
+  divArribos.appendChild(estadoInicial);
+
+  const seccionArribos = document.createElement("div");
+  seccionArribos.classList.add("stop-arrivals-section");
+  seccionArribos.appendChild(crearEtiquetaSeccion("Próximos arribos"));
+  seccionArribos.appendChild(divArribos);
+
+  paradaDiv.appendChild(pCalles);
+  paradaDiv.appendChild(pDistancia);
+  paradaDiv.appendChild(bloqueLineas);
+  paradaDiv.appendChild(seccionArribos);
+
+  divParadas.appendChild(paradaDiv);
+
+  marcador
+    .llegadas()
+    .then((data) => {
+      const arribos = data?.arribos ?? [];
+      renderArribos(divArribos, arribos);
+    })
+    .catch(() => {
+      divArribos.innerHTML = "";
+      divArribos.classList.add("stop-arrivals");
+      const error = document.createElement("span");
+      error.classList.add("arrival-pill", "arrival-pill--empty");
+      error.textContent = "No se pudieron cargar";
+      divArribos.appendChild(error);
+    });
+}
+
+function handleInput(mapa) {
+  btnInput.addEventListener("click", async () => {
+    const texto = inputParadas.value;
+    if (texto == "") {
+      alert("El formato es: Calle principal y Calle secundaria");
+    } else {
+      //Borrar cosas anteriores
+      LimpiarElementos(mapa);
+
+      const [callePrincipal, calleInterseccion] = texto
+        .split("y")
+        .map((s) => s.trim());
+
+      console.log(callePrincipal);
+      console.log(calleInterseccion);
+
+      const parada = await fetch(
+        `http://localhost:3000/paradas/${callePrincipal}/${calleInterseccion}`,
+      );
+
+      const json = await parada.json();
+      console.log(json);
+      const paradaResultado = json.resultado[0];
+
+      if (!paradaResultado) {
+        alert("No existe esa parada");
+        paradasCercanasH2.textContent = "Parada no encontrada";
+      } else {
+        paradaResultado.lineas = paradaResultado.codigoLineas.map((codigo) => ({
+          codigo,
+        }));
+
+        paradasCercanasH2.textContent = "Informacion de la parada";
+
+        const marcador = new Marcador(
+          paradaResultado.latitud,
+          paradaResultado.longitud,
+          paradaResultado.calleInterseccion,
+          paradaResultado.callePrincipal,
+          paradaResultado.codigo,
+          paradaResultado.descripcion,
+          paradaResultado.identificador,
+          paradaResultado.lineas,
+        );
+        cardArribos(paradaResultado, mapa, marcador);
+
+        mapa.agregarMarcador(marcador);
+      }
+    }
+  });
+}
 
 function crearEtiquetaSeccion(texto) {
   const etiqueta = document.createElement("p");
@@ -35,12 +162,13 @@ function renderLineas(contenedor, lineas) {
     return;
   }
   // La primera linea debe ser la seleccionada
-  console.log(lineas)
-  // lineas[0] es la seleccionada 
+  console.log(lineas);
+  // lineas[0] es la seleccionada
   lineas.forEach((linea) => {
     const badge = document.createElement("span");
     badge.classList.add("line-badge");
-    badge.textContent = linea.numero ?? linea.descripcion ?? linea.codigo ?? "Línea";
+    badge.textContent =
+      linea.numero ?? linea.descripcion ?? linea.codigo ?? "Línea";
     contenedor.appendChild(badge);
   });
 }
@@ -78,24 +206,28 @@ function renderArribos(contenedor, arribos) {
 }
 
 export default function inicializarListeners(mapa) {
-  botonesMenu.forEach(boton => {
-    boton.addEventListener('click', () => {
-      botonesMenu.forEach(b => b.classList.remove('btn-selected'));
-      boton.classList.add('btn-selected');
+  botonesMenu.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      botonesMenu.forEach((b) => b.classList.remove("btn-selected"));
+      boton.classList.add("btn-selected");
     });
   });
 
-  paradasCercanasBTN.addEventListener('click', async () => {
-    mapa.borrarMarcadores();
+  paradasCercanasBTN.addEventListener("click", async () => {
+    LimpiarElementos(mapa);
 
-    while (divParadas.firstChild) {
-      divParadas.removeChild(divParadas.firstChild);
-    }
-
-    const paradas = await paradasCercanas(mapa.lat, mapa.long, radioParadasCercanasMetros);
+    const paradas = await paradasCercanas(
+      mapa.lat,
+      mapa.long,
+      radioParadasCercanasMetros,
+    );
     paradasCercanasH2.textContent = `${paradas.length} Paradas cercanas`;
+    const h2Radio = document.createElement("h2");
+    h2Radio.textContent = "Radio: 5 cuadras";
+    h2Radio.id = "stop-radio";
+    paradasCercanasH2.insertAdjacentElement("afterend", h2Radio);
 
-    paradas.forEach(parada => {
+    paradas.forEach((parada) => {
       const marcador = new Marcador(
         parada.latitud,
         parada.longitud,
@@ -104,70 +236,11 @@ export default function inicializarListeners(mapa) {
         parada.codigo,
         parada.descripcion,
         parada.identificador,
-        parada.lineas
+        parada.lineas,
       );
+      cardArribos(parada, mapa, marcador);
       mapa.agregarMarcador(marcador);
-
-      const paradaDiv = document.createElement('div');
-      paradaDiv.classList.add('parada-item');
-
-      const pCalles = document.createElement('p');
-      pCalles.classList.add('p-calles');
-      pCalles.textContent = `${parada.callePrincipal} y ${parada.calleInterseccion}`;
-
-      const bloqueLineas = document.createElement("div");
-      bloqueLineas.classList.add("stop-lines");
-      bloqueLineas.appendChild(crearEtiquetaSeccion("Líneas"));
-      const listaLineas = document.createElement("div");
-      listaLineas.classList.add("stop-lines__list");
-      renderLineas(listaLineas, parada.lineas);
-      bloqueLineas.appendChild(listaLineas);
-
-      const distancia = mapa.distanciaAPunto(parada.latitud, parada.longitud);
-      const tiempoCaminando = Math.round(distancia / 83);
-
-      const formatoDistancia = distancia < 1000
-        ? `${Math.round(distancia)} m`
-        : `${(distancia / 1000).toFixed(1)} km`;
-
-      const stringMinutos = tiempoCaminando < 1 ? "menos de 1" : tiempoCaminando;
-
-      const pDistancia = document.createElement("p");
-      pDistancia.classList.add("stop-distance");
-      pDistancia.textContent = `${formatoDistancia} · ${stringMinutos} min caminando`;
-
-      const divArribos = document.createElement("div");
-
-      divArribos.classList.add("stop-arrivals");
-      const estadoInicial = crearPildora("Cargando...", "arrival-pill--loading");
-      divArribos.appendChild(estadoInicial);
-
-      const seccionArribos = document.createElement("div");
-      seccionArribos.classList.add("stop-arrivals-section");
-      seccionArribos.appendChild(crearEtiquetaSeccion("Próximos arribos"));
-      seccionArribos.appendChild(divArribos);
-
-      paradaDiv.appendChild(pCalles);
-      paradaDiv.appendChild(pDistancia);
-      paradaDiv.appendChild(bloqueLineas);
-      paradaDiv.appendChild(seccionArribos);
-
-      divParadas.appendChild(paradaDiv);
-
-      marcador
-        .llegadas()
-        .then((data) => {
-          const arribos = data?.arribos ?? [];
-          renderArribos(divArribos, arribos);
-        })
-        .catch(() => {
-          divArribos.innerHTML = "";
-          divArribos.classList.add("stop-arrivals");
-          const error = document.createElement("span");
-          error.classList.add("arrival-pill", "arrival-pill--empty");
-          error.textContent = "No se pudieron cargar";
-          divArribos.appendChild(error);
-        });
     });
   });
+  handleInput(mapa);
 }

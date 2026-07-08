@@ -16,7 +16,6 @@ export async function HandlePopUp(marcador_mapa, marcador) {
     return;
   }
 
-  // Ahora devuelve la clase CSS, no un string de style inline
   const claseUrgencia = (mins) => {
     const n = parseInt(mins, 10);
     if (Number.isNaN(n)) return "arribo--desconocido";
@@ -27,10 +26,14 @@ export async function HandlePopUp(marcador_mapa, marcador) {
 
   const extraerMinutos = (texto) => texto?.match(/\d+/)?.[0] ?? "?";
 
-  const lineasDeParada = Array.isArray(marcador._lineas) ? marcador._lineas : [];
+  const lineasDeParada = Array.isArray(marcador._lineas)
+    ? marcador._lineas
+    : [];
   const lineasTexto =
     lineasDeParada.length > 0
-      ? lineasDeParada.map((linea) => linea.numero ?? linea.descripcion ?? linea.codigo).join(" · ")
+      ? lineasDeParada
+          .map((linea) => linea.numero ?? linea.descripcion ?? linea.codigo)
+          .join(" · ")
       : "Sin línea";
 
   // --- Contenedor principal ---
@@ -87,14 +90,14 @@ export async function HandlePopUp(marcador_mapa, marcador) {
     const boton = document.createElement("button");
     boton.type = "button";
     boton.className = "arribo-item__accion";
-    boton.textContent = "Ver en tiempo real";
+    boton.textContent = "Ver recorrido";
     boton.dataset.accion = "tiempo-real";
-    boton.dataset.linea = a.interno || ""; // se le asigna un "id" al boton para saber de que micro ettamos hablando
+    boton.dataset.linea = a.interno || ""; // se le asigna un "id" al boton para saber de que micro estamos hablando
 
-    boton.addEventListener('click', (e)=>{
+    boton.addEventListener("click", (e) => {
       const boton_presionado = e.target;
       console.log(`Mostar micro: ${boton_presionado.dataset.linea}`);
-    })
+    });
 
     divInfo.appendChild(divLineaNombre);
     divInfo.appendChild(divBandera);
@@ -108,6 +111,6 @@ export async function HandlePopUp(marcador_mapa, marcador) {
 
   divParadasMarcador.appendChild(divArribos);
 
-  // Leaflet acepta un HTMLElement directo en setPopupContent, no hace falta serializar a string
   marcador_mapa.setPopupContent(divParadasMarcador);
 }
+

@@ -64,14 +64,18 @@ function extraerMinutos(tiempo) {
 function construirArribosParaParada(idParada, codLinea) {
   const lineasFiltradas =
     codLinea && codLinea !== "0"
-      ? lineas.filter((linea) => linea.codigo === codLinea || linea.numero === codLinea)
+      ? lineas.filter(
+          (linea) => linea.codigo === codLinea || linea.numero === codLinea,
+        )
       : lineas;
 
   return lineasFiltradas
     .flatMap((linea) =>
       (arribosPorLinea[linea.codigo] ?? [])
         .map((micro) => {
-          const parada = micro.recorrido.paradas.find((p) => p.identificador === idParada);
+          const parada = micro.recorrido.paradas.find(
+            (p) => p.identificador === idParada,
+          );
           if (!parada) return null;
 
           return {
@@ -87,7 +91,8 @@ function construirArribosParaParada(idParada, codLinea) {
     )
     .sort(
       (a, b) =>
-        extraerMinutos(a.tiempoRestanteArribo) - extraerMinutos(b.tiempoRestanteArribo),
+        extraerMinutos(a.tiempoRestanteArribo) -
+        extraerMinutos(b.tiempoRestanteArribo),
     );
 }
 
@@ -105,7 +110,10 @@ app.get("/paradascercanas", (req, res) => {
       parada: enriquecerParada(parada),
       distancia: distanciaEnMetros(lat, lon, parada.latitud, parada.longitud),
     }))
-    .filter(({ distancia }) => distancia <= (Number.isNaN(radioMetros) ? 500 : radioMetros))
+    .filter(
+      ({ distancia }) =>
+        distancia <= (Number.isNaN(radioMetros) ? 500 : radioMetros),
+    )
     .sort((a, b) => a.distancia - b.distancia)
     .map(({ parada }) => parada);
 
@@ -115,7 +123,9 @@ app.get("/paradascercanas", (req, res) => {
 app.get("/arribos", (req, res) => {
   const { codLinea, idParada } = req.query;
   if (!idParada) {
-    return res.status(400).json({ error: "El parámetro idParada es obligatorio." });
+    return res
+      .status(400)
+      .json({ error: "El parámetro idParada es obligatorio." });
   }
 
   const parada = paradas.find((actual) => actual.identificador === idParada);
@@ -135,6 +145,43 @@ app.get("/arribos", (req, res) => {
   });
 });
 
+// CASO 1: Si entran con las dos calles (Ej: /paradas/7/50)
+app.get("/paradas/:callePrincipal/:calleInterseccion", (req, res) => {
+  filtrarParadas(req, res);
+});
+
+// CASO 2: Si entran sin parámetros (Ej: /paradas)
+app.get("/paradas", (req, res) => {
+  filtrarParadas(req, res);
+});
+
+// Función auxiliar para no repetir el código del filtro
+function filtrarParadas(req, res) {
+  const { callePrincipal, calleInterseccion } = req.params;
+
+  if (!callePrincipal && !calleInterseccion) {
+    return res.json({
+      callePrincipal: "No provista",
+      calleInterseccion: "No provista",
+      resultado: paradas,
+    });
+  }
+
+  const paradaFiltrada = paradas.filter((parada) => {
+    return (
+      parada.callePrincipal == callePrincipal &&
+      parada.calleInterseccion == calleInterseccion
+    );
+  });
+
+  res.json({
+    callePrincipal: callePrincipal || "No existe",
+    calleInterseccion: calleInterseccion || "No existe",
+    resultado: paradaFiltrada,
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`API local de colectivos corriendo en http://localhost:${PORT}`);
 });
+

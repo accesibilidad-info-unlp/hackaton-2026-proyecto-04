@@ -272,7 +272,7 @@
             type="text"
             name="busqueda"
             value=""
-            placeholder="Buscar paradas o líneas"
+            placeholder="Buscar paradas. Ej 7 y 50"
             aria-label="Campo de búsqueda de paradas o líneas"
             aria-describedby="buscador-help"
           />
@@ -280,8 +280,13 @@
             >Ingresa el nombre de una parada o línea para filtrar
             resultados</span
           >
+          <button id="btn-input">Buscar</button>
         </div>
-        <section class="stop" aria-labelledby="stops-heading">
+        <section
+          id="section-stops"
+          class="stop"
+          aria-labelledby="stops-heading"
+        >
           <h2 id="stops-heading">Paradas cercanas</h2>
           <div
             id="stops-info"

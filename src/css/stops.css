@@ -29,8 +29,7 @@
   gap: 10px;
 }
 
-.stop h2::after {
-  content: "Radio: 5 cuadras";
+#stop-radio {
   font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 700;
