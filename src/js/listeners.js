@@ -114,7 +114,7 @@ function handleInput(mapa) {
         paradaResultado.lineas = paradaResultado.codigoLineas.map((codigo) => ({
           codigo,
         }));
-
+        mapa.actualizarVista(paradaResultado.latitud, paradaResultado.longitud);
         paradasCercanasH2.textContent = "Informacion de la parada";
 
         const marcador = new Marcador(

@@ -69,6 +69,10 @@ class Map {
     return this._long;
   }
 
+  actualizarVista(lat, long, zoom = 16){
+    this._map.setView([lat, long], zoom);
+  }
+
   construirMapa() {
     this._map = L.map("map").setView([this.lat, this.long], 16);
     L.tileLayer(
