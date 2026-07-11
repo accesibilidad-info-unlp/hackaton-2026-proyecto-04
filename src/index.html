@@ -280,7 +280,9 @@
             >Ingresa el nombre de una parada o línea para filtrar
             resultados</span
           >
-          <button id="btn-input">Buscar</button>
+          <button id="btn-input" type="button" aria-label="Buscar parada o línea">
+            Buscar
+          </button>
         </div>
         <section
           id="section-stops"
@@ -301,7 +303,9 @@
       <div
         id="map"
         aria-label="Mapa interactivo de las paradas"
-        role="application"
+        aria-hidden="true"
+        role="presentation"
+        tabindex="-1"
       ></div>
     </main>
     <footer role="contentinfo">

@@ -22,6 +22,12 @@ function LimpiarElementos(mapa) {
 function cardArribos(parada, mapa, marcador) {
   const paradaDiv = document.createElement("div");
   paradaDiv.classList.add("parada-item");
+  paradaDiv.setAttribute("tabindex", "0");
+  paradaDiv.setAttribute("role", "article");
+  paradaDiv.setAttribute(
+    "aria-label",
+    `Parada en ${parada.callePrincipal} y ${parada.calleInterseccion}`,
+  );
 
   const pCalles = document.createElement("p");
   pCalles.classList.add("p-calles");
@@ -84,6 +90,13 @@ function cardArribos(parada, mapa, marcador) {
 }
 
 function handleInput(mapa) {
+  inputParadas.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      btnInput.click();
+    }
+  });
+
   btnInput.addEventListener("click", async () => {
     const texto = inputParadas.value;
     if (texto == "") {
