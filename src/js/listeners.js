@@ -1,5 +1,5 @@
 import { paradasCercanas } from "./main";
-import { Marcador } from "./main";
+import Marcador  from "./clases/Marker.js";
 
 const paradasCercanasH2 = document.getElementById("stops-heading");
 const paradasCercanasBTN = document.getElementById("paradas-cercanas");
