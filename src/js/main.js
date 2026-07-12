@@ -14,8 +14,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-
-
 function savePosition() {
   const exito = (position) => {
     const ubicacion = {
