@@ -14,28 +14,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const stops = [
-  {
-    name: "rocha",
-    ubicacion: "-34.92087071516999, -57.94155961864684",
-    micros: ["mUno", "mTres"],
-  },
-  {
-    name: "italia",
-    ubicacion: "-34.91077864824624, -57.9552758912345",
-    micros: ["mUno", "mDos"],
-  },
-  {
-    name: "azcuenaga",
-    ubicacion: "-34.92205274298061, -57.967536701181764",
-    micros: ["mUno", "mDos"],
-  },
-  {
-    name: "yrigoyen",
-    ubicacion: "-34.931939435623384, -57.95423611121962",
-    micros: ["mUno", "mTres"],
-  },
-];
+
 
 function savePosition() {
   const exito = (position) => {
