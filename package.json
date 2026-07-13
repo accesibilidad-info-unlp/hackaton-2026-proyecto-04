@@ -2,7 +2,8 @@
   "dependencies": {
     "express": "^5.2.1",
     "leaflet": "^1.9.4",
-    "leaflet-polylinedecorator": "^1.6.0"
+    "leaflet-polylinedecorator": "^1.6.0",
+    "leaflet-routing-machine": "^3.2.12"
   },
   "name": "hackaton-2026-proyecto-04",
   "version": "1.0.0",
