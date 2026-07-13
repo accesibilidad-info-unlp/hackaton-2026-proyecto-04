@@ -1,13 +1,14 @@
-import { paradasCercanas } from "./main";
-import Marcador  from "./clases/Marker.js";
+import { paradasCercanas } from "./utils/api.js";
+import Marcador from "./clases/Marker.js";
+import { buscarFavStorage } from "./main.js";
 
 const paradasCercanasH2 = document.getElementById("stops-heading");
 const paradasCercanasBTN = document.getElementById("paradas-cercanas");
-const sectionParadas = document.getElementById("section-stops");
 const divParadas = document.getElementById("stops-info");
 const botonesMenu = document.querySelectorAll(".menu-btn");
 const inputParadas = document.getElementById("buscador");
 const btnInput = document.getElementById("btn-input");
+const paradasFavBTN = document.getElementById("paradas-fav");
 const radioParadasCercanasMetros = 500;
 
 function LimpiarElementos(mapa) {
@@ -20,6 +21,9 @@ function LimpiarElementos(mapa) {
 }
 
 function cardArribos(parada, mapa, marcador) {
+  const esFavorita = buscarFavStorage(parada.identificador);
+  console.log(esFavorita)
+
   const paradaDiv = document.createElement("div");
   paradaDiv.classList.add("parada-item");
   paradaDiv.setAttribute("tabindex", "0");
@@ -29,9 +33,51 @@ function cardArribos(parada, mapa, marcador) {
     `Parada en ${parada.callePrincipal} y ${parada.calleInterseccion}`,
   );
 
+
+  const header_content = document.createElement('div');
+  header_content.classList.add('header-parada');
   const pCalles = document.createElement("p");
   pCalles.classList.add("p-calles");
   pCalles.textContent = `${parada.callePrincipal} y ${parada.calleInterseccion}`;
+
+  const star_fav = document.createElement('button');
+  star_fav.classList.add('star-fav');
+  star_fav.setAttribute('aria-label', 'Agregar a favoritos');
+  star_fav.setAttribute('title', 'Agregar a favoritos');
+  star_fav.textContent = "★";
+  if (esFavorita) {
+    star_fav.classList.add('active');
+  }
+
+  star_fav.addEventListener('click', (e) => {
+    star_fav.classList.toggle('active');
+
+
+    let favoritas = [];
+    try {
+      favoritas = JSON.parse(localStorage.getItem('paradas-favoritas')) || [];
+      if (!Array.isArray(favoritas)) {
+        favoritas = [];
+      }
+    } catch (e) {
+      favoritas = [];
+    }
+
+    const idParada = parada.identificador;
+    const existeEnFavoritas = favoritas.includes(idParada);
+
+    if (existeEnFavoritas) {
+      favoritas = favoritas.filter(id => id !== idParada);
+    } else {
+      favoritas.push(idParada);
+    }
+
+    localStorage.setItem('paradas-favoritas', JSON.stringify(favoritas));
+  });
+
+
+  header_content.appendChild(pCalles);
+  header_content.appendChild(star_fav);
 
   const bloqueLineas = document.createElement("div");
   bloqueLineas.classList.add("stop-lines");
@@ -66,7 +112,7 @@ function cardArribos(parada, mapa, marcador) {
   seccionArribos.appendChild(crearEtiquetaSeccion("Próximos arribos"));
   seccionArribos.appendChild(divArribos);
 
-  paradaDiv.appendChild(pCalles);
+  paradaDiv.appendChild(header_content);
   paradaDiv.appendChild(pDistancia);
   paradaDiv.appendChild(bloqueLineas);
   paradaDiv.appendChild(seccionArribos);
@@ -109,15 +155,13 @@ function handleInput(mapa) {
         .split("y")
         .map((s) => s.trim());
 
-      console.log(callePrincipal);
-      console.log(calleInterseccion);
 
       const parada = await fetch(
         `http://localhost:3000/paradas/${callePrincipal}/${calleInterseccion}`,
       );
 
       const json = await parada.json();
-      console.log(json);
+
       const paradaResultado = json.resultado[0];
 
       if (!paradaResultado) {
@@ -176,7 +220,6 @@ function renderLineas(contenedor, lineas) {
     return;
   }
   // La primera linea debe ser la seleccionada
-  console.log(lineas);
   // lineas[0] es la seleccionada
   lineas.forEach((linea) => {
     const badge = document.createElement("span");
@@ -221,7 +264,8 @@ function renderArribos(contenedor, arribos) {
 
 export default function inicializarListeners(mapa) {
   botonesMenu.forEach((boton) => {
-    boton.addEventListener("click", () => {
+
+    boton.addEventListener("click", (e) => {
       botonesMenu.forEach((b) => b.classList.remove("btn-selected"));
       boton.classList.add("btn-selected");
     });
@@ -256,5 +300,40 @@ export default function inicializarListeners(mapa) {
       mapa.agregarMarcador(marcador);
     });
   });
+  paradasFavBTN.addEventListener('click', () => {
+    LimpiarElementos(mapa);
+
+    let listaFav = [];
+    try {
+      listaFav = JSON.parse(localStorage.getItem('paradas-favoritas')) || [];
+      if (!Array.isArray(listaFav)) {
+        listaFav = [];
+      }
+    } catch (e) {
+      listaFav = [];
+    }
+
+    paradasCercanasH2.textContent = `${listaFav.length} Paradas favoritas`;
+
+    listaFav.forEach(async (identificador) => {
+      const parada = await fetch(`http://localhost:3000/paradas/ByID/${identificador}`);
+      const json = await parada.json();
+      const paradaResultado = json;
+
+      const marcador = new Marcador(
+        paradaResultado.latitud,
+        paradaResultado.longitud,
+        paradaResultado.calleInterseccion,
+        paradaResultado.callePrincipal,
+        paradaResultado.codigo,
+        paradaResultado.descripcion,
+        paradaResultado.identificador,
+        paradaResultado.lineas,
+      );
+      cardArribos(paradaResultado, mapa, marcador);
+
+      mapa.agregarMarcador(marcador);
+    });
+  })
   handleInput(mapa);
 }

@@ -6,6 +6,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { savePosition, getPosition } from "./position/position";
 import inicializarListeners from "./listeners";
 import Map from "./clases/Map.js";
+
 import "./menu.js";
 
 // Solución al problema de carga de iconos de Leaflet en Vite
@@ -19,24 +20,6 @@ L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
 });
-
-export async function fetchApi(link) {
-  const res = await fetch(link);
-  const text = await res.text();
-  try {
-    return JSON.parse(text);
-  } catch (e) {
-    console.error(e.message);
-    return null;
-  }
-}
-
-export async function paradasCercanas(lat, long, radioMetros = 500) {
-  return await fetchApi(
-    `http://localhost:3000/paradascercanas?lat=${lat}&long=${long}&radioMetros=${radioMetros}`,
-  );
-}
-
 function inicializarRuteo(map) {
   let routingControl = null;
   let firstMarker = null;
@@ -88,6 +71,16 @@ function inicializarRuteo(map) {
       }).addTo(map);
     }
   });
+}
+
+export function buscarFavStorage(identificador) {
+  try {
+    const listaFav = JSON.parse(localStorage.getItem('paradas-favoritas'));
+    if (!Array.isArray(listaFav)) return false;
+    return listaFav.includes(identificador);
+  } catch (e) {
+    return false;
+  }
 }
 
 async function main() {

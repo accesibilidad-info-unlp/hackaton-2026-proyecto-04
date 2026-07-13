@@ -61,7 +61,7 @@ export default class Map {
     return this._long;
   }
 
-  actualizarVista(lat, long, zoom = 16){
+  actualizarVista(lat, long, zoom = 16) {
     this._map.setView([lat, long], zoom);
   }
 
@@ -180,7 +180,6 @@ export default class Map {
     marcador_mapa.bindPopup("Cargando...");
 
     marcador_mapa.on("click", async () => {
-      console.log(marcador)
       await HandlePopUp(marcador_mapa, marcador, this);
     });
 
@@ -216,51 +215,51 @@ export default class Map {
   distanciaAPunto(paradaLat, paradaLong) {
     return L.latLng(this._lat, this._long).distanceTo([paradaLat, paradaLong]);
   }
-mostrarRecorrido(paradas) {
-  this.borrarMarcadores();
-  this.borrarRecorrido();
+  mostrarRecorrido(paradas) {
+    this.borrarMarcadores();
+    this.borrarRecorrido();
 
-  const puntos = [];
+    const puntos = [];
 
-  paradas.forEach((parada) => {
-    if (parada.latitud == null || parada.longitud == null) return;
+    paradas.forEach((parada) => {
+      if (parada.latitud == null || parada.longitud == null) return;
 
-    const punto = [parada.latitud, parada.longitud];
-    puntos.push(punto);
+      const punto = [parada.latitud, parada.longitud];
+      puntos.push(punto);
 
-    L.marker(punto, { icon: iconoRecorrido })
-      .bindPopup(`${parada.descripcion} · ${parada.tiempo}`)
-      .addTo(this.capaRecorrido);
-  });
+      L.marker(punto, { icon: iconoRecorrido })
+        .bindPopup(`${parada.descripcion} · ${parada.tiempo}`)
+        .addTo(this.capaRecorrido);
+    });
 
-  if (puntos.length > 1) {
-    const linea = L.polyline(puntos, {
-      color: "#2E7D32",
-      weight: 4,
-      opacity: 0.8,
-      dashArray: "6 8",
-    }).addTo(this.capaRecorrido);
+    if (puntos.length > 1) {
+      const linea = L.polyline(puntos, {
+        color: "#2E7D32",
+        weight: 4,
+        opacity: 0.8,
+        dashArray: "6 8",
+      }).addTo(this.capaRecorrido);
 
-    // Flechas de dirección a lo largo del recorrido
-    L.polylineDecorator(linea, {
-      patterns: [
-        {
-          offset: "5%",
-          repeat: "10%", // cada 10% del largo total aparece una flecha
-          symbol: L.Symbol.arrowHead({
-            pixelSize: 10,
-            polygon: false,
-            pathOptions: {
-              stroke: true,
-              color: "#000000",
-              weight: 3,
-            },
-          }),
-        },
-      ],
-    }).addTo(this.capaRecorrido);
+      // Flechas de dirección a lo largo del recorrido
+      L.polylineDecorator(linea, {
+        patterns: [
+          {
+            offset: "5%",
+            repeat: "10%", // cada 10% del largo total aparece una flecha
+            symbol: L.Symbol.arrowHead({
+              pixelSize: 10,
+              polygon: false,
+              pathOptions: {
+                stroke: true,
+                color: "#000000",
+                weight: 3,
+              },
+            }),
+          },
+        ],
+      }).addTo(this.capaRecorrido);
+    }
   }
-}
 
   borrarRecorrido() {
     this.capaRecorrido.clearLayers();

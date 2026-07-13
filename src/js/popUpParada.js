@@ -32,8 +32,8 @@ export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   const lineasTexto =
     lineasDeParada.length > 0
       ? lineasDeParada
-          .map((linea) => linea.numero ?? linea.descripcion ?? linea.codigo)
-          .join(" · ")
+        .map((linea) => linea.numero ?? linea.descripcion ?? linea.codigo)
+        .join(" · ")
       : "Sin línea";
 
   // --- Contenedor principal ---
@@ -63,7 +63,6 @@ export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   divArribos.className = "popup-parada__arribos";
 
   data.arribos.forEach((a) => {
-    console.log(a);
     const mins = extraerMinutos(a.tiempoRestanteArribo);
     const clase = claseUrgencia(mins);
 

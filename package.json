@@ -10,10 +10,13 @@
   "description": "Breve descripción del proyecto y del problema que busca resolver.",
   "main": "main.js",
   "devDependencies": {
-    "vite": "^8.0.16"
+    "supertest": "^7.2.2",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.10"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "dev": "vite src",
     "build": "vite build src"
   },

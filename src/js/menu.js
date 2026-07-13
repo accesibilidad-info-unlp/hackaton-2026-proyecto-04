@@ -36,13 +36,13 @@ function cambiar(valor) {
   const destino = document.getElementById(valor);
 
   if (!destino) {
-    document.getElementById("main").style.display = "flex";
+    document.getElementById("main").style.display = "";
     return;
   }
 
-  destino.style.display = "flex";
+  destino.style.display = "";
   if (valor !== "main") {
-    volver.style.display = "flex";
+    volver.style.display = "";
   }
 }
 

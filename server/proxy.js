@@ -16,11 +16,11 @@ const lineas = loadJson("./data/lineas.json");
 const paradas = loadJson("./data/paradas.json");
 const arribosPorLinea = loadJson("./data/arribos.json");
 
-function obtenerLineaPorCodigo(codigoLinea) {
+export function obtenerLineaPorCodigo(codigoLinea) {
   return lineas.find((linea) => linea.codigo === codigoLinea);
 }
 
-function obtenerLineasDeParada(parada) {
+export function obtenerLineasDeParada(parada) {
   const codigos = Array.isArray(parada.codigoLineas)
     ? parada.codigoLineas
     : parada.codigoLinea
@@ -37,14 +37,14 @@ function obtenerLineasDeParada(parada) {
     }));
 }
 
-function enriquecerParada(parada) {
+export function enriquecerParada(parada) {
   return {
     ...parada,
     lineas: obtenerLineasDeParada(parada),
   };
 }
 
-function distanciaEnMetros(lat1, lon1, lat2, lon2) {
+export function distanciaEnMetros(lat1, lon1, lat2, lon2) {
   const toRad = (grados) => (grados * Math.PI) / 180;
   const radioTierra = 6371000;
   const dLat = toRad(lat2 - lat1);
@@ -56,17 +56,17 @@ function distanciaEnMetros(lat1, lon1, lat2, lon2) {
   return radioTierra * c;
 }
 
-function extraerMinutos(tiempo) {
+export function extraerMinutos(tiempo) {
   const numero = Number.parseInt(tiempo, 10);
   return Number.isNaN(numero) ? Number.MAX_SAFE_INTEGER : numero;
 }
 
-function construirArribosParaParada(idParada, codLinea) {
+export function construirArribosParaParada(idParada, codLinea) {
   const lineasFiltradas =
     codLinea && codLinea !== "0"
       ? lineas.filter(
-          (linea) => linea.codigo === codLinea || linea.numero === codLinea,
-        )
+        (linea) => linea.codigo === codLinea || linea.numero === codLinea,
+      )
       : lineas;
 
   return lineasFiltradas
@@ -145,6 +145,16 @@ app.get("/arribos", (req, res) => {
   });
 });
 
+//buscar paradas por id
+app.get("/paradas/ByID/:id", (req, res) => {
+  const { id } = req.params;
+  const parada = paradas.find((actual) => actual.identificador === id);
+  if (!parada) {
+    return res.status(404).json({ error: "Parada no encontrada." });
+  }
+  return res.json(enriquecerParada(parada));
+});
+
 // CASO 1: Si entran con las dos calles (Ej: /paradas/7/50)
 app.get("/paradas/:callePrincipal/:calleInterseccion", (req, res) => {
   filtrarParadas(req, res);
@@ -154,6 +164,7 @@ app.get("/paradas/:callePrincipal/:calleInterseccion", (req, res) => {
 app.get("/paradas", (req, res) => {
   filtrarParadas(req, res);
 });
+
 
 function filtrarParadas(req, res) {
   const { callePrincipal, calleInterseccion } = req.params;
@@ -212,7 +223,11 @@ app.get('/recorrido/:codigoMicro', (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`API local de colectivos corriendo en http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`API local de colectivos corriendo en http://localhost:${PORT}`);
+  });
+}
+
+export default app;
 

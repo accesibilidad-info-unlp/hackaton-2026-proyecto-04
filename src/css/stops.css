@@ -177,6 +177,53 @@
   box-shadow: var(--shadow-md);
 }
 
+.header-parada {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.star-fav {
+  background: none;
+  border: none;
+  font-size: 1.35rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  transition: transform 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.star-fav:hover {
+  background-color: var(--color-surface-2);
+  color: #fbbf24; /* Dorado cálido */
+  transform: scale(1.15);
+}
+
+.star-fav:active {
+  transform: scale(0.9);
+}
+
+.star-fav.active {
+  color: #f59e0b; /* Dorado de activo */
+  text-shadow: 0 0 2px rgba(245, 158, 11, 0.4);
+}
+
+body.a11y-high-contrast .star-fav {
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+body.a11y-high-contrast .star-fav.active {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
 .p-calles {
   padding-left: 6px;
   font-size: 0.96rem;

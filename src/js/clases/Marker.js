@@ -1,4 +1,4 @@
-import {fetchApi} from "../main.js";
+import {fetchApi} from "../utils/api.js";
 
 export default class Marcador {
   constructor(
