@@ -2,23 +2,14 @@ import { HandlePopUp } from "../popUpParada.js";
 import Marker from "./Marker.js";
 
 const iconoMicro = L.divIcon({
-  className: "",
+  className: "map-marker map-marker--micro",
   html: `
-    <div style="
-      width:30px;height:30px;
-      background:#C62828;
-      border:2px solid white;
-      border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      box-shadow:0 2px 6px rgba(0,0,0,0.35);
-    ">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="map-marker__svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 17V7a2 2 0 012-2h14a2 2 0 012 2v10"/>
         <path d="M3 13h18"/>
         <rect x="1" y="17" width="4" height="3" rx="1"/>
         <rect x="19" y="17" width="4" height="3" rx="1"/>
       </svg>
-    </div>
   `,
   iconSize: [30, 30],
   iconAnchor: [15, 15],
@@ -26,15 +17,9 @@ const iconoMicro = L.divIcon({
 });
 
 const iconoRecorrido = L.divIcon({
-  className: "",
+  className: "map-marker map-marker--recorrido",
   html: `
-    <div style="
-      width:14px;height:14px;
-      background:#2E7D32;
-      border:2px solid white;
-      border-radius:50%;
-      box-shadow:0 1px 4px rgba(0,0,0,0.4);
-    "></div>
+      <div class="map-marker__dot" aria-hidden="true"></div>
   `,
   iconSize: [14, 14],
   iconAnchor: [7, 7],
@@ -81,14 +66,15 @@ export default class Map {
 
     L.circleMarker([this._lat, this._long], {
       radius: 8,
-      fillColor: "#F52727",
-      color: "#FF0000",
       weight: 2,
       opacity: 1,
       fillOpacity: 0.8,
+      className: "map-user-location",
     })
       .addTo(this._map)
-      .bindPopup("Tu ubicación actual");
+      .bindPopup("Tu ubicación actual", {
+        className: "map-popup",
+      });
 
     this._deshabilitarFocoTecladoEnMapa();
   }
@@ -143,30 +129,10 @@ export default class Map {
     this._marcadores.push(marcador);
 
     const iconoParada = L.divIcon({
-      className: "",
+      className: "map-marker map-marker--stop",
       html: `
-      <div style="
-        width:32px;height:32px;
-        background:#1565C0;
-        border:2px solid white;
-        border-radius:50%;
-        display:flex;align-items:center;justify-content:center;
-        box-shadow:0 2px 6px rgba(0,0,0,0.3);
-        cursor:pointer;
-      ">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 17V7a2 2 0 012-2h14a2 2 0 012 2v10"/>
-          <path d="M3 13h18"/>
-          <path d="M8 5V3"/>
-          <path d="M16 5V3"/>
-          <rect x="1" y="17" width="4" height="3" rx="1"/>
-          <rect x="19" y="17" width="4" height="3" rx="1"/>
-          <path d="M7 13v-3h10v3"/>
-          <circle cx="8.5" cy="17" r="1" fill="white"/>
-          <circle cx="15.5" cy="17" r="1" fill="white"/>
-        </svg>
-      </div>
-    `,
+        <span class="material-symbols-outlined map-marker__symbol" aria-hidden="true">directions_bus</span>
+      `,
       iconSize: [32, 32],
       iconAnchor: [16, 16],
       popupAnchor: [0, -20],
@@ -177,7 +143,9 @@ export default class Map {
       keyboard: false,
     });
 
-    marcador_mapa.bindPopup("Cargando...");
+    marcador_mapa.bindPopup("Cargando...", {
+      className: "map-popup",
+    });
 
     marcador_mapa.on("click", async () => {
       await HandlePopUp(marcador_mapa, marcador, this);
@@ -228,16 +196,18 @@ export default class Map {
       puntos.push(punto);
 
       L.marker(punto, { icon: iconoRecorrido })
-        .bindPopup(`${parada.descripcion} · ${parada.tiempo}`)
+        .bindPopup(`${parada.descripcion} · ${parada.tiempo}`, {
+          className: "map-popup",
+        })
         .addTo(this.capaRecorrido);
     });
 
     if (puntos.length > 1) {
       const linea = L.polyline(puntos, {
-        color: "#2E7D32",
         weight: 4,
         opacity: 0.8,
         dashArray: "6 8",
+        className: "map-route-line",
       }).addTo(this.capaRecorrido);
 
       // Flechas de dirección a lo largo del recorrido
@@ -251,8 +221,8 @@ export default class Map {
               polygon: false,
               pathOptions: {
                 stroke: true,
-                color: "#000000",
                 weight: 3,
+                className: "map-route-arrow",
               },
             }),
           },

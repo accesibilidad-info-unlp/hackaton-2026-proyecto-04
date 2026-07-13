@@ -75,6 +75,23 @@
   align-items: center;
 }
 
+.popup-parada__location-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--color-primary, #0025ae);
+}
+
+.popup-parada__header p {
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.popup-parada__lineas p {
+  margin: 0;
+}
+
 .popup-parada__lineas {
   font-size: 12px;
   font-weight: 600;

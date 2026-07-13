@@ -28,7 +28,7 @@ function cardArribos(parada, mapa, marcador) {
   const paradaDiv = document.createElement("div");
   paradaDiv.classList.add("parada-item");
   paradaDiv.setAttribute("tabindex", "0");
-  paradaDiv.setAttribute("role", "article");
+  paradaDiv.setAttribute("role", "listitem");
   paradaDiv.setAttribute(
     "aria-label",
     `Parada en ${parada.callePrincipal} y ${parada.calleInterseccion}`,
@@ -90,8 +90,8 @@ function cardArribos(parada, mapa, marcador) {
 
   const formatoDistancia =
     distancia < 1000
-      ? `${Math.round(distancia)} m`
-      : `${(distancia / 1000).toFixed(1)} km`;
+      ? `${Math.round(distancia)} metros`
+      : `${(distancia / 1000).toFixed(1)} kilómetros`;
 
   const stringMinutos = tiempoCaminando < 1 ? "menos de 1" : tiempoCaminando;
 
