@@ -9,6 +9,7 @@ const botonesMenu = document.querySelectorAll(".menu-btn");
 const inputParadas = document.getElementById("buscador");
 const btnInput = document.getElementById("btn-input");
 const paradasFavBTN = document.getElementById("paradas-fav");
+const noStopsH2 = document.getElementById('no-stops');
 const radioParadasCercanasMetros = 500;
 
 function LimpiarElementos(mapa) {
@@ -33,7 +34,6 @@ function cardArribos(parada, mapa, marcador) {
     `Parada en ${parada.callePrincipal} y ${parada.calleInterseccion}`,
   );
 
-
   const header_content = document.createElement('div');
   header_content.classList.add('header-parada');
   const pCalles = document.createElement("p");
@@ -51,7 +51,6 @@ function cardArribos(parada, mapa, marcador) {
 
   star_fav.addEventListener('click', (e) => {
     star_fav.classList.toggle('active');
-
 
     let favoritas = [];
     try {
@@ -74,7 +73,6 @@ function cardArribos(parada, mapa, marcador) {
 
     localStorage.setItem('paradas-favoritas', JSON.stringify(favoritas));
   });
-
 
   header_content.appendChild(pCalles);
   header_content.appendChild(star_fav);
@@ -148,20 +146,17 @@ function handleInput(mapa) {
     if (texto == "") {
       alert("El formato es: Calle principal y Calle secundaria");
     } else {
-      //Borrar cosas anteriores
       LimpiarElementos(mapa);
 
       const [callePrincipal, calleInterseccion] = texto
         .split("y")
         .map((s) => s.trim());
 
-
       const parada = await fetch(
         `http://localhost:3000/paradas/${callePrincipal}/${calleInterseccion}`,
       );
 
       const json = await parada.json();
-
       const paradaResultado = json.resultado[0];
 
       if (!paradaResultado) {
@@ -185,9 +180,10 @@ function handleInput(mapa) {
           paradaResultado.lineas,
         );
         cardArribos(paradaResultado, mapa, marcador);
-
         mapa.agregarMarcador(marcador);
       }
+      // Verificamos después de buscar manualmente
+      setNoStops();
     }
   });
 }
@@ -219,8 +215,6 @@ function renderLineas(contenedor, lineas) {
     contenedor.appendChild(vacia);
     return;
   }
-  // La primera linea debe ser la seleccionada
-  // lineas[0] es la seleccionada
   lineas.forEach((linea) => {
     const badge = document.createElement("span");
     badge.classList.add("line-badge");
@@ -262,10 +256,18 @@ function renderArribos(contenedor, arribos) {
   contenedor.appendChild(lista);
 }
 
+const setNoStops = () => {
+  console.log("Cantidad de paradas:", divParadas.children.length);
+  if (divParadas.children.length === 0) {
+    noStopsH2.style.display = 'block';
+  } else {
+    noStopsH2.style.display = 'none';
+  }
+}
+
 export default function inicializarListeners(mapa) {
   botonesMenu.forEach((boton) => {
-
-    boton.addEventListener("click", (e) => {
+    boton.addEventListener("click", () => {
       botonesMenu.forEach((b) => b.classList.remove("btn-selected"));
       boton.classList.add("btn-selected");
     });
@@ -299,8 +301,11 @@ export default function inicializarListeners(mapa) {
       cardArribos(parada, mapa, marcador);
       mapa.agregarMarcador(marcador);
     });
+
+    setNoStops();
   });
-  paradasFavBTN.addEventListener('click', () => {
+
+  paradasFavBTN.addEventListener('click', async () => {
     LimpiarElementos(mapa);
 
     let listaFav = [];
@@ -312,10 +317,10 @@ export default function inicializarListeners(mapa) {
     } catch (e) {
       listaFav = [];
     }
-
     paradasCercanasH2.textContent = `${listaFav.length} Paradas favoritas`;
 
-    listaFav.forEach(async (identificador) => {
+    // Usamos Promise.all para esperar a que todas las peticiones asíncronas terminen
+    const promesasFavoritas = listaFav.map(async (identificador) => {
       const parada = await fetch(`http://localhost:3000/paradas/ByID/${identificador}`);
       const json = await parada.json();
       const paradaResultado = json;
@@ -331,9 +336,14 @@ export default function inicializarListeners(mapa) {
         paradaResultado.lineas,
       );
       cardArribos(paradaResultado, mapa, marcador);
-
       mapa.agregarMarcador(marcador);
     });
-  })
+
+    await Promise.all(promesasFavoritas);
+
+    // LLAMADA AQUÍ: Ya terminaron todas las promesas del bucle
+    setNoStops();
+  });
+
   handleInput(mapa);
 }

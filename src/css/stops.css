@@ -135,8 +135,7 @@
   padding-bottom: 4px;
 }
 
-#stops-info:empty::before {
-  content: "No hay paradas dentro de ese radio.";
+#no-stops {
   display: block;
   padding: 18px 14px;
   border: 1px dashed var(--color-border);
@@ -201,7 +200,8 @@
 
 .star-fav:hover {
   background-color: var(--color-surface-2);
-  color: #fbbf24; /* Dorado cálido */
+  color: #fbbf24;
+  /* Dorado cálido */
   transform: scale(1.15);
 }
 
@@ -210,7 +210,8 @@
 }
 
 .star-fav.active {
-  color: #f59e0b; /* Dorado de activo */
+  color: #f59e0b;
+  /* Dorado de activo */
   text-shadow: 0 0 2px rgba(245, 158, 11, 0.4);
 }
 

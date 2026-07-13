@@ -1,320 +1,172 @@
 <!doctype html>
 <!--marco buschiazzo-->
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Donde está mi micro</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    />
-    <link rel="stylesheet" href="./css/main.css" />
-  </head>
-  <body>
-    <!--<a href="#main-section" class="skip-link">Saltar al contenido principal</a>-->
-    <header role="banner">
-      <div class="header-inner">
-        <div class="header-brand">
-          <span class="material-symbols-outlined header-icon" aria-hidden="true"
-            >directions_bus</span
-          >
-          <div class="header-text">
-            <h1 id="page-title">Dónde está mi micro</h1>
-            <p class="header-subtitle">Transporte accesible para todos</p>
-          </div>
-        </div>
-        <div class="header-actions">
-          <button
-            id="accessibility-toggle"
-            type="button"
-            class="header-action-btn"
-            aria-label="Abrir configuración de accesibilidad"
-            aria-controls="accessibility-menu"
-            aria-expanded="false"
-          >
-            <span
-              class="material-symbols-outlined header-action-icon"
-              aria-hidden="true"
-              >settings</span
-            >
-            <span class="header-action-label">Acessibilidad</span>
-          </button>
-          <div
-            id="accessibility-menu"
-            class="accessibility-menu"
-            aria-label="Configuración de accesibilidad"
-            hidden
-          >
-            <div class="accessibility-menu__header">
-              <h2>Ajustes de accesibilidad</h2>
-              <p>Activá o desactivá opciones según lo que necesites.</p>
-            </div>
-            <div class="accessibility-menu__options">
-              <label class="accessibility-option" data-setting="largeText">
-                <input
-                  type="checkbox"
-                  class="accessibility-option__input"
-                  role="switch"
-                />
-                <span class="accessibility-option__content">
-                  <span class="accessibility-option__title">Texto grande</span>
-                  <span class="accessibility-option__desc"
-                    >Aumenta el tamaño de letra en toda la app.</span
-                  >
-                </span>
-                <span
-                  class="accessibility-option__switch"
-                  aria-hidden="true"
-                ></span>
-              </label>
-              <label class="accessibility-option" data-setting="highContrast">
-                <input
-                  type="checkbox"
-                  class="accessibility-option__input"
-                  role="switch"
-                />
-                <span class="accessibility-option__content">
-                  <span class="accessibility-option__title"
-                    >Alto contraste</span
-                  >
-                  <span class="accessibility-option__desc"
-                    >Refuerza colores y bordes para mejorar la lectura.</span
-                  >
-                </span>
-                <span
-                  class="accessibility-option__switch"
-                  aria-hidden="true"
-                ></span>
-              </label>
-              <label class="accessibility-option" data-setting="reduceMotion">
-                <input
-                  type="checkbox"
-                  class="accessibility-option__input"
-                  role="switch"
-                />
-                <span class="accessibility-option__content">
-                  <span class="accessibility-option__title"
-                    >Reducir movimiento</span
-                  >
-                  <span class="accessibility-option__desc"
-                    >Elimina transiciones y animaciones innecesarias.</span
-                  >
-                </span>
-                <span
-                  class="accessibility-option__switch"
-                  aria-hidden="true"
-                ></span>
-              </label>
-              <label class="accessibility-option" data-setting="strongFocus">
-                <input
-                  type="checkbox"
-                  class="accessibility-option__input"
-                  role="switch"
-                />
-                <span class="accessibility-option__content">
-                  <span class="accessibility-option__title"
-                    >Enfoque reforzado</span
-                  >
-                  <span class="accessibility-option__desc"
-                    >Hace más visible el foco del teclado.</span
-                  >
-                </span>
-                <span
-                  class="accessibility-option__switch"
-                  aria-hidden="true"
-                ></span>
-              </label>
-            </div>
-            <button
-              type="button"
-              id="accessibility-reset"
-              class="accessibility-reset"
-            >
-              Restablecer opciones
-            </button>
-          </div>
-          <dialog
-            id="accessibility-defaults-dialog"
-            class="accessibility-dialog"
-            aria-labelledby="accessibility-defaults-title"
-            aria-describedby="accessibility-defaults-desc"
-          >
-            <div class="accessibility-dialog__content">
-              <div class="accessibility-dialog__header">
-                <h2 id="accessibility-defaults-title">Configuración inicial</h2>
-                <p id="accessibility-defaults-desc">
-                  Es tu primera vez en esta página. Antes de seguir, podés
-                  configurar las opciones de accesibilidad según lo que
-                  necesites. En caso de que no quieras hacerlo ahora, podés
-                  seguir con la configuración predeterminada y cambiarla más
-                  tarde.
-                </p>
-              </div>
-              <div class="accessibility-dialog__actions">
-                <button
-                  type="button"
-                  id="accessibility-defaults-confirm"
-                  class="accessibility-dialog__button accessibility-dialog__button--secondary"
-                >
-                  Ahora no
-                </button>
-                <button
-                  type="button"
-                  id="accessibility-defaults-cancel"
-                  class="accessibility-dialog__button accessibility-dialog__button--primary"
-                >
-                  Configurar ahora
-                </button>
-              </div>
-            </div>
-          </dialog>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Donde está mi micro</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+
+<body>
+  <!--<a href="#main-section" class="skip-link">Saltar al contenido principal</a>-->
+  <header role="banner">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="material-symbols-outlined header-icon" aria-hidden="true">directions_bus</span>
+        <div class="header-text">
+          <h1 id="page-title">Dónde está mi micro</h1>
+          <p class="header-subtitle">Transporte accesible para todos</p>
         </div>
       </div>
-    </header>
-    <div class="overlay" aria-hidden="true"></div>
-    <main id="main-section" aria-labelledby="page-title">
-      <!-- Sidebar / Bottom sheet en mobile -->
-      <div class="container">
-        <button
-          type="button"
-          id="sheet-handle"
-          class="sheet-handle"
-          aria-label="Arrastrar panel. Presioná Enter para expandir o contraer."
-          aria-expanded="false"
-          aria-controls="stops-info"
-        >
-          <span class="sheet-handle__bar" aria-hidden="true"></span>
+      <div class="header-actions">
+        <button id="accessibility-toggle" type="button" class="header-action-btn"
+          aria-label="Abrir configuración de accesibilidad" aria-controls="accessibility-menu" aria-expanded="false">
+          <span class="material-symbols-outlined header-action-icon" aria-hidden="true">settings</span>
+          <span class="header-action-label">Acessibilidad</span>
         </button>
-        <button
-          id="volver"
-          value="main"
-          style="display: none"
-          type="button"
-          aria-label="Volver al menú principal"
-          class="back-button"
-        >
-          <span class="material-symbols-outlined back-icon" aria-hidden="true"
-            >arrow_back</span
-          >
-          Menú principal
-        </button>
-        <nav aria-label="Menú principal">
-          <div class="buttons" id="main">
-            <button
-              id="paradas-fav"
-              value="parada"
-              type="button"
-              aria-controls="parada"
-              aria-label="Ir a paradas favoritas"
-              class="menu-btn"
-            >
-              <span
-                class="material-symbols-outlined btn-icon favorite-icon"
-                aria-hidden="true"
-                >star</span
-              >
-              <span class="btn-label">Paradas favoritas</span>
-            </button>
-            <button
-              id="paradas-cercanas"
-              value="parada"
-              type="button"
-              aria-controls="parada"
-              aria-label="Ir a paradas cercanas por ubicación"
-              class="menu-btn"
-            >
-              <span
-                class="material-symbols-outlined btn-icon nearby-icon"
-                aria-hidden="true"
-                >location_on</span
-              >
-              <span class="btn-label">Paradas cercanas</span>
-            </button>
-            <button
-              id="lineas"
-              value="linea"
-              type="button"
-              aria-controls="linea"
-              aria-label="Ver todas las líneas de transporte"
-              class="menu-btn"
-            >
-              <span
-                class="material-symbols-outlined btn-icon lines-icon"
-                aria-hidden="true"
-                >format_list_bulleted</span
-              >
-              <span class="btn-label">Líneas</span>
-            </button>
-            <button
-              id="recorridos"
-              value="map"
-              type="button"
-              aria-label="Ver mapa de recorridos de líneas"
-              class="menu-btn"
-            >
-              <span
-                class="material-symbols-outlined btn-icon map-icon"
-                aria-hidden="true"
-                >map</span
-              >
-              <span class="btn-label">Recorridos</span>
-            </button>
+        <div id="accessibility-menu" class="accessibility-menu" aria-label="Configuración de accesibilidad" hidden>
+          <div class="accessibility-menu__header">
+            <h2>Ajustes de accesibilidad</h2>
+            <p>Activá o desactivá opciones según lo que necesites.</p>
           </div>
-        </nav>
-        <div class="search-container">
-          <label for="buscador" class="hidden">Buscar paradas o líneas:</label>
-          <span class="material-symbols-outlined search-icon" aria-hidden="true"
-            >search</span
-          >
-          <input
-            id="buscador"
-            type="text"
-            name="busqueda"
-            value=""
-            placeholder="Buscar paradas o líneas (Ej: 7 y 50)"
-            aria-label="Campo de búsqueda de paradas o líneas"
-            aria-describedby="buscador-help"
-          />
-          <span id="buscador-help" class="hidden"
-            >Ingresa el nombre de una parada o línea para filtrar
-            resultados</span
-          >
-          <button id="btn-input" type="button" aria-label="Buscar parada o línea">
-            Buscar
+          <div class="accessibility-menu__options">
+            <label class="accessibility-option" data-setting="largeText">
+              <input type="checkbox" class="accessibility-option__input" role="switch" />
+              <span class="accessibility-option__content">
+                <span class="accessibility-option__title">Texto grande</span>
+                <span class="accessibility-option__desc">Aumenta el tamaño de letra en toda la app.</span>
+              </span>
+              <span class="accessibility-option__switch" aria-hidden="true"></span>
+            </label>
+            <label class="accessibility-option" data-setting="highContrast">
+              <input type="checkbox" class="accessibility-option__input" role="switch" />
+              <span class="accessibility-option__content">
+                <span class="accessibility-option__title">Alto contraste</span>
+                <span class="accessibility-option__desc">Refuerza colores y bordes para mejorar la lectura.</span>
+              </span>
+              <span class="accessibility-option__switch" aria-hidden="true"></span>
+            </label>
+            <label class="accessibility-option" data-setting="reduceMotion">
+              <input type="checkbox" class="accessibility-option__input" role="switch" />
+              <span class="accessibility-option__content">
+                <span class="accessibility-option__title">Reducir movimiento</span>
+                <span class="accessibility-option__desc">Elimina transiciones y animaciones innecesarias.</span>
+              </span>
+              <span class="accessibility-option__switch" aria-hidden="true"></span>
+            </label>
+            <label class="accessibility-option" data-setting="strongFocus">
+              <input type="checkbox" class="accessibility-option__input" role="switch" />
+              <span class="accessibility-option__content">
+                <span class="accessibility-option__title">Enfoque reforzado</span>
+                <span class="accessibility-option__desc">Hace más visible el foco del teclado.</span>
+              </span>
+              <span class="accessibility-option__switch" aria-hidden="true"></span>
+            </label>
+          </div>
+          <button type="button" id="accessibility-reset" class="accessibility-reset">
+            Restablecer opciones
           </button>
         </div>
-        <section
-          id="section-stops"
-          class="stop"
-          aria-labelledby="stops-heading"
-        >
-          <h2 id="stops-heading">Paradas cercanas</h2>
-          <div
-            id="stops-info"
-            role="list"
-            aria-live="polite"
-            aria-atomic="false"
-            aria-label="Lista de paradas disponibles con información de líneas"
-          ></div>
-        </section>
+        <dialog id="accessibility-defaults-dialog" class="accessibility-dialog"
+          aria-labelledby="accessibility-defaults-title" aria-describedby="accessibility-defaults-desc">
+          <div class="accessibility-dialog__content">
+            <div class="accessibility-dialog__header">
+              <h2 id="accessibility-defaults-title">Configuración inicial</h2>
+              <p id="accessibility-defaults-desc">
+                Es tu primera vez en esta página. Antes de seguir, podés
+                configurar las opciones de accesibilidad según lo que
+                necesites. En caso de que no quieras hacerlo ahora, podés
+                seguir con la configuración predeterminada y cambiarla más
+                tarde.
+              </p>
+            </div>
+            <div class="accessibility-dialog__actions">
+              <button type="button" id="accessibility-defaults-confirm"
+                class="accessibility-dialog__button accessibility-dialog__button--secondary">
+                Ahora no
+              </button>
+              <button type="button" id="accessibility-defaults-cancel"
+                class="accessibility-dialog__button accessibility-dialog__button--primary">
+                Configurar ahora
+              </button>
+            </div>
+          </div>
+        </dialog>
       </div>
-      <!-- Mapa -->
-      <div
-        id="map"
-        aria-label="Mapa interactivo de las paradas"
-        aria-hidden="true"
-        role="presentation"
-        tabindex="-1"
-      ></div>
-    </main>
-    <footer role="contentinfo">
-      <p>Creado para Hackaton 2026 · Accesible para todos</p>
-    </footer>
-    <script src="/js/main.js" type="module"></script>
-    <script type="module">
-      import { initBottomSheet } from "/js/bottomSheet.js";
-      window.sheet = initBottomSheet(); // queda global por si main.js necesita llamar sheet.applyState(...)
-    </script>
-  </body>
+    </div>
+  </header>
+  <div class="overlay" aria-hidden="true"></div>
+  <main id="main-section" aria-labelledby="page-title">
+    <!-- Sidebar / Bottom sheet en mobile -->
+    <div class="container">
+      <button type="button" id="sheet-handle" class="sheet-handle"
+        aria-label="Arrastrar panel. Presioná Enter para expandir o contraer." aria-expanded="false"
+        aria-controls="stops-info">
+        <span class="sheet-handle__bar" aria-hidden="true"></span>
+      </button>
+      <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal"
+        class="back-button">
+        <span class="material-symbols-outlined back-icon" aria-hidden="true">arrow_back</span>
+        Menú principal
+      </button>
+      <nav aria-label="Menú principal">
+        <div class="buttons" id="main">
+          <button id="paradas-fav" value="parada" type="button" aria-controls="parada"
+            aria-label="Ir a paradas favoritas" class="menu-btn">
+            <span class="material-symbols-outlined btn-icon favorite-icon" aria-hidden="true">star</span>
+            <span class="btn-label">Paradas favoritas</span>
+          </button>
+          <button id="paradas-cercanas" value="parada" type="button" aria-controls="parada"
+            aria-label="Ir a paradas cercanas por ubicación" class="menu-btn">
+            <span class="material-symbols-outlined btn-icon nearby-icon" aria-hidden="true">location_on</span>
+            <span class="btn-label">Paradas cercanas</span>
+          </button>
+          <button id="lineas" value="linea" type="button" aria-controls="linea"
+            aria-label="Ver todas las líneas de transporte" class="menu-btn">
+            <span class="material-symbols-outlined btn-icon lines-icon" aria-hidden="true">format_list_bulleted</span>
+            <span class="btn-label">Líneas</span>
+          </button>
+          <button id="recorridos" value="map" type="button" aria-label="Ver mapa de recorridos de líneas"
+            class="menu-btn">
+            <span class="material-symbols-outlined btn-icon map-icon" aria-hidden="true">map</span>
+            <span class="btn-label">Recorridos</span>
+          </button>
+        </div>
+      </nav>
+      <div class="search-container">
+        <label for="buscador" class="hidden">Buscar paradas o líneas:</label>
+        <span class="material-symbols-outlined search-icon" aria-hidden="true">search</span>
+        <input id="buscador" type="text" name="busqueda" value="" placeholder="Buscar paradas o líneas (Ej: 7 y 50)"
+          aria-label="Campo de búsqueda de paradas o líneas" aria-describedby="buscador-help" />
+        <span id="buscador-help" class="hidden">Ingresa el nombre de una parada o línea para filtrar
+          resultados</span>
+        <button id="btn-input" type="button" aria-label="Buscar parada o línea">
+          Buscar
+        </button>
+      </div>
+      <section id="section-stops" class="stop" aria-labelledby="stops-heading">
+        <h2 id="stops-heading">Paradas</h2>
+        <h2 id="no-stops">No hay paradas disponibles</h2>
+        <div id="stops-info" role="list" aria-live="polite" aria-atomic="false">
+
+        </div>
+      </section>
+    </div>
+    <!-- Mapa -->
+    <div id="map" aria-label="Mapa interactivo de las paradas" aria-hidden="true" role="presentation" tabindex="-1">
+    </div>
+  </main>
+  <footer role="contentinfo">
+    <p>Creado para Hackaton 2026 · Accesible para todos</p>
+  </footer>
+  <script src="/js/main.js" type="module"></script>
+  <script type="module">
+    import { initBottomSheet } from "/js/bottomSheet.js";
+    window.sheet = initBottomSheet(); // queda global por si main.js necesita llamar sheet.applyState(...)
+  </script>
+</body>
+
 </html>
