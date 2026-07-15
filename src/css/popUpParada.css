@@ -65,14 +65,11 @@
 }
 
 .popup-parada__header {
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 8px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  font-weight: 600;
   display: flex;
-  gap: 6px;
   align-items: center;
+  justify-content: space-between;
 }
 
 .popup-parada__lineas {
@@ -132,6 +129,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .marcador-parada,
   .popup-parada__reintentar,
   .arribo-item__accion {

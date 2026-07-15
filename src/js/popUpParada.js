@@ -1,3 +1,5 @@
+import Star from './components/Star.js';
+
 export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   marcador_mapa.openPopup();
   marcador_mapa.setPopupContent("Cargando...");
@@ -45,8 +47,12 @@ export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   const divCalles = document.createElement("div");
   divCalles.className = "popup-parada__header";
   const pCalles = document.createElement("p");
-  pCalles.textContent = `📍 ${marcador._callePrincipal} y ${marcador._calleInterseccion}`;
+  pCalles.textContent = `${marcador._callePrincipal} y ${marcador._calleInterseccion}`;
+  //estrella para agregar a favoritos
+
   divCalles.appendChild(pCalles);
+  divCalles.appendChild(Star(marcador._identificador));
+
 
   // --- Líneas de la parada ---
   const divLineas = document.createElement("div");

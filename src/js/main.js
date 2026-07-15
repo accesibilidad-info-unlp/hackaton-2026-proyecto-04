@@ -73,6 +73,7 @@ function inicializarRuteo(map) {
   });
 }
 
+
 export function buscarFavStorage(identificador) {
   try {
     const listaFav = JSON.parse(localStorage.getItem('paradas-favoritas'));
@@ -93,7 +94,7 @@ async function main() {
   mapa.capaMicros.addTo(mapa._map);
   mapa.capaRecorrido.addTo(mapa._map);
 
-  inicializarRuteo(mapa._map);
+  //inicializarRuteo(mapa._map);
   inicializarListeners(mapa);
 }
 
