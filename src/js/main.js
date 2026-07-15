@@ -73,7 +73,6 @@ function inicializarRuteo(map) {
   });
 }
 
-
 export function buscarFavStorage(identificador) {
   try {
     const listaFav = JSON.parse(localStorage.getItem('paradas-favoritas'));
