@@ -46,10 +46,13 @@ export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   // --- Header: calle y calle ---
   const divCalles = document.createElement("div");
   divCalles.className = "popup-parada__header";
+  const iconoUbicacion = document.createElement("span");
+  iconoUbicacion.className = "popup-parada__location-icon material-symbols-outlined";
+  iconoUbicacion.setAttribute("aria-hidden", "true");
+  iconoUbicacion.textContent = "location_on";
   const pCalles = document.createElement("p");
   pCalles.textContent = `${marcador._callePrincipal} y ${marcador._calleInterseccion}`;
-  //estrella para agregar a favoritos
-
+  divCalles.appendChild(iconoUbicacion);
   divCalles.appendChild(pCalles);
   divCalles.appendChild(Star(marcador._identificador));
 
