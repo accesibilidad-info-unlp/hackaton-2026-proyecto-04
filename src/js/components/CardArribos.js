@@ -1,6 +1,6 @@
 import Star from "../components/Star.js";
 
-export function cardArribos(parada, mapa, marcador) {
+export default function cardArribos(parada, mapa, marcador) {
     const paradaDiv = document.createElement("div");
     paradaDiv.classList.add("parada-item");
     paradaDiv.setAttribute("tabindex", "0");

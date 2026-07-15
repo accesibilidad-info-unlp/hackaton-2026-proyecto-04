@@ -1,6 +1,6 @@
 import { paradasCercanas } from "./utils/api.js";
 import Marcador from "./clases/Marker.js";
-import { cardArribos } from "./components/CardArribos.js";
+import CardArribos from "./components/CardArribos.js";
 
 const paradasCercanasH2 = document.getElementById("stops-heading");
 const paradasCercanasBTN = document.getElementById("paradas-cercanas");
@@ -67,17 +67,16 @@ function handleInput(mapa) {
           paradaResultado.identificador,
           paradaResultado.lineas,
         );
-        cardArribos(paradaResultado, mapa, marcador);
+        divParadas.appendChild(CardArribos(paradaResultado, mapa, marcador));
         mapa.agregarMarcador(marcador);
       }
-      // Verificamos después de buscar manualmente
+
       setNoStops();
     }
   });
 }
 
 const setNoStops = () => {
-  console.log("Cantidad de paradas:", divParadas.children.length);
   if (divParadas.children.length === 0) {
     noStopsH2.style.display = 'block';
   } else {
@@ -118,7 +117,7 @@ export default function inicializarListeners(mapa) {
         parada.identificador,
         parada.lineas,
       );
-      divParadas.appendChild(cardArribos(parada, mapa, marcador));
+      divParadas.appendChild(CardArribos(parada, mapa, marcador));
       mapa.agregarMarcador(marcador);
     });
 
@@ -154,7 +153,7 @@ export default function inicializarListeners(mapa) {
         paradaResultado.identificador,
         paradaResultado.lineas,
       );
-      divParadas.appendChild(cardArribos(paradaResultado, mapa, marcador));
+      divParadas.appendChild(CardArribos(paradaResultado, mapa, marcador));
       mapa.agregarMarcador(marcador);
     });
 
