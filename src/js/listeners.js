@@ -10,6 +10,7 @@ const inputParadas = document.getElementById("buscador");
 const btnInput = document.getElementById("btn-input");
 const paradasFavBTN = document.getElementById("paradas-fav");
 const noStopsH2 = document.getElementById('no-stops');
+const comoIrBTN = document.getElementById('como-ir');
 const radioParadasCercanasMetros = 500;
 
 function LimpiarElementos(mapa) {
@@ -82,6 +83,10 @@ const setNoStops = () => {
   } else {
     noStopsH2.style.display = 'none';
   }
+}
+
+function handleComoIr(mapa) {
+
 }
 
 export default function inicializarListeners(mapa) {

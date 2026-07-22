@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "express": "^5.2.1",
+    "graphology": "^0.26.0",
+    "graphology-shortest-path": "^2.1.0",
     "leaflet": "^1.9.4",
     "leaflet-polylinedecorator": "^1.6.0",
     "leaflet-routing-machine": "^3.2.12"

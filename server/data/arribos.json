@@ -5,9 +5,9 @@
       "recorrido": {
         "direccion": "Hacia Plaza San Martín",
         "paradas": [
-          { "identificador": "P202-003", "tiempo": "14 min" },
+          { "identificador": "P202-003", "tiempo": "4 min" },
           { "identificador": "P202-002", "tiempo": "8 min" },
-          { "identificador": "P202-001", "tiempo": "4 min" }
+          { "identificador": "P202-001", "tiempo": "14 min" }
         ]
       }
     },
@@ -16,9 +16,9 @@
       "recorrido": {
         "direccion": "Hacia Ringuelet",
         "paradas": [
-          { "identificador": "P202-001", "tiempo": "12 min" },
-          { "identificador": "P202-002", "tiempo": "6 min" },
-          { "identificador": "P202-003", "tiempo": "3 min" }
+          { "identificador": "P202-001", "tiempo": "3 min" },
+          { "identificador": "P202-002", "tiempo": "9 min" },
+          { "identificador": "P202-003", "tiempo": "13 min" }
         ]
       }
     }
@@ -31,8 +31,7 @@
         "paradas": [
           { "identificador": "P214-001", "tiempo": "3 min" },
           { "identificador": "P214-002", "tiempo": "7 min" },
-          { "identificador": "P214-003", "tiempo": "12 min" },
-          { "identificador": "P307-001", "tiempo": "12 min" }
+          { "identificador": "P214-003", "tiempo": "12 min" }
         ]
       }
     },
@@ -54,8 +53,8 @@
       "recorrido": {
         "direccion": "Hacia Punta Lara",
         "paradas": [
-          { "identificador": "P275-002", "tiempo": "2 min" },
-          { "identificador": "P275-001", "tiempo": "5 min" },
+          { "identificador": "P275-001", "tiempo": "2 min" },
+          { "identificador": "P275-002", "tiempo": "5 min" },
           { "identificador": "P275-003", "tiempo": "9 min" }
         ]
       }
@@ -65,9 +64,9 @@
       "recorrido": {
         "direccion": "Hacia Plaza Italia",
         "paradas": [
-          { "identificador": "P275-003", "tiempo": "6 min" },
-          { "identificador": "P275-001", "tiempo": "14 min" },
-          { "identificador": "P275-002", "tiempo": "11 min" }
+          { "identificador": "P275-003", "tiempo": "4 min" },
+          { "identificador": "P275-002", "tiempo": "8 min" },
+          { "identificador": "P275-001", "tiempo": "14 min" }
         ]
       }
     }
@@ -79,7 +78,7 @@
         "direccion": "Hacia Plaza Moreno",
         "paradas": [
           { "identificador": "P307-001", "tiempo": "4 min" },
-          {"identificador": "P307-002", "tiempo": "6 min"}
+          { "identificador": "P307-002", "tiempo": "6 min" }
         ]
       }
     }
