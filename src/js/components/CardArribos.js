@@ -110,25 +110,64 @@ function renderLineas(contenedor, lineas) {
     });
 }
 
+function extraerMinutos(texto) {
+    return texto?.match(/\d+/)?.[0] ?? "?";
+}
+
+function claseUrgencia(mins) {
+    const n = parseInt(mins, 10);
+    if (Number.isNaN(n)) return "arribo--desconocido";
+    if (n <= 5) return "arribo--pronto";
+    if (n <= 15) return "arribo--medio";
+    return "arribo--tarde";
+}
+
 function renderArribos(contenedor, arribos) {
     contenedor.innerHTML = "";
+
+    if (!arribos || arribos.length === 0) {
+        const vacio = document.createElement("span");
+        vacio.classList.add("arrival-pill", "arrival-pill--empty");
+        vacio.textContent = "Sin arribos";
+        contenedor.appendChild(vacio);
+        return;
+    }
 
     const lista = document.createElement("ul");
     lista.classList.add("stop-arrivals__list");
 
-    if (!arribos || arribos.length === 0) {
-        const vacio = document.createElement("li");
-        vacio.classList.add("arrival-pill", "arrival-pill--empty");
-        vacio.textContent = "Sin arribos";
-        lista.appendChild(vacio);
-        contenedor.appendChild(lista);
-        return;
-    }
-
     arribos.slice(0, 3).forEach((arribo) => {
+        const mins = extraerMinutos(arribo.tiempoRestanteArribo);
+        const urgencia = claseUrgencia(mins);
+
         const item = document.createElement("li");
-        item.classList.add("arrival-pill");
-        item.textContent = arribo.tiempoRestanteArribo;
+        item.classList.add("arrival-item");
+
+        // Tiempo con color de urgencia
+        const tiempo = document.createElement("span");
+        tiempo.classList.add("arrival-item__time", urgencia);
+        tiempo.setAttribute("aria-label", `${mins} minutos`);
+        tiempo.textContent = `${mins} min`;
+
+        // Info: nombre de línea y bandera
+        const info = document.createElement("span");
+        info.classList.add("arrival-item__info");
+
+        const linea = document.createElement("span");
+        linea.classList.add("arrival-item__linea");
+        linea.textContent = arribo.descripcionLinea || "Línea";
+
+        info.appendChild(linea);
+
+        if (arribo.descripcionBandera) {
+            const bandera = document.createElement("span");
+            bandera.classList.add("arrival-item__bandera");
+            bandera.textContent = arribo.descripcionBandera;
+            info.appendChild(bandera);
+        }
+
+        item.appendChild(tiempo);
+        item.appendChild(info);
         lista.appendChild(item);
     });
 

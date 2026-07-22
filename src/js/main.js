@@ -49,13 +49,26 @@ async function main() {
   //inicializarRuteo(mapa._map);
   inicializarListeners(mapa);
 
-  const { grafo, paradasData } = construirGrafoBase();
-  console.log("¡Grafo de la ciudad construido!", grafo);
-  const origenLat = lat;
-  const origenLng = lon;
+  //calcularRuta(mapa, lat, lon);
+}
+
+/**
+ * Construye el grafo de la ciudad, ejecuta Dijkstra desde el origen del usuario
+ * hasta el destino hardcodeado y dibuja el recorrido óptimo en el mapa.
+ *
+ * @param {Map} mapa - instancia del mapa Leaflet
+ * @param {number} origenLat - latitud del usuario
+ * @param {number} origenLng - longitud del usuario
+ */
+function calcularRuta(mapa, origenLat, origenLng) {
   const destinoLat = -34.919827;
   const destinoLng = -57.954447;
 
+  // 1. Construir el grafo base con todas las paradas y conexiones
+  const { grafo, paradasData } = construirGrafoBase();
+  console.log("¡Grafo de la ciudad construido!", grafo);
+
+  // 2. Agregar nodos virtuales de origen y destino
   grafo.addNode("ORIGEN");
   grafo.addNode("DESTINO");
 
@@ -79,7 +92,8 @@ async function main() {
 
   console.log("🚶 Paradas cerca del ORIGEN (<600m):", paradasConectadasOrigen);
   console.log("🏁 Paradas cerca del DESTINO (<600m):", paradasConectadasDestino);
-  // 3. ¡Magia! Ejecutar Dijkstra
+
+  // 3. Ejecutar Dijkstra
   const caminoOptimo = grafo.dijkstra("ORIGEN", "DESTINO");
   console.log("Camino óptimo:", caminoOptimo);
 
