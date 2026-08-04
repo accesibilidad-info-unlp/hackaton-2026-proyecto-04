@@ -88,6 +88,12 @@ export function initBottomSheet({
     handle.setAttribute("aria-expanded", state !== "peek" ? "true" : "false");
     handle.dataset.state = state;
 
+    // En peek el área visible es chica: si el contenido quedó scrolleado,
+    // el handle puede quedar fuera y el sheet parece "trabado".
+    if (state === "peek") {
+      container.scrollTop = 0;
+    }
+
     if (!animate) {
       // forzamos reflow y sacamos la clase para que vuelvan las transiciones normales
       // eslint-disable-next-line no-unused-expressions

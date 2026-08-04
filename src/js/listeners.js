@@ -352,5 +352,7 @@ async function mostrarDetalleRecorrido(mapa, data) {
     titulo: data.descripcion || data.numero,
   });
   setNoStops();
-  btnVolver.focus();
+  // En mobile el sheet puede estar en peek: un focus con scroll
+  // esconde el handle y deja el panel sin poder arrastrarse.
+  btnVolver.focus({ preventScroll: true });
 }
