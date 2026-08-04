@@ -36,7 +36,6 @@
   color: var(--color-primary);
   background: var(--color-primary-light);
   padding: 6px 10px;
-  white-space: nowrap;
 }
 
 .stop-summary__label {
