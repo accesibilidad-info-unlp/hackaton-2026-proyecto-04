@@ -12,7 +12,12 @@
   overflow: hidden; /* clave: evita que el mapa se derrame */
   min-height: 0; /* clave para que flex-child respete la altura */
 }
-
+#main-section:not(.map-visible) .container {
+  width: min(100%,500px);
+  max-width : none;
+  margin:0 auto;
+  border-right: none;
+}
 /* ---- Sidebar ---- */
 .container {
   position: relative;

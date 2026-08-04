@@ -83,6 +83,7 @@ export async function HandlePopUp(marcador_mapa, marcador, mapa) {
     `Cómo llegar a la parada ${marcador._callePrincipal} y ${marcador._calleInterseccion}`,
   );
   btnComoLlegar.addEventListener("click", () => {
+    mapa.mostrar()
     mapa.mostrarRutaHasta(marcador.lat, marcador.long, {
       tituloDestino: `${marcador._callePrincipal} y ${marcador._calleInterseccion}`,
       identificadorParada: marcador._identificador,

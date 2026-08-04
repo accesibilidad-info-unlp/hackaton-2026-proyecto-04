@@ -63,6 +63,7 @@ function handleInput(mapa) {
         const paradaResultado = json.resultado?.[0];
 
         if (paradaResultado) {
+          mapa.mostrar()
           paradaResultado.lineas = (paradaResultado.codigoLineas ?? []).map(
             (codigo) => ({ codigo }),
           );
@@ -112,6 +113,7 @@ function handleInput(mapa) {
 
     const etiqueta = lugar.nombre || texto;
     paradasCercanasH2.textContent = "Destino en el mapa";
+    mapa.mostrar()
     mapa.marcarDireccion(lugar.latitud, lugar.longitud, etiqueta);
     mapa.mostrarRutaHasta(lugar.latitud, lugar.longitud, {
       tituloDestino: etiqueta,
@@ -137,6 +139,7 @@ export default function inicializarListeners(mapa) {
   });
 
   paradasCercanasBTN.addEventListener("click", async () => {
+    mapa.mostrar()
     LimpiarElementos(mapa);
 
     const { paradas, radioMetros, expandido } = await paradasCercanas(
@@ -215,6 +218,7 @@ export default function inicializarListeners(mapa) {
   });
 
   recorridosBTN?.addEventListener("click", async () => {
+    mapa.mostrar()
     await mostrarMenuRecorridos(mapa);
   });
 

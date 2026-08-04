@@ -23,6 +23,7 @@
   min-height: 0;
   height: 100% !important;
   width: 100% !important;
+  display: none;
 }
 
 body.a11y-high-contrast #map {
@@ -196,4 +197,8 @@ body.a11y-high-contrast #map {
     z-index: 1;
     flex: none;
   }
+}
+
+#main-section.map-visible #map{
+  display:block
 }

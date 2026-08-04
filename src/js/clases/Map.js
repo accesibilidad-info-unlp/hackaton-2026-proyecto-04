@@ -563,4 +563,16 @@ export default class Map {
       );
     });
   }
+  mostrar (){
+    const main=document.getElementById("main-section")
+    main?.classList.add("map-visible")
+
+    requestAnimationFrame(()=>{
+      this._map?.invalidateSize()
+    })
+  }
+  ocultar(){
+    const main= document.getElementById("main-section")
+    main?.classList.remove("map-visible")
+  }
 }
