@@ -15,7 +15,10 @@
 
 /* ---- Sidebar ---- */
 .container {
+  position: relative;
   width: var(--sidebar-w);
+  min-width: 300px;
+  max-width: min(560px, 50vw);
   flex-shrink: 0;
   background-color: var(--color-surface);
   border-right: 1px solid var(--color-border);
@@ -25,12 +28,62 @@
   min-height: 0;
 }
 
+/* Handle para redimensionar en desktop */
+.sidebar-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 20;
+  touch-action: none;
+  user-select: none;
+  background: transparent;
+}
+
+.sidebar-resize-handle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--color-border);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity var(--transition), background-color var(--transition);
+}
+
+.sidebar-resize-handle:hover::after,
+.sidebar-resize-handle:focus-visible::after,
+body.is-sidebar-resizing .sidebar-resize-handle::after {
+  opacity: 1;
+  background: var(--color-primary);
+}
+
+.sidebar-resize-handle:focus-visible {
+  outline: none;
+}
+
+body.is-sidebar-resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+body.is-sidebar-resizing iframe,
+body.is-sidebar-resizing #map {
+  pointer-events: none;
+}
+
 /* ---- Bottom sheet handle (solo visible/activo en mobile) ---- */
 .sheet-handle {
   display: none;
 }
 
-#volver {
+#volver,
+#btn-volver-recorridos {
   background-color: var(--color-surface-2);
   color: var(--color-text);
   border: 1px solid var(--color-border);
@@ -49,8 +102,14 @@
   transition: background-color var(--transition);
 }
 
-#volver:hover {
+#volver:hover,
+#btn-volver-recorridos:hover {
   background-color: var(--color-border);
+}
+
+#btn-volver-recorridos:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 nav[aria-label="Menú principal"] {
@@ -156,6 +215,8 @@ nav[aria-label="Menú principal"] {
     right: 0;
     bottom: 0;
     width: 100%;
+    min-width: 0;
+    max-width: none;
     z-index: 10;
     border-right: none;
     border-top: 1px solid var(--color-border);
@@ -175,6 +236,10 @@ nav[aria-label="Menú principal"] {
     height: var(--sheet-full);
     transform: translateY(var(--sheet-offset));
     transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .sidebar-resize-handle {
+    display: none !important;
   }
 
   .container.is-dragging {

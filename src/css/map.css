@@ -4,6 +4,12 @@
    pantalla completa detrás del bottom sheet en mobile.
    ========================================================================== */
 
+/* Ocultamos el panel de indicaciones de leaflet-routing-machine:
+   solo queremos la línea por calles sobre el mapa. */
+.leaflet-routing-container {
+  display: none !important;
+}
+
 #map {
   --map-stop-color: #1565c0;
   --map-stop-icon-color: #ffffff;

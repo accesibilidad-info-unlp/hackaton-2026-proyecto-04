@@ -2,111 +2,121 @@
   {
     "identificador": "P202-001",
     "codigo": "1001",
-    "descripcion": "Parada 7 y 50",
-    "callePrincipal": "7",
-    "calleInterseccion": "50",
-    "latitud": -34.92053,
-    "longitud": -57.9541,
-    "codigoLineas": ["202"]
+    "descripcion": "Parada 120 y 52",
+    "callePrincipal": "120",
+    "calleInterseccion": "52",
+    "latitud": -34.90376,
+    "longitud": -57.93524,
+    "codigoLineas": ["m1", "m2"]
   },
   {
     "identificador": "P202-002",
     "codigo": "1002",
-    "descripcion": "60",
-    "callePrincipal": "13",
-    "calleInterseccion": "60",
-    "latitud": -34.92941,
-    "longitud": -57.95235,
-    "codigoLineas": ["202"]
+    "descripcion": "Parada 52 y 53",
+    "callePrincipal": "52",
+    "calleInterseccion": "53",
+    "latitud": -34.90948,
+    "longitud": -57.9416,
+    "codigoLineas": ["m1"]
   },
   {
     "identificador": "P202-003",
     "codigo": "1003",
-    "descripcion": "Parada 19 y 72",
-    "callePrincipal": "19",
-    "calleInterseccion": "72",
-    "latitud": -34.94007,
-    "longitud": -57.94964,
-    "codigoLineas": ["202"]
-  },
-  {
-    "identificador": "P307-001",
-    "codigo": "1004",
-    "descripcion": "Parada 2 y 35",
-    "callePrincipal": "2",
-    "calleInterseccion": "35",
-    "latitud": -34.898302,
-    "longitud": -57.960589,
-    "codigoLineas": ["214", "307"]
-  },
-  {
-    "identificador": "P307-002",
-    "codigo": "1040",
-    "descripcion": "Parada 2 y 38",
-    "callePrincipal": "2",
-    "calleInterseccion": "38",
-    "latitud": -34.900652,
-    "longitud": -57.957498,
-    "codigoLineas": ["307"]
-  },
-  {
-    "identificador": "P214-001",
-    "codigo": "2001",
-    "descripcion": "Parada 44 y 137",
-    "callePrincipal": "44",
-    "calleInterseccion": "137",
-    "latitud": -34.9258,
-    "longitud": -58.00761,
-    "codigoLineas": ["214"]
-  },
-  {
-    "identificador": "P214-002",
-    "codigo": "2002",
-    "descripcion": "Parada 31 y 66",
-    "callePrincipal": "31",
-    "calleInterseccion": "66",
-    "latitud": -34.93648,
-    "longitud": -57.97631,
-    "codigoLineas": ["214"]
-  },
-  {
-    "identificador": "P214-003",
-    "codigo": "2003",
-    "descripcion": "Parada 7 y 72",
-    "callePrincipal": "7",
-    "calleInterseccion": "72",
-    "latitud": -34.93929,
-    "longitud": -57.94778,
-    "codigoLineas": ["214"]
-  },
-  {
-    "identificador": "P275-001",
-    "codigo": "3001",
-    "descripcion": "Parada 1 y 66",
+    "descripcion": "Parada 1 y 51",
     "callePrincipal": "1",
-    "calleInterseccion": "66",
-    "latitud": -34.93496,
-    "longitud": -57.93965,
-    "codigoLineas": ["275"]
+    "calleInterseccion": "51",
+    "latitud": -34.90984,
+    "longitud": -57.94277,
+    "codigoLineas": ["m1"]
   },
   {
-    "identificador": "P275-002",
-    "codigo": "3002",
-    "descripcion": "Parada 122 y 54",
+    "identificador": "P202-004",
+    "codigo": "1004",
+    "descripcion": "Parada 1 y 55",
+    "callePrincipal": "1",
+    "calleInterseccion": "55",
+    "latitud": -34.91166,
+    "longitud": -57.94034,
+    "codigoLineas": ["m1"]
+  },
+  {
+    "identificador": "P202-005",
+    "codigo": "1005",
+    "descripcion": "Parada 4 y 55",
+    "callePrincipal": "4",
+    "calleInterseccion": "55",
+    "latitud": -34.91444,
+    "longitud": -57.94336,
+    "codigoLineas": ["m1", "m2"]
+  },
+  {
+    "identificador": "P202-006",
+    "codigo": "1006",
+    "descripcion": "Parada 4 y 49",
+    "callePrincipal": "4",
+    "calleInterseccion": "49",
+    "latitud": -34.91154,
+    "longitud": -57.94731,
+    "codigoLineas": ["m1", "m2"]
+  },
+  {
+    "identificador": "P202-007",
+    "codigo": "1007",
+    "descripcion": "Parada 1 y 49",
+    "callePrincipal": "1",
+    "calleInterseccion": "49",
+    "latitud": -34.90877,
+    "longitud": -57.94428,
+    "codigoLineas": ["m1", "m2"]
+  },
+  {
+    "identificador": "P202-008",
+    "codigo": "1008",
+    "descripcion": "Parada 1 y 50",
+    "callePrincipal": "1",
+    "calleInterseccion": "50",
+    "latitud": -34.90911,
+    "longitud": -57.9435,
+    "codigoLineas": ["m1", "m2", "m3"]
+  },
+  {
+    "identificador": "P202-009",
+    "codigo": "1009",
+    "descripcion": "Parada 122 y 60",
+    "callePrincipal": "60",
+    "calleInterseccion": "122",
+    "latitud": -34.90787,
+    "longitud": -57.92755,
+    "codigoLineas": ["m2"]
+  },
+  {
+    "identificador": "P202-010",
+    "codigo": "1010",
+    "descripcion": "Parada 1 y 79",
+    "callePrincipal": "1",
+    "calleInterseccion": "79",
+    "latitud": -34.91513,
+    "longitud": -57.93571,
+    "codigoLineas": ["m2", "m3"]
+  },
+  {
+    "identificador": "P202-011",
+    "codigo": "1011",
+    "descripcion": "Parada 79 y 4",
+    "callePrincipal": "79",
+    "calleInterseccion": "4",
+    "latitud": -34.91547,
+    "longitud": -57.94194,
+    "codigoLineas": ["m2"]
+  },
+  {
+    "identificador": "P202-012",
+    "codigo": "1012",
+    "descripcion": "Parada 52 y 122",
     "callePrincipal": "122",
-    "calleInterseccion": "54",
-    "latitud": -34.90994,
-    "longitud": -57.95114,
-    "codigoLineas": ["275"]
-  },
-  {
-    "identificador": "P275-003",
-    "codigo": "3003",
-    "descripcion": "Parada 32 y 120",
-    "callePrincipal": "32",
-    "calleInterseccion": "120",
-    "latitud": -34.90302,
-    "longitud": -57.96997,
-    "codigoLineas": ["275"]
+    "calleInterseccion": "52",
+    "latitud": -34.90289,
+    "longitud": -57.93299,
+    "codigoLineas": ["m2"]
   }
 ]

@@ -1,84 +1,51 @@
 {
-  "202": [
+  "m1": [
     {
-      "interno": "202-17",
+      "interno": "m1-001",
       "recorrido": {
-        "direccion": "Hacia Plaza San Martín",
+        "direccion": "Circuito Facultad",
         "paradas": [
+          { "identificador": "P202-001", "tiempo": "0 min" },
+          { "identificador": "P202-002", "tiempo": "2 min" },
           { "identificador": "P202-003", "tiempo": "4 min" },
-          { "identificador": "P202-002", "tiempo": "8 min" },
-          { "identificador": "P202-001", "tiempo": "14 min" }
-        ]
-      }
-    },
-    {
-      "interno": "202-06",
-      "recorrido": {
-        "direccion": "Hacia Ringuelet",
-        "paradas": [
-          { "identificador": "P202-001", "tiempo": "3 min" },
-          { "identificador": "P202-002", "tiempo": "9 min" },
-          { "identificador": "P202-003", "tiempo": "13 min" }
+          { "identificador": "P202-004", "tiempo": "6 min" },
+          { "identificador": "P202-005", "tiempo": "8 min" },
+          { "identificador": "P202-006", "tiempo": "10 min" },
+          { "identificador": "P202-007", "tiempo": "12 min" },
+          { "identificador": "P202-008", "tiempo": "14 min" },
+          { "identificador": "P202-001", "tiempo": "0 min" }
         ]
       }
     }
   ],
-  "214": [
+  "m2": [
     {
-      "interno": "214-09",
+      "interno": "m2-001",
       "recorrido": {
-        "direccion": "Hacia Terminal",
+        "direccion": "Circuito 2",
         "paradas": [
-          { "identificador": "P214-001", "tiempo": "3 min" },
-          { "identificador": "P214-002", "tiempo": "7 min" },
-          { "identificador": "P214-003", "tiempo": "12 min" }
-        ]
-      }
-    },
-    {
-      "interno": "214-12",
-      "recorrido": {
-        "direccion": "Hacia Los Hornos",
-        "paradas": [
-          { "identificador": "P214-003", "tiempo": "2 min" },
-          { "identificador": "P214-002", "tiempo": "6 min" },
-          { "identificador": "P214-001", "tiempo": "10 min" }
+          { "identificador": "P202-001", "tiempo": "0 min" },
+          { "identificador": "P202-012", "tiempo": "3 min" },
+          { "identificador": "P202-010", "tiempo": "6 min" },
+          { "identificador": "P202-011", "tiempo": "9 min" },
+          { "identificador": "P202-012", "tiempo": "12 min" },
+          { "identificador": "P202-006", "tiempo": "15 min" },
+          { "identificador": "P202-007", "tiempo": "17 min" },
+          { "identificador": "P202-008", "tiempo": "19 min" },
+          { "identificador": "P202-001", "tiempo": "21 min" }
         ]
       }
     }
   ],
-  "275": [
+  "m3": [
     {
-      "interno": "275-22",
+      "interno": "m3-001",
       "recorrido": {
-        "direccion": "Hacia Punta Lara",
+        "direccion": "Circuito calle 1",
         "paradas": [
-          { "identificador": "P275-001", "tiempo": "2 min" },
-          { "identificador": "P275-002", "tiempo": "5 min" },
-          { "identificador": "P275-003", "tiempo": "9 min" }
-        ]
-      }
-    },
-    {
-      "interno": "275-05",
-      "recorrido": {
-        "direccion": "Hacia Plaza Italia",
-        "paradas": [
-          { "identificador": "P275-003", "tiempo": "4 min" },
-          { "identificador": "P275-002", "tiempo": "8 min" },
-          { "identificador": "P275-001", "tiempo": "14 min" }
-        ]
-      }
-    }
-  ],
-  "307": [
-    {
-      "interno": "307-23",
-      "recorrido": {
-        "direccion": "Hacia Plaza Moreno",
-        "paradas": [
-          { "identificador": "P307-001", "tiempo": "4 min" },
-          { "identificador": "P307-002", "tiempo": "6 min" }
+          { "identificador": "P202-008", "tiempo": "0 min" },
+          { "identificador": "P202-010", "tiempo": "2 min" },
+          { "identificador": "P202-008", "tiempo": "4 min" }
         ]
       }
     }

@@ -1,22 +1,20 @@
 [
   {
-    "codigo": "202",
-    "numero": "202",
-    "descripcion": "Línea 202"
+    "codigo": "m1",
+    "numero": "M1",
+    "descripcion": "Micro 1",
+    "color": "#e53935"
   },
   {
-    "codigo": "214",
-    "numero": "214",
-    "descripcion": "Línea 214"
+    "codigo": "m2",
+    "numero": "M2",
+    "descripcion": "Micro 2",
+    "color": "#1e88e5"
   },
   {
-    "codigo": "275",
-    "numero": "275",
-    "descripcion": "Línea 275"
-  },
-  {
-    "codigo": "307",
-    "numero": "307",
-    "descripcion": "Línea 307"
+    "codigo": "m3",
+    "numero": "M3",
+    "descripcion": "Micro 3",
+    "color": "#43a047"
   }
 ]

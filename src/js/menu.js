@@ -1,7 +1,5 @@
 const paradasFav = document.getElementById("paradas-fav");
 const paradasCercanas = document.getElementById("paradas-cercanas");
-const lineas = document.getElementById("lineas");
-const recorridos = document.getElementById("recorridos");
 const volver = document.getElementById("volver");
 
 const accessibilityToggle = document.getElementById("accessibility-toggle");
@@ -210,9 +208,6 @@ if (accessibilityToggle && accessibilityMenu) {
   });
 }
 
-lineas.addEventListener("click", (e) => {
-  cambiar(e.currentTarget.value);
-});
 paradasFav.addEventListener("click", (e) => {
   cambiar(e.currentTarget.value);
 });

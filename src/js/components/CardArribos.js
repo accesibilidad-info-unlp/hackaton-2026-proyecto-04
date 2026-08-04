@@ -52,10 +52,28 @@ export default function cardArribos(parada, mapa, marcador) {
     seccionArribos.appendChild(crearEtiquetaSeccion("Próximos arribos"));
     seccionArribos.appendChild(divArribos);
 
+    const btnComoLlegar = document.createElement("button");
+    btnComoLlegar.type = "button";
+    btnComoLlegar.classList.add("btn-como-llegar");
+    btnComoLlegar.textContent = "Cómo llegar";
+    btnComoLlegar.setAttribute(
+        "aria-label",
+        `Cómo llegar a la parada ${parada.callePrincipal} y ${parada.calleInterseccion}`,
+    );
+    btnComoLlegar.addEventListener("click", (event) => {
+        event.stopPropagation();
+        mapa.mostrarRutaHasta(parada.latitud, parada.longitud, {
+            tituloDestino: `${parada.callePrincipal} y ${parada.calleInterseccion}`,
+            identificadorParada: marcador._identificador,
+        });
+        mapa.actualizarVista(parada.latitud, parada.longitud, 16);
+    });
+
     paradaDiv.appendChild(header_content);
     paradaDiv.appendChild(pDistancia);
     paradaDiv.appendChild(bloqueLineas);
     paradaDiv.appendChild(seccionArribos);
+    paradaDiv.appendChild(btnComoLlegar);
 
     marcador
         .llegadas()

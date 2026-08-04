@@ -7,6 +7,7 @@ import { savePosition, getPosition } from "./position/position";
 import inicializarListeners from "./listeners";
 import Map from "./clases/Map.js";
 import { construirGrafoBase, calcularDistancia } from './armarGrafo.js';
+import { initSidebarResize } from "./sidebarResize.js";
 
 import "./menu.js";
 
@@ -33,11 +34,8 @@ export function buscarFavStorage(identificador) {
 }
 
 async function main() {
-  try {
-    await savePosition();
-  } catch (e) {
-    console.warn("[main] No se pudo obtener la ubicación:", e);
-  }
+  // Construir el mapa ya (fallback La Plata / cache), sin bloquear en el permiso de geo.
+  // Antes await savePosition() dejaba #map vacío hasta aceptar/denegar ubicación.
   const { lat, lon } = getPosition();
 
   const mapa = new Map(lat, lon);
@@ -45,11 +43,22 @@ async function main() {
   mapa.capaParadas.addTo(mapa._map);
   mapa.capaMicros.addTo(mapa._map);
   mapa.capaRecorrido.addTo(mapa._map);
+  mapa.capaPreviewRecorridos.addTo(mapa._map);
 
-  //inicializarRuteo(mapa._map);
   inicializarListeners(mapa);
+  initSidebarResize();
 
-  //calcularRuta(mapa, lat, lon);
+  try {
+    const pos = await savePosition();
+    if (pos?.lat != null && pos?.lon != null) {
+      mapa.actualizarUbicacionUsuario(pos.lat, pos.lon);
+    }
+  } catch (e) {
+    console.warn("[main] No se pudo obtener la ubicación:", e);
+  }
+
+  // Dijkstra experimental (grafo de micros), no es el "cómo llegar" por calles:
+  // calcularRuta(mapa, lat, lon);
 }
 
 /**
