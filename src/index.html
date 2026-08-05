@@ -7,6 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dónde está mi micro</title>
 
+  <!-- Favicon: glyph Material directions_bus (mismo del header). ?v=3 bustea cache -->
+  <link rel="icon" href="/icons/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="icon" href="/icons/icon-192.png?v=3" type="image/png" sizes="192x192" />
+  <link rel="shortcut icon" href="/icons/icon-192.png?v=3" type="image/png" />
+
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#0025ae" />
@@ -14,7 +19,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Mi Micro" />
-  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png?v=3" />
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <link rel="stylesheet" href="./css/main.css" />
@@ -117,10 +122,10 @@
         aria-controls="stops-info">
         <span class="sheet-handle__bar" aria-hidden="true"></span>
       </button>
-      <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal"
+      <button id="volver" value="main" style="display: none" type="button" aria-label="Cerrar mapa y volver al inicio"
         class="back-button">
         <span class="material-symbols-outlined back-icon" aria-hidden="true">arrow_back</span>
-        Menú principal
+        Cerrar mapa
       </button>
       <nav aria-label="Menú principal">
         <div class="buttons" id="main">
@@ -170,7 +175,7 @@
   <script type="module">
     import { initBottomSheet } from "/js/bottomSheet.js";
     // Expone el sheet globalmente para que el mapa pueda colapsarlo en mobile
-    window.sheet = initBottomSheet({ initialState: "mid" });
+    window.sheet = initBottomSheet({ initialState: "full" });
   </script>
 
   <!-- Registro del Service Worker -->

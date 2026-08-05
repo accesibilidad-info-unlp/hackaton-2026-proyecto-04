@@ -45,13 +45,23 @@ async function main() {
   mapa.capaRecorrido.addTo(mapa._map);
   mapa.capaPreviewRecorridos.addTo(mapa._map);
 
-  inicializarListeners(mapa);
+  const { cargarVistaInicio } = inicializarListeners(mapa) ?? {};
   initSidebarResize();
 
   try {
     const pos = await savePosition();
     if (pos?.lat != null && pos?.lon != null) {
       mapa.actualizarUbicacionUsuario(pos.lat, pos.lon);
+      // Home se cargó con fallback; refrescar con geo real si seguimos en inicio
+      const mainVisible = !document
+        .getElementById("main-section")
+        ?.classList.contains("map-visible");
+      const sinSeleccion = ![...document.querySelectorAll(".menu-btn")].some((b) =>
+        b.classList.contains("btn-selected"),
+      );
+      if (mainVisible && sinSeleccion) {
+        await cargarVistaInicio?.(mapa);
+      }
     }
   } catch (e) {
     console.warn("[main] No se pudo obtener la ubicación:", e);

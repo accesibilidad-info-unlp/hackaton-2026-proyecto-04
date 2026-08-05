@@ -4,16 +4,16 @@ import Marker from "./Marker.js";
 const iconoMicro = L.divIcon({
   className: "map-marker map-marker--micro",
   html: `
-      <svg class="map-marker__svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <svg class="map-marker__svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 17V7a2 2 0 012-2h14a2 2 0 012 2v10"/>
         <path d="M3 13h18"/>
         <rect x="1" y="17" width="4" height="3" rx="1"/>
         <rect x="19" y="17" width="4" height="3" rx="1"/>
       </svg>
   `,
-  iconSize: [30, 30],
-  iconAnchor: [15, 15],
-  popupAnchor: [0, -18],
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
+  popupAnchor: [0, -22],
 });
 
 const iconoRecorrido = L.divIcon({
@@ -21,8 +21,8 @@ const iconoRecorrido = L.divIcon({
   html: `
       <div class="map-marker__dot" aria-hidden="true"></div>
   `,
-  iconSize: [14, 14],
-  iconAnchor: [7, 7],
+  iconSize: [18, 18],
+  iconAnchor: [9, 9],
 });
 
 
@@ -81,10 +81,10 @@ export default class Map {
     ).addTo(this._map);
 
     this._marcadorUbicacion = L.circleMarker([this._lat, this._long], {
-      radius: 8,
-      weight: 2,
+      radius: 11,
+      weight: 3,
       opacity: 1,
-      fillOpacity: 0.8,
+      fillOpacity: 0.85,
       className: "map-user-location",
     })
       .addTo(this._map)
@@ -158,15 +158,27 @@ export default class Map {
     });
   }
 
+  /**
+   * Agrega el marcador al mapa si todavía no está (p.ej. home sin mapa abierto).
+   */
+  asegurarMarcador(marcador) {
+    const yaEsta = this._marcadores.some(
+      (m) => m.data?._identificador === marcador?._identificador,
+    );
+    if (!yaEsta) {
+      this.agregarMarcador(marcador);
+    }
+  }
+
   agregarMarcador(marcador) {
     const iconoParada = L.divIcon({
       className: "map-marker map-marker--stop",
       html: `
         <span class="material-symbols-outlined map-marker__symbol" aria-hidden="true">directions_bus</span>
       `,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-      popupAnchor: [0, -20],
+      iconSize: [44, 44],
+      iconAnchor: [22, 22],
+      popupAnchor: [0, -24],
     });
 
     const marcador_mapa = L.marker([marcador.lat, marcador.long], {
@@ -329,7 +341,9 @@ export default class Map {
     }
 
     this.borrarRutaGuia();
-    this.colapsarPanelSiMobile();
+    if (opciones.colapsar !== false) {
+      this.colapsarPanelSiMobile();
+    }
 
     const tituloDestino =
       opciones.tituloDestino || "Parada de colectivo";
@@ -563,16 +577,41 @@ export default class Map {
       );
     });
   }
-  mostrar (){
-    const main=document.getElementById("main-section")
-    main?.classList.add("map-visible")
+  mostrar() {
+    const main = document.getElementById("main-section");
+    main?.classList.add("map-visible");
 
-    requestAnimationFrame(()=>{
-      this._map?.invalidateSize()
-    })
+    // Con mapa abierto siempre hay salida clara (evita softlock sin "volver")
+    const volver = document.getElementById("volver");
+    if (volver) {
+      volver.style.display = "";
+    }
+
+    // No colapsamos el sheet acá: dejar elegir en el menú (Recorridos, etc.).
+    // Se baja solo al dibujar una ruta concreta (cómo llegar / micro elegido).
+    requestAnimationFrame(() => {
+      this._map?.invalidateSize();
+    });
   }
-  ocultar(){
-    const main= document.getElementById("main-section")
-    main?.classList.remove("map-visible")
+
+  ocultar() {
+    const main = document.getElementById("main-section");
+    main?.classList.remove("map-visible");
+
+    const volver = document.getElementById("volver");
+    if (volver) {
+      volver.style.display = "none";
+    }
+
+    // Recuperar sheet usable en mobile (peek + scroll top = handle perdido)
+    if (typeof window !== "undefined") {
+      const container = document.querySelector(".container");
+      if (container) container.scrollTop = 0;
+      window.sheet?.applyState?.("full");
+    }
+
+    requestAnimationFrame(() => {
+      this._map?.invalidateSize();
+    });
   }
 }

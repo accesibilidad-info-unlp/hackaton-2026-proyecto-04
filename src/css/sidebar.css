@@ -185,10 +185,10 @@ nav[aria-label="Menú principal"] {
 }
 
 .btn-icon {
-  height: 20px;
-  width: 20px;
+  height: 28px;
+  width: 28px;
   color: inherit;
-  font-size: 1.25rem;
+  font-size: 1.55rem;
   line-height: 1;
   flex: 0 0 auto;
 }
@@ -197,12 +197,12 @@ nav[aria-label="Menú principal"] {
 .nearby-icon,
 .lines-icon,
 .map-icon {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
 }
 
 .btn-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 /* ---- Mobile: sidebar se convierte en bottom sheet arrastrable ---- */
@@ -303,13 +303,29 @@ nav[aria-label="Menú principal"] {
   }
 
   .btn-icon {
-    width: 18px;
-    height: 18px;
-    font-size: 1.1rem;
+    width: 26px;
+    height: 26px;
+    font-size: 1.4rem;
   }
 
   .btn-label {
     font-size: 0.85rem;
+  }
+
+  /* Sin mapa: el panel ocupa toda la pantalla (no es un sheet colapsable) */
+  #main-section:not(.map-visible) .container {
+    top: 0;
+    height: 100%;
+    max-height: 100%;
+    transform: none;
+    --sheet-offset: 0px;
+    border-radius: 0;
+    box-shadow: none;
+    border-top: none;
+  }
+
+  #main-section:not(.map-visible) .sheet-handle {
+    display: none;
   }
 }
 

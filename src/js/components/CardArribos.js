@@ -61,8 +61,10 @@ export default function cardArribos(parada, mapa, marcador) {
         `Cómo llegar a la parada ${parada.callePrincipal} y ${parada.calleInterseccion}`,
     );
     btnComoLlegar.addEventListener("click", (event) => {
-        mapa.mostrar()
         event.stopPropagation();
+        mapa.mostrar();
+        // Desde "parada más cercana" el marcador puede no estar en el mapa aún
+        mapa.asegurarMarcador(marcador);
         mapa.mostrarRutaHasta(parada.latitud, parada.longitud, {
             tituloDestino: `${parada.callePrincipal} y ${parada.calleInterseccion}`,
             identificadorParada: marcador._identificador,
