@@ -22,7 +22,7 @@
     {
       "interno": "m2-001",
       "recorrido": {
-        "direccion": "Circuito 2",
+        "direccion": "Circuito La Plata",
         "paradas": [
           { "identificador": "P202-001", "tiempo": "0 min" },
           { "identificador": "P202-012", "tiempo": "3 min" },
