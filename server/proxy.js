@@ -14,7 +14,8 @@ const loadJson = (relativePath) =>
 
 const lineas = loadJson("./data/lineas.json");
 const paradas = loadJson("./data/paradas.json");
-const arribosPorLinea = loadJson("./data/arribos.json");
+const rutas = loadJson("./data/rutas.json");
+const trips = loadJson("./data/trips.json");
 
 export function obtenerLineaPorCodigo(codigoLinea) {
   return lineas.find((linea) => linea.codigo === codigoLinea);
@@ -61,39 +62,67 @@ export function extraerMinutos(tiempo) {
   return Number.isNaN(numero) ? Number.MAX_SAFE_INTEGER : numero;
 }
 
+/** Devuelve los segundos transcurridos desde medianoche para la hora actual. */
+export function segundosDesdeMedianoche() {
+  const ahora = new Date();
+  return ahora.getHours() * 3600 + ahora.getMinutes() * 60 + ahora.getSeconds();
+}
+
+/**
+ * Dado un trip y el id de una parada, devuelve los segundos programados
+ * de llegada a esa parada (o null si el trip no pasa por ella).
+ */
+export function segundosLlegadaEnTrip(trip, idParada) {
+  const horario = trip.horarios.find((h) => h.paradaId === idParada);
+  return horario ? horario.llegada : null;
+}
+
+/**
+ * Construye la lista de próximos arribos a una parada calculando
+ * dinámicamente el tiempo restante desde trips.json.
+ */
 export function construirArribosParaParada(idParada, codLinea) {
-  const lineasFiltradas =
-    codLinea && codLinea !== "0"
-      ? lineas.filter(
-        (linea) => linea.codigo === codLinea || linea.numero === codLinea,
-      )
-      : lineas;
+  const ahora = segundosDesdeMedianoche();
 
-  return lineasFiltradas
-    .flatMap((linea) =>
-      (arribosPorLinea[linea.codigo] ?? [])
-        .map((micro) => {
-          const parada = micro.recorrido.paradas.find(
-            (p) => p.identificador === idParada,
-          );
-          if (!parada) return null;
+  // Filtrar líneas si se pide una en particular
+  const codigosLineas = codLinea && codLinea !== "0"
+    ? [codLinea]
+    : lineas.map((l) => l.codigo);
 
-          return {
-            codigoLinea: linea.codigo,
-            descripcionLinea: linea.descripcion,
-            descripcionBandera: micro.recorrido.direccion,
-            direccion: micro.recorrido.direccion,
-            tiempoRestanteArribo: parada.tiempo ?? "Sin dato",
-            interno: micro.interno,
-          };
-        })
-        .filter(Boolean),
-    )
-    .sort(
-      (a, b) =>
-        extraerMinutos(a.tiempoRestanteArribo) -
-        extraerMinutos(b.tiempoRestanteArribo),
-    );
+  const resultados = [];
+
+  for (const trip of trips) {
+    // Obtener la ruta a la que pertenece este trip
+    const ruta = rutas.find((r) => r.id === trip.rutaId);
+    if (!ruta) continue;
+
+    // Filtrar por línea si corresponde
+    if (!codigosLineas.includes(ruta.codigoLinea)) continue;
+
+    // Verificar que este trip pase por la parada buscada
+    const llegadaSeg = segundosLlegadaEnTrip(trip, idParada);
+    if (llegadaSeg === null) continue;
+
+    // Solo mostrar trips que aún no pasaron (o que faltan ≥ 0 seg)
+    const restanteSeg = llegadaSeg - ahora;
+    if (restanteSeg < 0) continue;
+
+    const restanteMin = Math.round(restanteSeg / 60);
+    const linea = lineas.find((l) => l.codigo === ruta.codigoLinea);
+
+    resultados.push({
+      codigoLinea: ruta.codigoLinea,
+      descripcionLinea: linea?.descripcion ?? ruta.codigoLinea,
+      descripcionBandera: ruta.direccion,
+      direccion: ruta.direccion,
+      tiempoRestanteArribo: restanteMin === 0 ? "Ahora" : `${restanteMin} min`,
+      tiempoRestanteSegundos: restanteSeg,
+      interno: trip.interno,
+    });
+  }
+
+  // Ordenar por tiempo de llegada más próximo
+  return resultados.sort((a, b) => a.tiempoRestanteSegundos - b.tiempoRestanteSegundos);
 }
 
 app.get("/paradascercanas", (req, res) => {

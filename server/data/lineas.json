@@ -2,21 +2,36 @@
   {
     "codigo": "202",
     "numero": "202",
-    "descripcion": "Línea 202"
+    "descripcion": "Línea 202",
+    "rutaIds": [
+      "R202-IDA",
+      "R202-VUELTA"
+    ]
   },
   {
     "codigo": "214",
     "numero": "214",
-    "descripcion": "Línea 214"
+    "descripcion": "Línea 214",
+    "rutaIds": [
+      "R214-IDA",
+      "R214-VUELTA"
+    ]
   },
   {
     "codigo": "275",
     "numero": "275",
-    "descripcion": "Línea 275"
+    "descripcion": "Línea 275",
+    "rutaIds": [
+      "R275-IDA",
+      "R275-VUELTA"
+    ]
   },
   {
     "codigo": "307",
     "numero": "307",
-    "descripcion": "Línea 307"
+    "descripcion": "Línea 307",
+    "rutaIds": [
+      "R307-IDA"
+    ]
   }
 ]

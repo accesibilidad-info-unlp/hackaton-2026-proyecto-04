@@ -7,7 +7,13 @@
     "calleInterseccion": "50",
     "latitud": -34.92053,
     "longitud": -57.9541,
-    "codigoLineas": ["202"]
+    "codigoLineas": [
+      "202"
+    ],
+    "rutaIds": [
+      "R202-IDA",
+      "R202-VUELTA"
+    ]
   },
   {
     "identificador": "P202-002",
@@ -17,7 +23,13 @@
     "calleInterseccion": "60",
     "latitud": -34.92941,
     "longitud": -57.95235,
-    "codigoLineas": ["202"]
+    "codigoLineas": [
+      "202"
+    ],
+    "rutaIds": [
+      "R202-IDA",
+      "R202-VUELTA"
+    ]
   },
   {
     "identificador": "P202-003",
@@ -27,7 +39,13 @@
     "calleInterseccion": "72",
     "latitud": -34.94007,
     "longitud": -57.94964,
-    "codigoLineas": ["202"]
+    "codigoLineas": [
+      "202"
+    ],
+    "rutaIds": [
+      "R202-IDA",
+      "R202-VUELTA"
+    ]
   },
   {
     "identificador": "P307-001",
@@ -37,7 +55,13 @@
     "calleInterseccion": "35",
     "latitud": -34.898302,
     "longitud": -57.960589,
-    "codigoLineas": ["214", "307"]
+    "codigoLineas": [
+      "214",
+      "307"
+    ],
+    "rutaIds": [
+      "R307-IDA"
+    ]
   },
   {
     "identificador": "P307-002",
@@ -47,7 +71,12 @@
     "calleInterseccion": "38",
     "latitud": -34.900652,
     "longitud": -57.957498,
-    "codigoLineas": ["307"]
+    "codigoLineas": [
+      "307"
+    ],
+    "rutaIds": [
+      "R307-IDA"
+    ]
   },
   {
     "identificador": "P214-001",
@@ -57,7 +86,13 @@
     "calleInterseccion": "137",
     "latitud": -34.9258,
     "longitud": -58.00761,
-    "codigoLineas": ["214"]
+    "codigoLineas": [
+      "214"
+    ],
+    "rutaIds": [
+      "R214-IDA",
+      "R214-VUELTA"
+    ]
   },
   {
     "identificador": "P214-002",
@@ -67,7 +102,13 @@
     "calleInterseccion": "66",
     "latitud": -34.93648,
     "longitud": -57.97631,
-    "codigoLineas": ["214"]
+    "codigoLineas": [
+      "214"
+    ],
+    "rutaIds": [
+      "R214-IDA",
+      "R214-VUELTA"
+    ]
   },
   {
     "identificador": "P214-003",
@@ -77,7 +118,13 @@
     "calleInterseccion": "72",
     "latitud": -34.93929,
     "longitud": -57.94778,
-    "codigoLineas": ["214"]
+    "codigoLineas": [
+      "214"
+    ],
+    "rutaIds": [
+      "R214-IDA",
+      "R214-VUELTA"
+    ]
   },
   {
     "identificador": "P275-001",
@@ -87,7 +134,13 @@
     "calleInterseccion": "66",
     "latitud": -34.93496,
     "longitud": -57.93965,
-    "codigoLineas": ["275"]
+    "codigoLineas": [
+      "275"
+    ],
+    "rutaIds": [
+      "R275-IDA",
+      "R275-VUELTA"
+    ]
   },
   {
     "identificador": "P275-002",
@@ -97,7 +150,13 @@
     "calleInterseccion": "54",
     "latitud": -34.90994,
     "longitud": -57.95114,
-    "codigoLineas": ["275"]
+    "codigoLineas": [
+      "275"
+    ],
+    "rutaIds": [
+      "R275-IDA",
+      "R275-VUELTA"
+    ]
   },
   {
     "identificador": "P275-003",
@@ -107,6 +166,12 @@
     "calleInterseccion": "120",
     "latitud": -34.90302,
     "longitud": -57.96997,
-    "codigoLineas": ["275"]
+    "codigoLineas": [
+      "275"
+    ],
+    "rutaIds": [
+      "R275-IDA",
+      "R275-VUELTA"
+    ]
   }
 ]
