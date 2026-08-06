@@ -9,7 +9,7 @@ export function initBottomSheet({
   containerSelector = ".container",
   handleSelector = "#sheet-handle",
   breakpoint = 700,
-  initialState = "mid",
+  initialState = "full",
 } = {}) {
   const container = document.querySelector(containerSelector);
   const handle = document.querySelector(handleSelector);
@@ -32,6 +32,15 @@ export function initBottomSheet({
 
   function isMobile() {
     return mediaQuery.matches;
+  }
+
+  function isMapVisible() {
+    return document.getElementById("main-section")?.classList.contains("map-visible");
+  }
+
+  /** Sin mapa en mobile el panel va siempre full; no se puede colapsar. */
+  function sheetLockedFull() {
+    return isMobile() && !isMapVisible();
   }
 
   // Convierte un valor CSS (px, vh o %) a píxeles reales
@@ -78,6 +87,12 @@ export function initBottomSheet({
 
   function applyState(state, { animate = true } = {}) {
     if (!isMobile()) return;
+
+    // Sin mapa: siempre expandido arriba del todo
+    if (!isMapVisible()) {
+      state = "full";
+    }
+
     currentState = state;
 
     if (!animate) {
@@ -87,6 +102,12 @@ export function initBottomSheet({
     setOffsetPx(getStateOffsetPx(state));
     handle.setAttribute("aria-expanded", state !== "peek" ? "true" : "false");
     handle.dataset.state = state;
+
+    // En peek el área visible es chica: si el contenido quedó scrolleado,
+    // el handle puede quedar fuera y el sheet parece "trabado".
+    if (state === "peek") {
+      container.scrollTop = 0;
+    }
 
     if (!animate) {
       // forzamos reflow y sacamos la clase para que vuelvan las transiciones normales
@@ -109,7 +130,7 @@ export function initBottomSheet({
   }
 
   function onPointerDown(e) {
-    if (!isMobile()) return;
+    if (!isMobile() || sheetLockedFull()) return;
     dragging = true;
     container.classList.add("is-dragging");
     startY = getPointerY(e);
@@ -163,6 +184,7 @@ export function initBottomSheet({
   }
 
   function onKeyDown(e) {
+    if (sheetLockedFull()) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       applyState(nextState());

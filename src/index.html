@@ -7,6 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dónde está mi micro</title>
 
+  <!-- Favicon: glyph Material directions_bus (mismo del header). ?v=3 bustea cache -->
+  <link rel="icon" href="/icons/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="icon" href="/icons/icon-192.png?v=3" type="image/png" sizes="192x192" />
+  <link rel="shortcut icon" href="/icons/icon-192.png?v=3" type="image/png" />
+
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#0025ae" />
@@ -14,7 +19,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Mi Micro" />
-  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png?v=3" />
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <link rel="stylesheet" href="./css/main.css" />
@@ -117,10 +122,10 @@
         aria-controls="stops-info">
         <span class="sheet-handle__bar" aria-hidden="true"></span>
       </button>
-      <button id="volver" value="main" style="display: none" type="button" aria-label="Volver al menú principal"
+      <button id="volver" value="main" style="display: none" type="button" aria-label="Cerrar mapa y volver al inicio"
         class="back-button">
         <span class="material-symbols-outlined back-icon" aria-hidden="true">arrow_back</span>
-        Menú principal
+        Cerrar mapa
       </button>
       <nav aria-label="Menú principal">
         <div class="buttons" id="main">
@@ -134,11 +139,6 @@
             <span class="material-symbols-outlined btn-icon nearby-icon" aria-hidden="true">location_on</span>
             <span class="btn-label">Paradas cercanas</span>
           </button>
-          <button id="lineas" value="linea" type="button" aria-controls="linea"
-            aria-label="Ver todas las líneas de transporte" class="menu-btn">
-            <span class="material-symbols-outlined btn-icon lines-icon" aria-hidden="true">format_list_bulleted</span>
-            <span class="btn-label">Como ir</span>
-          </button>
           <button id="recorridos" value="map" type="button" aria-label="Ver mapa de recorridos de líneas"
             class="menu-btn">
             <span class="material-symbols-outlined btn-icon map-icon" aria-hidden="true">map</span>
@@ -149,9 +149,9 @@
       <div class="search-container">
         <span class="material-symbols-outlined search-icon" aria-hidden="true">search</span>
         <input id="buscador" type="text" name="busqueda" value="" placeholder="Ej: 7 y 50"
-          aria-label="Campo de búsqueda de paradas o líneas" aria-describedby="buscador-help" />
-        <span id="buscador-help" class="hidden">Ingresa el nombre de una parada o línea para filtrar
-          resultados</span>
+          aria-label="Campo de búsqueda de paradas o direcciones" aria-describedby="buscador-help" />
+        <span id="buscador-help" class="hidden">Escribí una esquina (ej: 7 y 50) o una dirección de La
+          Plata. Si hay parada mock se muestra; si no, se geocodifica y se traza el camino.</span>
         <button id="btn-input" type="button" aria-label="Buscar parada o línea">
           Buscar
         </button>
@@ -174,7 +174,8 @@
   <script src="/js/main.js" type="module"></script>
   <script type="module">
     import { initBottomSheet } from "/js/bottomSheet.js";
-    window.sheet = initBottomSheet(); // queda global por si main.js necesita llamar sheet.applyState(...)
+    // Expone el sheet globalmente para que el mapa pueda colapsarlo en mobile
+    window.sheet = initBottomSheet({ initialState: "full" });
   </script>
 
   <!-- Registro del Service Worker -->

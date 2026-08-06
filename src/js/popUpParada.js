@@ -1,4 +1,11 @@
 import Star from './components/Star.js';
+import Marcador from "./clases/Marker.js";
+
+const COLORES_LINEA = {
+  m1: "#e53935",
+  m2: "#1e88e5",
+  m3: "#43a047",
+};
 
 export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   marcador_mapa.openPopup();
@@ -67,6 +74,23 @@ export async function HandlePopUp(marcador_mapa, marcador, mapa) {
   divParadasMarcador.appendChild(divCalles);
   divParadasMarcador.appendChild(divLineas);
 
+  const btnComoLlegar = document.createElement("button");
+  btnComoLlegar.type = "button";
+  btnComoLlegar.className = "btn-como-llegar";
+  btnComoLlegar.textContent = "Cómo llegar";
+  btnComoLlegar.setAttribute(
+    "aria-label",
+    `Cómo llegar a la parada ${marcador._callePrincipal} y ${marcador._calleInterseccion}`,
+  );
+  btnComoLlegar.addEventListener("click", () => {
+    mapa.mostrar()
+    mapa.mostrarRutaHasta(marcador.lat, marcador.long, {
+      tituloDestino: `${marcador._callePrincipal} y ${marcador._calleInterseccion}`,
+      identificadorParada: marcador._identificador,
+    });
+  });
+  divParadasMarcador.appendChild(btnComoLlegar);
+
   // --- Lista de arribos ---
   const divArribos = document.createElement("div");
   divArribos.className = "popup-parada__arribos";
@@ -100,16 +124,67 @@ export async function HandlePopUp(marcador_mapa, marcador, mapa) {
     boton.className = "arribo-item__accion";
     boton.textContent = "Ver recorrido";
     boton.dataset.accion = "tiempo-real";
-    boton.dataset.linea = a.interno || ""; // se le asigna un "id" al boton para saber de que micro estamos hablando
+    boton.dataset.interno = a.interno || "";
+    boton.dataset.codigoLinea = a.codigoLinea || "";
 
     boton.addEventListener("click", async (e) => {
-      const boton_presionado = e.target;
-      const data = await fetch(
-        `http://localhost:3000/recorrido/${boton_presionado.dataset.linea}`,
-      );
-      const json = await data.json();
+      e.stopPropagation();
+      const boton_presionado = e.currentTarget;
+      const interno = boton_presionado.dataset.interno;
+      if (!interno) {
+        alert("No hay recorrido asociado a este arribo.");
+        return;
+      }
 
-      mapa.mostrarRecorrido(json.resultado);
+      const res = await fetch(
+        `http://localhost:3000/recorrido/${encodeURIComponent(interno)}`,
+      );
+      const json = await res.json();
+      const paradasRecorrido = json.resultado;
+
+      if (!Array.isArray(paradasRecorrido) || paradasRecorrido.length < 2) {
+        alert("No se pudo cargar el recorrido de este micro.");
+        return;
+      }
+
+      mapa.borrarMarcadores();
+      mapa.borrarRecorrido();
+
+      // Marcadores de parada (sin cards en el panel; el foco es el mapa)
+      const vistos = new Set();
+      paradasRecorrido.forEach((parada) => {
+        if (
+          parada.latitud == null ||
+          parada.longitud == null ||
+          vistos.has(parada.identificador)
+        ) {
+          return;
+        }
+        vistos.add(parada.identificador);
+
+        const marcadorNuevo = new Marcador(
+          parada.latitud,
+          parada.longitud,
+          parada.calleInterseccion ?? "",
+          parada.callePrincipal ?? "",
+          parada.codigo ?? "",
+          parada.descripcion,
+          parada.identificador,
+          parada.lineas ?? [],
+        );
+        mapa.agregarMarcador(marcadorNuevo);
+      });
+
+      const color =
+        json.color ||
+        COLORES_LINEA[boton_presionado.dataset.codigoLinea] ||
+        "#e53935";
+
+      // Routing por calles (mismo que el botón Recorridos)
+      mapa.mostrarRecorridoLinea(paradasRecorrido, {
+        color,
+        titulo: json.descripcion || a.descripcionLinea || "Recorrido",
+      });
     });
 
     divInfo.appendChild(divLineaNombre);

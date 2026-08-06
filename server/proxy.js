@@ -1,5 +1,6 @@
 import express from "express";
 import { readFileSync } from "node:fs";
+import { geocodeEsquinaLaPlata } from "./geocodeLaPlata.js";
 
 const app = express();
 const PORT = 3000;
@@ -128,25 +129,46 @@ export function construirArribosParaParada(idParada, codLinea) {
 app.get("/paradascercanas", (req, res) => {
   const lat = Number.parseFloat(req.query.lat);
   const lon = Number.parseFloat(req.query.long);
-  const radioMetros = Number.parseFloat(req.query.radioMetros ?? "500");
+  const radioPreferido = Number.parseFloat(req.query.radioMetros ?? "500");
+  const radioBase = Number.isNaN(radioPreferido) ? 500 : radioPreferido;
 
   if (Number.isNaN(lat) || Number.isNaN(lon)) {
-    return res.json([]);
+    return res.json({
+      paradas: [],
+      radioMetros: radioBase,
+      expandido: false,
+    });
   }
 
-  const paradasDentroDelRadio = paradas
+  const conDistancia = paradas
     .map((parada) => ({
       parada: enriquecerParada(parada),
       distancia: distanciaEnMetros(lat, lon, parada.latitud, parada.longitud),
     }))
-    .filter(
-      ({ distancia }) =>
-        distancia <= (Number.isNaN(radioMetros) ? 500 : radioMetros),
-    )
-    .sort((a, b) => a.distancia - b.distancia)
-    .map(({ parada }) => parada);
+    .sort((a, b) => a.distancia - b.distancia);
 
-  return res.json(paradasDentroDelRadio);
+  let radioUsado = radioBase;
+  let expandido = false;
+  let seleccion = conDistancia.filter(({ distancia }) => distancia <= radioBase);
+
+  // Si no hay nada en el radio preferido (5 cuadras), agrandamos hasta la
+  // primera parada y recién ahí aplicamos otra vez ese rango de 5 cuadras.
+  // Tope máximo: 100 cuadras.
+  const metrosPorCuadra = radioBase / 5;
+  const radioTope = 100 * metrosPorCuadra;
+
+  if (seleccion.length === 0 && conDistancia.length > 0) {
+    expandido = true;
+    const distanciaPrimera = conDistancia[0].distancia;
+    radioUsado = Math.min(distanciaPrimera + radioBase, radioTope);
+    seleccion = conDistancia.filter(({ distancia }) => distancia <= radioUsado);
+  }
+
+  return res.json({
+    paradas: seleccion.map(({ parada }) => parada),
+    radioMetros: Math.round(radioUsado),
+    expandido,
+  });
 });
 
 app.get("/arribos", (req, res) => {
@@ -194,6 +216,53 @@ app.get("/paradas", (req, res) => {
   filtrarParadas(req, res);
 });
 
+app.get("/lineas", (_req, res) => {
+  res.json(lineas);
+});
+
+/**
+ * Devuelve las paradas de una línea en orden de recorrido (mock).
+ * Ej: GET /lineas/m1/recorrido
+ */
+app.get("/lineas/:codigo/recorrido", (req, res) => {
+  const { codigo } = req.params;
+  const linea = lineas.find((l) => l.codigo === codigo);
+  const microsDeLinea = arribosPorLinea[codigo];
+
+  if (!linea) {
+    return res.status(404).json({ error: "Línea no encontrada." });
+  }
+
+  if (!Array.isArray(microsDeLinea) || microsDeLinea.length === 0) {
+    return res.status(404).json({
+      error: "Esta línea todavía no tiene recorrido mock.",
+      codigo,
+    });
+  }
+
+  const micro = microsDeLinea[0];
+  const paradasOrdenadas = (micro.recorrido?.paradas ?? [])
+    .map((paradaRef) => {
+      const info = paradas.find(
+        (p) => p.identificador === paradaRef.identificador,
+      );
+      if (!info) return null;
+      return {
+        ...enriquecerParada(info),
+        tiempo: paradaRef.tiempo,
+      };
+    })
+    .filter(Boolean);
+
+  return res.json({
+    codigo: linea.codigo,
+    numero: linea.numero,
+    descripcion: linea.descripcion,
+    color: linea.color ?? "#e53935",
+    direccion: micro.recorrido?.direccion ?? "",
+    paradas: paradasOrdenadas,
+  });
+});
 
 function filtrarParadas(req, res) {
   const { callePrincipal, calleInterseccion } = req.params;
@@ -245,10 +314,97 @@ app.get('/recorrido/:codigoMicro', (req, res) => {
       descripcion: infoCompleta?.descripcion ?? "Parada desconocida",
       latitud: infoCompleta?.latitud,
       longitud: infoCompleta?.longitud,
+      callePrincipal: infoCompleta?.callePrincipal,
+      calleInterseccion: infoCompleta?.calleInterseccion,
+      codigo: infoCompleta?.codigo,
+      lineas: infoCompleta ? obtenerLineasDeParada(infoCompleta) : [],
     };
   });
 
-  res.json({ resultado: paradasEnriquecidas });
+  res.json({
+    resultado: paradasEnriquecidas,
+    color: lineas.find((l) => l.codigo === linea)?.color ?? "#e53935",
+    descripcion: lineas.find((l) => l.codigo === linea)?.descripcion ?? "",
+  });
+});
+
+/**
+ * Geocoding para La Plata.
+ * 1) Si es "N y M", busca la intersección real en OpenStreetMap (Overpass).
+ * 2) Si no, intenta Nominatim como fallback (texto libre).
+ */
+app.get("/geocode", async (req, res) => {
+  const q = String(req.query.q ?? "").trim();
+  if (!q) {
+    return res.status(400).json({ error: "Falta el parámetro q." });
+  }
+
+  const esEsquinaNumerada =
+    /^\s*\d+\s+y\s+\d+\s*$/i.test(q) ||
+    /^\s*(calle|avenida|av\.?|diag(?:onal)?)\s*\d+\s+y\s+/i.test(q);
+
+  try {
+    const esquinaOsm = await geocodeEsquinaLaPlata(q);
+    if (esquinaOsm) {
+      return res.json(esquinaOsm);
+    }
+  } catch (error) {
+    console.error("[geocode/overpass]", error);
+    if (esEsquinaNumerada) {
+      return res.status(502).json({
+        error:
+          "No se pudo consultar OpenStreetMap para esa esquina. Probá de nuevo en unos segundos.",
+      });
+    }
+  }
+
+  if (esEsquinaNumerada) {
+    return res.status(404).json({
+      error: "No se encontró esa esquina en OpenStreetMap para La Plata.",
+    });
+  }
+
+  const url = new URL("https://nominatim.openstreetmap.org/search");
+  url.searchParams.set("q", `${q}, La Plata, Buenos Aires, Argentina`);
+  url.searchParams.set("format", "json");
+  url.searchParams.set("limit", "1");
+  url.searchParams.set("addressdetails", "1");
+  url.searchParams.set("viewbox", "-58.05,-34.88,-57.88,-34.97");
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent":
+          "DondeEstaMiMicro-SeminarioUNLP/1.0 (proyecto academico)",
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      return res
+        .status(502)
+        .json({ error: "El servicio de geocoding no respondió bien." });
+    }
+
+    const resultados = await response.json();
+    if (!Array.isArray(resultados) || resultados.length === 0) {
+      return res.status(404).json({ error: "No se encontró esa dirección." });
+    }
+
+    const primero = resultados[0];
+    return res.json({
+      latitud: Number.parseFloat(primero.lat),
+      longitud: Number.parseFloat(primero.lon),
+      nombre: primero.display_name,
+      consulta: q,
+      fuente: "nominatim",
+    });
+  } catch (error) {
+    console.error("[geocode]", error);
+    return res
+      .status(502)
+      .json({ error: "No se pudo consultar el geocoding." });
+  }
 });
 
 

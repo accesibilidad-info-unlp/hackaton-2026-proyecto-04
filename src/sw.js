@@ -1,5 +1,5 @@
 // sw.js — Service Worker para "Dónde está mi micro"
-const CACHE_NAME = "mi-micro-v1";
+const CACHE_NAME = "mi-micro-v3";
 
 // Recursos estáticos que se cachean al instalar
 const STATIC_ASSETS = [
@@ -19,6 +19,7 @@ const STATIC_ASSETS = [
   "/js/listeners.js",
   "/js/menu.js",
   "/js/bottomSheet.js",
+  "/icons/favicon.svg",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
 ];

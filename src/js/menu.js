@@ -1,7 +1,5 @@
 const paradasFav = document.getElementById("paradas-fav");
 const paradasCercanas = document.getElementById("paradas-cercanas");
-const lineas = document.getElementById("lineas");
-const recorridos = document.getElementById("recorridos");
 const volver = document.getElementById("volver");
 
 const accessibilityToggle = document.getElementById("accessibility-toggle");
@@ -210,17 +208,16 @@ if (accessibilityToggle && accessibilityMenu) {
   });
 }
 
-lineas.addEventListener("click", (e) => {
-  cambiar(e.currentTarget.value);
-});
-paradasFav.addEventListener("click", (e) => {
-  cambiar(e.currentTarget.value);
+paradasFav.addEventListener("click", () => {
+  // El contenido lo maneja listeners.js; no usamos cambiar("parada")
+  // (ese id no existe y dejaba el menú en un estado raro).
 });
 
-paradasCercanas.addEventListener("click", (e) => {
-  volver.style.display = "none";
+paradasCercanas.addEventListener("click", () => {
+  // Volver lo muestra/oculta Map.mostrar / Map.ocultar
 });
 
-volver.addEventListener("click", (e) => {
-  cambiar(e.currentTarget.value);
+volver.addEventListener("click", () => {
+  // listeners.js limpia + vuelve al home; acá solo aseguramos menú visible
+  document.getElementById("main").style.display = "";
 });
