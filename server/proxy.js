@@ -227,30 +227,25 @@ app.get("/lineas", (_req, res) => {
 app.get("/lineas/:codigo/recorrido", (req, res) => {
   const { codigo } = req.params;
   const linea = lineas.find((l) => l.codigo === codigo);
-  const microsDeLinea = arribosPorLinea[codigo];
 
   if (!linea) {
     return res.status(404).json({ error: "Línea no encontrada." });
   }
 
-  if (!Array.isArray(microsDeLinea) || microsDeLinea.length === 0) {
+  // Tomar la primera ruta de ida de esta línea
+  const ruta = rutas.find((r) => r.codigoLinea === codigo);
+  if (!ruta) {
     return res.status(404).json({
-      error: "Esta línea todavía no tiene recorrido mock.",
+      error: "Esta línea todavía no tiene recorrido cargado.",
       codigo,
     });
   }
 
-  const micro = microsDeLinea[0];
-  const paradasOrdenadas = (micro.recorrido?.paradas ?? [])
-    .map((paradaRef) => {
-      const info = paradas.find(
-        (p) => p.identificador === paradaRef.identificador,
-      );
+  const paradasOrdenadas = (ruta.paradas ?? [])
+    .map((idParada) => {
+      const info = paradas.find((p) => p.identificador === idParada);
       if (!info) return null;
-      return {
-        ...enriquecerParada(info),
-        tiempo: paradaRef.tiempo,
-      };
+      return enriquecerParada(info);
     })
     .filter(Boolean);
 
@@ -259,7 +254,7 @@ app.get("/lineas/:codigo/recorrido", (req, res) => {
     numero: linea.numero,
     descripcion: linea.descripcion,
     color: linea.color ?? "#e53935",
-    direccion: micro.recorrido?.direccion ?? "",
+    direccion: ruta.direccion ?? "",
     paradas: paradasOrdenadas,
   });
 });
@@ -290,27 +285,31 @@ function filtrarParadas(req, res) {
 }
 app.get('/recorrido/:codigoMicro', (req, res) => {
   const { codigoMicro } = req.params;
-  const linea = codigoMicro.split('-')[0];
 
-  const internosDeLinea = arribosPorLinea[linea];
-  if (!internosDeLinea) {
-    return res.status(404).json({ resultado: 'No se encontró la línea' });
-  }
-
-  const microEncontrado = internosDeLinea.find(
-    (micro) => micro.interno === codigoMicro,
-  );
-  if (!microEncontrado) {
+  // Buscar el trip por su campo `interno`
+  const trip = trips.find((t) => t.interno === codigoMicro);
+  if (!trip) {
     return res.status(404).json({ resultado: 'No se encontró el micro' });
   }
 
-  const paradasEnriquecidas = microEncontrado.recorrido.paradas.map((p) => {
-    const infoCompleta = paradas.find(
-      (info) => info.identificador === p.identificador,
-    );
+  const ruta = rutas.find((r) => r.id === trip.rutaId);
+  if (!ruta) {
+    return res.status(404).json({ resultado: 'No se encontró la línea del micro' });
+  }
+
+  const codigoLinea = ruta.codigoLinea;
+
+  const paradasEnriquecidas = (ruta.paradas ?? []).map((idParada) => {
+    const infoCompleta = paradas.find((p) => p.identificador === idParada);
+    // Calcular tiempo desde los horarios del trip
+    const horario = trip.horarios.find((h) => h.paradaId === idParada);
+    const tiempoSeg = horario?.llegada ?? null;
+    const tiempoStr = tiempoSeg != null
+      ? `${String(Math.floor(tiempoSeg / 3600)).padStart(2, '0')}:${String(Math.floor((tiempoSeg % 3600) / 60)).padStart(2, '0')}`
+      : "";
     return {
-      identificador: p.identificador,
-      tiempo: p.tiempo,
+      identificador: idParada,
+      tiempo: tiempoStr,
       descripcion: infoCompleta?.descripcion ?? "Parada desconocida",
       latitud: infoCompleta?.latitud,
       longitud: infoCompleta?.longitud,
@@ -323,8 +322,8 @@ app.get('/recorrido/:codigoMicro', (req, res) => {
 
   res.json({
     resultado: paradasEnriquecidas,
-    color: lineas.find((l) => l.codigo === linea)?.color ?? "#e53935",
-    descripcion: lineas.find((l) => l.codigo === linea)?.descripcion ?? "",
+    color: lineas.find((l) => l.codigo === codigoLinea)?.color ?? "#e53935",
+    descripcion: lineas.find((l) => l.codigo === codigoLinea)?.descripcion ?? "",
   });
 });
 

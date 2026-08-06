@@ -1,0 +1,51 @@
+[
+  {
+    "id": "R202-IDA",
+    "codigoLinea": "202",
+    "descripcion": "Línea 202 — Hacia Plaza San Martín",
+    "direccion": "Hacia Plaza San Martín",
+    "paradas": ["P202-003", "P202-002", "P202-001"]
+  },
+  {
+    "id": "R202-VUELTA",
+    "codigoLinea": "202",
+    "descripcion": "Línea 202 — Hacia Ringuelet",
+    "direccion": "Hacia Ringuelet",
+    "paradas": ["P202-001", "P202-002", "P202-003"]
+  },
+  {
+    "id": "R214-IDA",
+    "codigoLinea": "214",
+    "descripcion": "Línea 214 — Hacia Terminal",
+    "direccion": "Hacia Terminal",
+    "paradas": ["P214-001", "P214-002", "P214-003"]
+  },
+  {
+    "id": "R214-VUELTA",
+    "codigoLinea": "214",
+    "descripcion": "Línea 214 — Hacia Los Hornos",
+    "direccion": "Hacia Los Hornos",
+    "paradas": ["P214-003", "P214-002", "P214-001"]
+  },
+  {
+    "id": "R275-IDA",
+    "codigoLinea": "275",
+    "descripcion": "Línea 275 — Hacia Punta Lara",
+    "direccion": "Hacia Punta Lara",
+    "paradas": ["P275-001", "P275-002", "P275-003"]
+  },
+  {
+    "id": "R275-VUELTA",
+    "codigoLinea": "275",
+    "descripcion": "Línea 275 — Hacia Plaza Italia",
+    "direccion": "Hacia Plaza Italia",
+    "paradas": ["P275-003", "P275-002", "P275-001"]
+  },
+  {
+    "id": "R307-IDA",
+    "codigoLinea": "307",
+    "descripcion": "Línea 307 — Hacia Plaza Moreno",
+    "direccion": "Hacia Plaza Moreno",
+    "paradas": ["P307-001", "P307-002"]
+  }
+]

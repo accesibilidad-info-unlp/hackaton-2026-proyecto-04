@@ -1,0 +1,70 @@
+[
+  {
+    "paradaOrigenId": "P202-001",
+    "caminatas": []
+  },
+  {
+    "paradaOrigenId": "P202-002",
+    "caminatas": []
+  },
+  {
+    "paradaOrigenId": "P202-003",
+    "caminatas": [
+      {
+        "paradaDestinoId": "P214-003",
+        "distanciaMetros": 190,
+        "tiempoSegundos": 167
+      }
+    ]
+  },
+  {
+    "paradaOrigenId": "P307-001",
+    "caminatas": [
+      {
+        "paradaDestinoId": "P307-002",
+        "distanciaMetros": 384,
+        "tiempoSegundos": 307
+      }
+    ]
+  },
+  {
+    "paradaOrigenId": "P307-002",
+    "caminatas": [
+      {
+        "paradaDestinoId": "P307-001",
+        "distanciaMetros": 384,
+        "tiempoSegundos": 307
+      }
+    ]
+  },
+  {
+    "paradaOrigenId": "P214-001",
+    "caminatas": []
+  },
+  {
+    "paradaOrigenId": "P214-002",
+    "caminatas": []
+  },
+  {
+    "paradaOrigenId": "P214-003",
+    "caminatas": [
+      {
+        "paradaDestinoId": "P202-003",
+        "distanciaMetros": 190,
+        "tiempoSegundos": 167
+      }
+    ]
+  },
+  {
+    "paradaOrigenId": "P275-001",
+    "caminatas": []
+  },
+  {
+    "paradaOrigenId": "P275-002",
+    "caminatas": []
+  },
+  {
+    "paradaOrigenId": "P275-003",
+    "caminatas": []
+  }
+]

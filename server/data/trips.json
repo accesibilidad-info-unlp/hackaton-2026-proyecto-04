@@ -1,0 +1,940 @@
+[
+  {
+    "id": "T202-IDA-0600",
+    "rutaId": "R202-IDA",
+    "interno": "202-17",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 21600,
+        "salida": 21600
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 21840,
+        "salida": 21840
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 22200,
+        "salida": 22200
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-0630",
+    "rutaId": "R202-IDA",
+    "interno": "202-17",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 23400,
+        "salida": 23400
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 23640,
+        "salida": 23640
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 24000,
+        "salida": 24000
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-0700",
+    "rutaId": "R202-IDA",
+    "interno": "202-03",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 25200,
+        "salida": 25200
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 25440,
+        "salida": 25440
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 25800,
+        "salida": 25800
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-0730",
+    "rutaId": "R202-IDA",
+    "interno": "202-11",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 27000,
+        "salida": 27000
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 27240,
+        "salida": 27240
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 27600,
+        "salida": 27600
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-0800",
+    "rutaId": "R202-IDA",
+    "interno": "202-17",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 28800,
+        "salida": 28800
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 29040,
+        "salida": 29040
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 29400,
+        "salida": 29400
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-0900",
+    "rutaId": "R202-IDA",
+    "interno": "202-08",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 32400,
+        "salida": 32400
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 32640,
+        "salida": 32640
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 33000,
+        "salida": 33000
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-1000",
+    "rutaId": "R202-IDA",
+    "interno": "202-03",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 36000,
+        "salida": 36000
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 36240,
+        "salida": 36240
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 36600,
+        "salida": 36600
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-1200",
+    "rutaId": "R202-IDA",
+    "interno": "202-11",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 43200,
+        "salida": 43200
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 43440,
+        "salida": 43440
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 43800,
+        "salida": 43800
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-1400",
+    "rutaId": "R202-IDA",
+    "interno": "202-17",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 50400,
+        "salida": 50400
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 50640,
+        "salida": 50640
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 51000,
+        "salida": 51000
+      }
+    ]
+  },
+  {
+    "id": "T202-IDA-1700",
+    "rutaId": "R202-IDA",
+    "interno": "202-08",
+    "horarios": [
+      {
+        "paradaId": "P202-003",
+        "llegada": 61200,
+        "salida": 61200
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 61440,
+        "salida": 61440
+      },
+      {
+        "paradaId": "P202-001",
+        "llegada": 61800,
+        "salida": 61800
+      }
+    ]
+  },
+  {
+    "id": "T202-VUELTA-0615",
+    "rutaId": "R202-VUELTA",
+    "interno": "202-06",
+    "horarios": [
+      {
+        "paradaId": "P202-001",
+        "llegada": 22500,
+        "salida": 22500
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 22860,
+        "salida": 22860
+      },
+      {
+        "paradaId": "P202-003",
+        "llegada": 23100,
+        "salida": 23100
+      }
+    ]
+  },
+  {
+    "id": "T202-VUELTA-0715",
+    "rutaId": "R202-VUELTA",
+    "interno": "202-06",
+    "horarios": [
+      {
+        "paradaId": "P202-001",
+        "llegada": 26100,
+        "salida": 26100
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 26460,
+        "salida": 26460
+      },
+      {
+        "paradaId": "P202-003",
+        "llegada": 26700,
+        "salida": 26700
+      }
+    ]
+  },
+  {
+    "id": "T202-VUELTA-0815",
+    "rutaId": "R202-VUELTA",
+    "interno": "202-14",
+    "horarios": [
+      {
+        "paradaId": "P202-001",
+        "llegada": 29700,
+        "salida": 29700
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 30060,
+        "salida": 30060
+      },
+      {
+        "paradaId": "P202-003",
+        "llegada": 30300,
+        "salida": 30300
+      }
+    ]
+  },
+  {
+    "id": "T202-VUELTA-1015",
+    "rutaId": "R202-VUELTA",
+    "interno": "202-06",
+    "horarios": [
+      {
+        "paradaId": "P202-001",
+        "llegada": 36900,
+        "salida": 36900
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 37260,
+        "salida": 37260
+      },
+      {
+        "paradaId": "P202-003",
+        "llegada": 37500,
+        "salida": 37500
+      }
+    ]
+  },
+  {
+    "id": "T202-VUELTA-1215",
+    "rutaId": "R202-VUELTA",
+    "interno": "202-14",
+    "horarios": [
+      {
+        "paradaId": "P202-001",
+        "llegada": 44100,
+        "salida": 44100
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 44460,
+        "salida": 44460
+      },
+      {
+        "paradaId": "P202-003",
+        "llegada": 44700,
+        "salida": 44700
+      }
+    ]
+  },
+  {
+    "id": "T202-VUELTA-1715",
+    "rutaId": "R202-VUELTA",
+    "interno": "202-06",
+    "horarios": [
+      {
+        "paradaId": "P202-001",
+        "llegada": 61500,
+        "salida": 61500
+      },
+      {
+        "paradaId": "P202-002",
+        "llegada": 61860,
+        "salida": 61860
+      },
+      {
+        "paradaId": "P202-003",
+        "llegada": 62100,
+        "salida": 62100
+      }
+    ]
+  },
+  {
+    "id": "T214-IDA-0600",
+    "rutaId": "R214-IDA",
+    "interno": "214-09",
+    "horarios": [
+      {
+        "paradaId": "P214-001",
+        "llegada": 21600,
+        "salida": 21600
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 21840,
+        "salida": 21840
+      },
+      {
+        "paradaId": "P214-003",
+        "llegada": 22140,
+        "salida": 22140
+      }
+    ]
+  },
+  {
+    "id": "T214-IDA-0700",
+    "rutaId": "R214-IDA",
+    "interno": "214-02",
+    "horarios": [
+      {
+        "paradaId": "P214-001",
+        "llegada": 25200,
+        "salida": 25200
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 25440,
+        "salida": 25440
+      },
+      {
+        "paradaId": "P214-003",
+        "llegada": 25740,
+        "salida": 25740
+      }
+    ]
+  },
+  {
+    "id": "T214-IDA-0800",
+    "rutaId": "R214-IDA",
+    "interno": "214-09",
+    "horarios": [
+      {
+        "paradaId": "P214-001",
+        "llegada": 28800,
+        "salida": 28800
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 29040,
+        "salida": 29040
+      },
+      {
+        "paradaId": "P214-003",
+        "llegada": 29340,
+        "salida": 29340
+      }
+    ]
+  },
+  {
+    "id": "T214-IDA-0900",
+    "rutaId": "R214-IDA",
+    "interno": "214-07",
+    "horarios": [
+      {
+        "paradaId": "P214-001",
+        "llegada": 32400,
+        "salida": 32400
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 32640,
+        "salida": 32640
+      },
+      {
+        "paradaId": "P214-003",
+        "llegada": 32940,
+        "salida": 32940
+      }
+    ]
+  },
+  {
+    "id": "T214-IDA-1200",
+    "rutaId": "R214-IDA",
+    "interno": "214-02",
+    "horarios": [
+      {
+        "paradaId": "P214-001",
+        "llegada": 43200,
+        "salida": 43200
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 43440,
+        "salida": 43440
+      },
+      {
+        "paradaId": "P214-003",
+        "llegada": 43740,
+        "salida": 43740
+      }
+    ]
+  },
+  {
+    "id": "T214-IDA-1700",
+    "rutaId": "R214-IDA",
+    "interno": "214-09",
+    "horarios": [
+      {
+        "paradaId": "P214-001",
+        "llegada": 61200,
+        "salida": 61200
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 61440,
+        "salida": 61440
+      },
+      {
+        "paradaId": "P214-003",
+        "llegada": 61740,
+        "salida": 61740
+      }
+    ]
+  },
+  {
+    "id": "T214-VUELTA-0615",
+    "rutaId": "R214-VUELTA",
+    "interno": "214-12",
+    "horarios": [
+      {
+        "paradaId": "P214-003",
+        "llegada": 22500,
+        "salida": 22500
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 22740,
+        "salida": 22740
+      },
+      {
+        "paradaId": "P214-001",
+        "llegada": 23100,
+        "salida": 23100
+      }
+    ]
+  },
+  {
+    "id": "T214-VUELTA-0715",
+    "rutaId": "R214-VUELTA",
+    "interno": "214-05",
+    "horarios": [
+      {
+        "paradaId": "P214-003",
+        "llegada": 26100,
+        "salida": 26100
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 26340,
+        "salida": 26340
+      },
+      {
+        "paradaId": "P214-001",
+        "llegada": 26700,
+        "salida": 26700
+      }
+    ]
+  },
+  {
+    "id": "T214-VUELTA-0815",
+    "rutaId": "R214-VUELTA",
+    "interno": "214-12",
+    "horarios": [
+      {
+        "paradaId": "P214-003",
+        "llegada": 29700,
+        "salida": 29700
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 29940,
+        "salida": 29940
+      },
+      {
+        "paradaId": "P214-001",
+        "llegada": 30300,
+        "salida": 30300
+      }
+    ]
+  },
+  {
+    "id": "T214-VUELTA-1015",
+    "rutaId": "R214-VUELTA",
+    "interno": "214-05",
+    "horarios": [
+      {
+        "paradaId": "P214-003",
+        "llegada": 36900,
+        "salida": 36900
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 37140,
+        "salida": 37140
+      },
+      {
+        "paradaId": "P214-001",
+        "llegada": 37500,
+        "salida": 37500
+      }
+    ]
+  },
+  {
+    "id": "T214-VUELTA-1715",
+    "rutaId": "R214-VUELTA",
+    "interno": "214-12",
+    "horarios": [
+      {
+        "paradaId": "P214-003",
+        "llegada": 61500,
+        "salida": 61500
+      },
+      {
+        "paradaId": "P214-002",
+        "llegada": 61740,
+        "salida": 61740
+      },
+      {
+        "paradaId": "P214-001",
+        "llegada": 62100,
+        "salida": 62100
+      }
+    ]
+  },
+  {
+    "id": "T275-IDA-0600",
+    "rutaId": "R275-IDA",
+    "interno": "275-22",
+    "horarios": [
+      {
+        "paradaId": "P275-001",
+        "llegada": 21600,
+        "salida": 21600
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 21780,
+        "salida": 21780
+      },
+      {
+        "paradaId": "P275-003",
+        "llegada": 22020,
+        "salida": 22020
+      }
+    ]
+  },
+  {
+    "id": "T275-IDA-0700",
+    "rutaId": "R275-IDA",
+    "interno": "275-10",
+    "horarios": [
+      {
+        "paradaId": "P275-001",
+        "llegada": 25200,
+        "salida": 25200
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 25380,
+        "salida": 25380
+      },
+      {
+        "paradaId": "P275-003",
+        "llegada": 25620,
+        "salida": 25620
+      }
+    ]
+  },
+  {
+    "id": "T275-IDA-0800",
+    "rutaId": "R275-IDA",
+    "interno": "275-22",
+    "horarios": [
+      {
+        "paradaId": "P275-001",
+        "llegada": 28800,
+        "salida": 28800
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 28980,
+        "salida": 28980
+      },
+      {
+        "paradaId": "P275-003",
+        "llegada": 29220,
+        "salida": 29220
+      }
+    ]
+  },
+  {
+    "id": "T275-IDA-1000",
+    "rutaId": "R275-IDA",
+    "interno": "275-10",
+    "horarios": [
+      {
+        "paradaId": "P275-001",
+        "llegada": 36000,
+        "salida": 36000
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 36180,
+        "salida": 36180
+      },
+      {
+        "paradaId": "P275-003",
+        "llegada": 36420,
+        "salida": 36420
+      }
+    ]
+  },
+  {
+    "id": "T275-IDA-1200",
+    "rutaId": "R275-IDA",
+    "interno": "275-22",
+    "horarios": [
+      {
+        "paradaId": "P275-001",
+        "llegada": 43200,
+        "salida": 43200
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 43380,
+        "salida": 43380
+      },
+      {
+        "paradaId": "P275-003",
+        "llegada": 43620,
+        "salida": 43620
+      }
+    ]
+  },
+  {
+    "id": "T275-IDA-1700",
+    "rutaId": "R275-IDA",
+    "interno": "275-10",
+    "horarios": [
+      {
+        "paradaId": "P275-001",
+        "llegada": 61200,
+        "salida": 61200
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 61380,
+        "salida": 61380
+      },
+      {
+        "paradaId": "P275-003",
+        "llegada": 61620,
+        "salida": 61620
+      }
+    ]
+  },
+  {
+    "id": "T275-VUELTA-0615",
+    "rutaId": "R275-VUELTA",
+    "interno": "275-05",
+    "horarios": [
+      {
+        "paradaId": "P275-003",
+        "llegada": 22500,
+        "salida": 22500
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 22740,
+        "salida": 22740
+      },
+      {
+        "paradaId": "P275-001",
+        "llegada": 23100,
+        "salida": 23100
+      }
+    ]
+  },
+  {
+    "id": "T275-VUELTA-0715",
+    "rutaId": "R275-VUELTA",
+    "interno": "275-18",
+    "horarios": [
+      {
+        "paradaId": "P275-003",
+        "llegada": 26100,
+        "salida": 26100
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 26340,
+        "salida": 26340
+      },
+      {
+        "paradaId": "P275-001",
+        "llegada": 26700,
+        "salida": 26700
+      }
+    ]
+  },
+  {
+    "id": "T275-VUELTA-0815",
+    "rutaId": "R275-VUELTA",
+    "interno": "275-05",
+    "horarios": [
+      {
+        "paradaId": "P275-003",
+        "llegada": 29700,
+        "salida": 29700
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 29940,
+        "salida": 29940
+      },
+      {
+        "paradaId": "P275-001",
+        "llegada": 30300,
+        "salida": 30300
+      }
+    ]
+  },
+  {
+    "id": "T275-VUELTA-1015",
+    "rutaId": "R275-VUELTA",
+    "interno": "275-18",
+    "horarios": [
+      {
+        "paradaId": "P275-003",
+        "llegada": 36900,
+        "salida": 36900
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 37140,
+        "salida": 37140
+      },
+      {
+        "paradaId": "P275-001",
+        "llegada": 37500,
+        "salida": 37500
+      }
+    ]
+  },
+  {
+    "id": "T275-VUELTA-1715",
+    "rutaId": "R275-VUELTA",
+    "interno": "275-05",
+    "horarios": [
+      {
+        "paradaId": "P275-003",
+        "llegada": 61500,
+        "salida": 61500
+      },
+      {
+        "paradaId": "P275-002",
+        "llegada": 61740,
+        "salida": 61740
+      },
+      {
+        "paradaId": "P275-001",
+        "llegada": 62100,
+        "salida": 62100
+      }
+    ]
+  },
+  {
+    "id": "T307-IDA-0600",
+    "rutaId": "R307-IDA",
+    "interno": "307-23",
+    "horarios": [
+      {
+        "paradaId": "P307-001",
+        "llegada": 21600,
+        "salida": 21600
+      },
+      {
+        "paradaId": "P307-002",
+        "llegada": 21720,
+        "salida": 21720
+      }
+    ]
+  },
+  {
+    "id": "T307-IDA-0700",
+    "rutaId": "R307-IDA",
+    "interno": "307-08",
+    "horarios": [
+      {
+        "paradaId": "P307-001",
+        "llegada": 25200,
+        "salida": 25200
+      },
+      {
+        "paradaId": "P307-002",
+        "llegada": 25320,
+        "salida": 25320
+      }
+    ]
+  },
+  {
+    "id": "T307-IDA-0800",
+    "rutaId": "R307-IDA",
+    "interno": "307-23",
+    "horarios": [
+      {
+        "paradaId": "P307-001",
+        "llegada": 28800,
+        "salida": 28800
+      },
+      {
+        "paradaId": "P307-002",
+        "llegada": 28920,
+        "salida": 28920
+      }
+    ]
+  },
+  {
+    "id": "T307-IDA-1000",
+    "rutaId": "R307-IDA",
+    "interno": "307-08",
+    "horarios": [
+      {
+        "paradaId": "P307-001",
+        "llegada": 36000,
+        "salida": 36000
+      },
+      {
+        "paradaId": "P307-002",
+        "llegada": 36120,
+        "salida": 36120
+      }
+    ]
+  },
+  {
+    "id": "T307-IDA-1200",
+    "rutaId": "R307-IDA",
+    "interno": "307-23",
+    "horarios": [
+      {
+        "paradaId": "P307-001",
+        "llegada": 43200,
+        "salida": 43200
+      },
+      {
+        "paradaId": "P307-002",
+        "llegada": 43320,
+        "salida": 43320
+      }
+    ]
+  },
+  {
+    "id": "T307-IDA-1700",
+    "rutaId": "R307-IDA",
+    "interno": "307-08",
+    "horarios": [
+      {
+        "paradaId": "P307-001",
+        "llegada": 61200,
+        "salida": 61200
+      },
+      {
+        "paradaId": "P307-002",
+        "llegada": 61320,
+        "salida": 61320
+      }
+    ]
+  }
+]
